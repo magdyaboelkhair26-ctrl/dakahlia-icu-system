@@ -1,0 +1,2547 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>منظومة المرور الميداني – التقرير الأسبوعي المجمّع (v5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style id="main-style">
+:root, :root[data-theme="light"] {
+  --bg: #f1f5f9;
+  --cd: #ffffff;
+  --cd2: #f8fafc;
+  --tx: #0f172a;
+  --mu: #334155;
+  --bd: #cbd5e1;
+  --pr: #0f3d56;
+  --pr2: #164e63;
+  --ac: #0d9488;
+  --ac-lt: #f0fdfa;
+  --rd: #dc2626;
+  --rd-bg: #fef2f2;
+  --or: #d97706;
+  --or-bg: #fffbeb;
+  --gn: #16a34a;
+  --gn-bg: #f0fdf4;
+  --bl: #2563eb;
+  --bl-bg: #eff6ff;
+  --pu: #7c3aed;
+  --pu-bg: #f5f3ff;
+  --row-alt: rgba(148, 163, 184, 0.08);
+  --sh: 0 2px 8px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* High-Contrast Readable Dark Mode (Default for Screen & PDF) */
+:root[data-theme="dark"] {
+  --bg: #0b131e;
+  --cd: #111c2d;
+  --cd2: #162438;
+  --tx: #f8fafc;
+  --mu: #cbd5e1;
+  --bd: #2e435e;
+  --pr: #0f3d56;
+  --pr2: #155e75;
+  --ac: #2dd4bf;
+  --ac-lt: #112e38;
+  --rd: #fca5a5;
+  --rd-bg: #451a1c;
+  --or: #fcd34d;
+  --or-bg: #452b14;
+  --gn: #86efac;
+  --gn-bg: #113826;
+  --bl: #93c5fd;
+  --bl-bg: #172b54;
+  --pu: #c4b5fd;
+  --pu-bg: #2e1065;
+  --row-alt: rgba(255, 255, 255, 0.04);
+  --sh: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font: 15px/1.65 "Cairo", "Segoe UI", Tahoma, sans-serif;
+  padding-bottom: 105px;
+}
+header.app-hdr {
+  background: linear-gradient(135deg, #071925, #0f3d56);
+  color: #fff;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.28);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--bd);
+}
+header.app-hdr .title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+header.app-hdr .main-t {
+  font-weight: 800;
+  font-size: 15.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+header.app-hdr .sub-t {
+  font-size: 11.5px;
+  color: #5eead4;
+}
+.designer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(13, 148, 136, 0.28));
+  border: 1px solid #fbbf24;
+  color: #fde68a;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+}
+.hdr-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.theme-btn {
+  width: auto;
+  min-height: 34px;
+  padding: 5px 11px;
+  margin: 0;
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.save-Self-btn {
+  background: #0d9488;
+  border-color: #2dd4bf;
+}
+.role-bar {
+  max-width: 980px;
+  margin: 10px auto 0;
+  padding: 0 14px;
+}
+.role-bar-inner {
+  background: var(--cd);
+  border: 1.5px solid var(--bd);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: var(--sh);
+}
+.role-bar-inner.mgr-active {
+  border-color: #f59e0b;
+  background: linear-gradient(90deg, var(--cd), rgba(245, 158, 11, 0.08));
+}
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.role-ins {
+  background: var(--bl-bg);
+  color: var(--bl);
+  border: 1px solid rgba(96, 165, 250, 0.4);
+}
+.role-mgr {
+  background: var(--or-bg);
+  color: var(--or);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+}
+.save-bar {
+  max-width: 980px;
+  margin: 8px auto 0;
+  padding: 0 14px;
+}
+.save-bar-inner {
+  background: var(--cd2);
+  border: 1px solid var(--ac);
+  border-radius: 10px;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+#app {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 12px 14px;
+}
+.cd {
+  background: var(--cd);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 0 0 12px;
+  position: relative;
+  box-shadow: var(--sh);
+}
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--mu);
+  margin: 8px 0 4px;
+}
+input, select, textarea, button {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  background: var(--cd2);
+  color: var(--tx);
+  min-height: 44px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:disabled, select:disabled, textarea:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--ac);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.2);
+}
+textarea { min-height: 70px; resize: vertical; }
+.g { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 8px; margin-top: 8px; }
+@media (max-width: 600px) {
+  .g, .g3 { grid-template-columns: 1fr; }
+}
+label.r {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--tx);
+  font-weight: 600;
+  cursor: pointer;
+}
+label.r input { width: 20px; min-height: 20px; margin: 0; }
+button {
+  cursor: pointer;
+  margin-top: 8px;
+  font-weight: 700;
+}
+.pri {
+  background: #0d9488;
+  color: #fff;
+  border: 0;
+}
+.pri:hover { filter: brightness(1.1); }
+.mgr-btn {
+  background: #d97706;
+  color: #fff;
+  border: 0;
+}
+.mgr-btn:hover { filter: brightness(1.1); }
+.sec {
+  background: var(--cd2);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+}
+.sec:hover { filter: brightness(1.12); }
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.btn-row button {
+  flex: 1 1 170px;
+  margin-top: 0;
+}
+.x {
+  width: 38px;
+  min-height: 38px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  padding: 4px;
+  border-radius: 8px;
+}
+.bd {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  background: var(--or-bg);
+  color: var(--or);
+  border: 1px solid var(--or);
+}
+.bd.done {
+  background: var(--gn-bg);
+  color: var(--gn);
+  border-color: var(--gn);
+}
+.mu, small { color: var(--mu); }
+
+/* App Footer Credit */
+.app-footer-credit {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--mu);
+  padding: 14px 10px 6px;
+  font-weight: 700;
+}
+.app-footer-credit b {
+  color: var(--ac);
+}
+
+nav.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #071925;
+  border-top: 1px solid var(--bd);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.35);
+  z-index: 50;
+}
+nav.bottom-nav button {
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: #cbd5e1;
+  font-size: 12.5px;
+  padding: 11px 4px;
+}
+nav.bottom-nav button.on {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+  box-shadow: inset 0 3px 0 #2dd4bf;
+}
+
+/* KPI Grid */
+.k {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin: 12px 0;
+}
+@media (max-width: 768px) {
+  .k { grid-template-columns: repeat(3, 1fr); }
+}
+.k .k-card {
+  background: var(--cd2);
+  border: 1px solid var(--bd);
+  border-top: 4px solid var(--ac);
+  border-radius: 10px;
+  text-align: center;
+  padding: 8px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--mu);
+}
+.k .k-card b {
+  display: block;
+  font-size: 21px;
+  color: var(--tx);
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+.k .k-card.k-gn { border-top-color: #22c55e; }
+.k .k-card.k-gn b { color: var(--gn); }
+.k .k-card.k-or { border-top-color: #f59e0b; }
+.k .k-card.k-or b { color: var(--or); }
+.k .k-card.k-rd { border-top-color: #ef4444; }
+.k .k-card.k-rd b { color: var(--rd); }
+.k .k-card.k-bl { border-top-color: #3b82f6; }
+.k .k-card.k-bl b { color: var(--bl); }
+.k .k-card.k-pu { border-top-color: #8b5cf6; }
+.k .k-card.k-pu b { color: var(--pu); }
+
+/* Tables & Badges */
+.sc { overflow-x: auto; margin-bottom: 10px; }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13px;
+  background: var(--cd);
+}
+th, td {
+  border: 1px solid var(--bd);
+  padding: 7px 8px;
+  text-align: right;
+  vertical-align: middle;
+  font-weight: 600;
+}
+th {
+  background: #0f3d56;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  border-bottom: 2px solid var(--ac);
+}
+td.c { text-align: center; }
+tbody tr:nth-child(even) { background: var(--row-alt); }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.p-rd { background: var(--rd-bg); color: var(--rd); border: 1px solid rgba(248,113,113,0.45); }
+.p-or { background: var(--or-bg); color: var(--or); border: 1px solid rgba(251,191,36,0.45); }
+.p-gn { background: var(--gn-bg); color: var(--gn); border: 1px solid rgba(74,222,128,0.45); }
+.p-bl { background: var(--bl-bg); color: var(--bl); border: 1px solid rgba(96,165,250,0.45); }
+.p-pu { background: var(--pu-bg); color: var(--pu); border: 1px solid rgba(196,181,253,0.45); }
+
+.followup-box {
+  margin-top: 6px;
+  padding: 6px 9px;
+  border-radius: 6px;
+  background: var(--pu-bg);
+  border-right: 3px solid var(--pu);
+  font-size: 12px;
+  color: var(--tx);
+}
+
+/* Executive Report Styling */
+#rep {
+  background: var(--cd);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--sh);
+}
+#rep.big { font-size: 17px; }
+#rep.big table { font-size: 15.5px; }
+
+.rep-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 3px double var(--ac);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+.rep-banner .gov-info {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.55;
+  color: var(--ac);
+}
+:root[data-theme="light"] .rep-banner .gov-info { color: var(--pr); }
+.rep-banner .rep-main-title {
+  text-align: center;
+  flex: 1;
+}
+.rep-banner .rep-main-title h1 {
+  font-size: 21px;
+  margin: 0 0 4px;
+  color: var(--tx);
+  font-weight: 800;
+}
+:root[data-theme="light"] .rep-banner .rep-main-title h1 { color: var(--pr); }
+.rep-banner .rep-main-title .meta-strip {
+  font-size: 13px;
+  color: var(--mu);
+  font-weight: 700;
+}
+.rep-banner .rate-box {
+  background: var(--ac-lt);
+  border: 1.5px solid var(--ac);
+  border-radius: 10px;
+  padding: 6px 14px;
+  text-align: center;
+  min-width: 118px;
+}
+.rep-banner .rate-box b {
+  display: block;
+  font-size: 21px;
+  color: var(--ac);
+}
+.rep-banner .rate-box span {
+  font-size: 11.5px;
+  color: var(--tx);
+  font-weight: 700;
+}
+
+.sec-hdr {
+  background: var(--ac-lt);
+  border-right: 4px solid var(--ac);
+  color: var(--ac);
+  padding: 7px 12px;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 14px 0 8px;
+  border-radius: 4px;
+}
+:root[data-theme="light"] .sec-hdr { color: var(--pr); }
+
+.hosp-block {
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--cd2);
+}
+.hosp-hdr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--bd);
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hosp-hdr h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--ac);
+}
+:root[data-theme="light"] .hosp-hdr h3 { color: var(--pr); }
+.pos-box {
+  background: var(--gn-bg);
+  color: var(--tx);
+  border-right: 4px solid #22c55e;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.chall-box {
+  background: var(--or-bg);
+  color: var(--tx);
+  border-right: 4px solid #f59e0b;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 6px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.mini-btn {
+  width: auto;
+  min-height: 26px;
+  padding: 2px 8px;
+  font-size: 11px;
+  margin: 2px 4px 0 0;
+  border-radius: 6px;
+  background: #16a34a;
+  color: #fff;
+  border: 0;
+}
+.mini-btn.reopen {
+  background: #d97706;
+}
+
+/* 3-Column Official Signatures */
+.sig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 2px dashed var(--bd);
+  text-align: center;
+}
+.sig-col {
+  padding: 6px;
+}
+.sig-col .sig-role {
+  font-weight: 800;
+  font-size: 13.5px;
+  color: var(--ac);
+  margin-bottom: 6px;
+}
+:root[data-theme="light"] .sig-col .sig-role { color: var(--pr); }
+.sig-col .sig-name {
+  font-weight: 800;
+  font-size: 14.5px;
+  color: var(--tx);
+  min-height: 24px;
+  margin-bottom: 14px;
+}
+.sig-col .sig-line {
+  border-bottom: 1px dotted var(--mu);
+  width: 75%;
+  margin: 0 auto;
+  height: 18px;
+}
+.rep-designer-footer {
+  margin-top: 14px;
+  padding-top: 8px;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 11.5px;
+  color: var(--mu);
+  font-weight: 700;
+}
+
+/* PRINT / PDF OPTIMIZATION */
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .np, nav.bottom-nav, header.app-hdr, .role-bar, .save-bar, .mini-btn, .app-footer-credit {
+    display: none !important;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 8mm 8mm;
+  }
+  html, body {
+    background: var(--bg) !important;
+    color: var(--tx) !important;
+    font-size: 12.5px !important;
+    line-height: 1.48 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  #app {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  #rep {
+    background: var(--cd) !important;
+    border: 1px solid var(--bd) !important;
+    box-shadow: none !important;
+    padding: 12px !important;
+    margin: 0 !important;
+  }
+  .rep-banner {
+    padding-bottom: 8px !important;
+    margin-bottom: 8px !important;
+  }
+  .rep-banner .rep-main-title h1 {
+    font-size: 18px !important;
+  }
+  .k {
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 6px !important;
+    margin: 8px 0 !important;
+  }
+  .k .k-card {
+    padding: 5px !important;
+    font-size: 11px !important;
+    background: var(--cd2) !important;
+  }
+  .k .k-card b {
+    font-size: 17px !important;
+  }
+  .sc {
+    overflow: visible !important;
+    margin-bottom: 6px !important;
+  }
+  table {
+    width: 100% !important;
+    font-size: 11.5px !important;
+    table-layout: auto !important;
+    background: var(--cd) !important;
+  }
+  th, td {
+    padding: 5px 6px !important;
+    word-wrap: break-word !important;
+    border: 1px solid var(--bd) !important;
+  }
+  th {
+    background: #0f3d56 !important;
+    color: #ffffff !important;
+  }
+  .pill {
+    font-size: 10.5px !important;
+    padding: 1px 7px !important;
+  }
+  .hosp-block, .keep {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    margin-bottom: 8px !important;
+    padding: 9px !important;
+    background: var(--cd2) !important;
+    border: 1px solid var(--bd) !important;
+  }
+  .sec-hdr, .hosp-hdr, h1, h2, h3 {
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  thead {
+    display: table-header-group !important;
+  }
+  tr, .pos-box, .chall-box, .sig-grid, .rep-designer-footer {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .sig-grid {
+    margin-top: 14px !important;
+    padding-top: 10px !important;
+  }
+}
+</style>
+</head>
+<body>
+<header class="app-hdr np">
+  <div class="title-wrap">
+    <div class="main-t">
+      <span>🏥 منظومة المرور الميداني – الرعاية الحرجة والطوارئ</span>
+      <span class="designer-badge">✨ تصميم وتطوير: د. مجدي محمد سعد</span>
+    </div>
+    <span class="sub-t">مديرية الشئون الصحية بالدقهلية – إدارة الرعاية الحرجة والعاجلة (الإصدار السحابي التشاركي v5)</span>
+  </div>
+  <div class="hdr-actions">
+    <button class="theme-btn" data-a="cloudsync" type="button" title="مزامنة فورية مع السيرفر السحابي">🔄 مزامنة سحابية</button>
+    <button class="theme-btn save-Self-btn" data-a="selfhtml" type="button" title="يحفظ جميع الزيارات داخل ملف البرنامج نفسه">💿 حفظ بملف البرنامج</button>
+    <button class="theme-btn" id="themeBtn" type="button">☀️ الوضع النهاري</button>
+  </div>
+</header>
+<div class="role-bar np" id="roleBar"></div>
+<div class="save-bar np">
+  <div class="save-bar-inner">
+    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (2 زيارة)</span>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
+      <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
+      <input type="file" id="qrs" accept=".json,.html,application/json,text/html" style="display:none">
+    </div>
+  </div>
+</div>
+<div id="app"></div>
+<div class="app-footer-credit np">
+  منظومة المرور الميداني وإدارة الرعاية الحرجة والعاجلة بالدقهلية — تصميم وتطوير: <b>د. مجدي محمد سعد</b> © 2026
+</div>
+<nav class="bottom-nav np">
+  <button data-v="list">📋 الزيارات</button>
+  <button data-a="new">➕ زيارة جديدة</button>
+  <button data-v="mgr">👑 ملخص المدير</button>
+  <button data-v="rep">📑 التقرير الأسبوعي</button>
+  <button data-v="set">⚙️ الإعدادات</button>
+</nav>
+<script id="db-seed">
+window.__SEED_DB__ = {
+  "ver": 5,
+  "upd": 1794302384025,
+  "ins": "مفتش الرعاية الحرجة (2)",
+  "inspectors": [
+    "د. مجدي محمد سعد",
+    "مفتش الرعاية الحرجة (2)",
+    "مفتش الرعاية الحرجة (3)",
+    "مفتش الطوارئ (1)",
+    "ا",
+    "اب",
+    "ابر",
+    "ابرا",
+    "ابراه",
+    "ابراهي",
+    "ابراهيم",
+    "ابراهيم "
+  ],
+  "mgr": "د/نجلاء فتحي",
+  "undersec": "د/حموده الجزار",
+  "mgrPin": "1234",
+  "sbUrl": "https://vwtprvodmxxkuhcvzlxh.supabase.co",
+  "sbKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dHBydm9kbXh4a3VoY3Z6bHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyOTkxODksImV4cCI6MjEwOTg3NTE4OX0.3wO1jWbRfvMuTWbyyWfE3_xMbNJHdlXMAV9Cy-CvEFw",
+  "autoDisk": false,
+  "deletedIds": [
+    "mw9egupiuty2",
+    "mw9egupj7936"
+  ],
+  "hospitals": [
+    "مستشفى تمي الأمديد المركزي",
+    "مستشفى دماص المركزي",
+    "مستشفى شبراهور المركزي",
+    "مستشفى منية النصر المركزي",
+    "مستشفى المنزلة العام",
+    "مستشفى دكرنس العام",
+    "مستشفى بلقاس المركزي",
+    "مستشفى السنبلاوين العام",
+    "مستشفى ميت غمر المركزي",
+    "مستشفى شربين المركزي",
+    "مستشفى أجا المركزي",
+    "مستشفى طلخا المركزي"
+  ],
+  "bank": [
+    {
+      "cat": "1. الانضباط والقوى البشرية",
+      "desc": "عدم إعلان مواعيد محددة بجدول نوبتجيات القسم أو تغيب المسئول المناوب وقت المرور.",
+      "act": "إلزام إدارة المستشفى بتحديث الجداول شاملة مواعيد الحضور والانصراف ومتابعة انتظام الحضور مع مسئول القسم.",
+      "days": 1,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "2. غرفة الطوارئ ورعايات مصر",
+      "desc": "عدم تفعيل غرفة الطوارئ مكانياً أو عدم توصيل الإنترنت والاعتماد المؤقت على الهاتف المحمول بالرغم من توافر التجهيزات.",
+      "act": "تشغيل خطوط الإنترنت وتفعيل الغرفة فوراً وتثبيت المسئولين عن تحديث البيانات على مدار الساعة.",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "3. منظومة الفرز (الترياج)",
+      "desc": "تباين السجلات وعدم تطابق دفتر التردد مع دفتر الترياج نتيجة عدم تسجيل بعض الحالات (الجراحة/الإنعاش).",
+      "act": "التدريب الفوري لتمريض الاستقبال أثناء المرور وإلزام مشرفة الطوارئ بالمطابقة اليومية للسجلات.",
+      "days": 7,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "4. جاهزية عربات ودولاب الطوارئ",
+      "desc": "وجود عجز في بعض أصناف عربة الطوارئ (أيزوبتين/كوردارون/أدرينالين) أو عدم وجود قائمة محدثة وكروت تعريف بدولاب الطوارئ.",
+      "act": "استكمال نواقص الكراش كار فوراً من أوعية أخرى وتعليق قوائم الأصناف وتواريخ الصلاحية وتكليف صيدلي بالمرور الدوري.",
+      "days": 1,
+      "grade": "حرج"
+    },
+    {
+      "cat": "5. بروتوكول الإنعاش (Code Blue)",
+      "desc": "قصور في استيفاء بيانات وتوقيتات شيت الإنعاش القلبي الرئوي أو نقل مريض توقف قلب بالمخالفة لبروتوكول الإنعاش الموضعي.",
+      "act": "استيفاء التوثيق فوراً والتنبيه بتفعيل الإنعاش الموضعي وعدم تحريك المريض إلا بعد استقراره.",
+      "days": 7,
+      "grade": "حرج"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم تطابق المضادات الاسترشادية بين تذكرة المريض ودفتر المزارع أو تأخر بدء العلاج الموجه بعد ورود نتيجة المزرعة.",
+      "act": "إلزام الصيدلي الإكلينيكي والتمريض بالمطابقة الثلاثية اليومية (التذكرة - دفتر المزارع - شيت المضادات) والعمل الفوري بالمزرعة.",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "7. كفاءة الإشغال ودفتر العروض",
+      "desc": "تأخر الرد على استشارات وعروض العناية المركزة (مخ وأعصاب / أشعة ودوبلر / جراحة) أو إغفال تدوين ساعة طلب العرض.",
+      "act": "إلزام التمريض بتوثيق ساعة وتاريخ الطلب بدقة وإلزام أطباء التخصصات بالرد خلال السقف الزمني (ساعتين للطارئ).",
+      "days": 1,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "8. جاهزية وحدة السكتة الدماغية",
+      "desc": "تأخر استكمال التوثيق الإلكتروني لحالات السكتة الدماغية على منصة (RES-Q) أو نقص بيانات الدخول والخروج بالسجل.",
+      "act": "تكليف مسئول محدد بوحدة السكتة لتحديث سجل الحالات والمنصة الإلكترونية فور التعامل مع كل حالة.",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "9. الاكتفاء الدوائي والمستلزمات",
+      "desc": "رصد نواقص حادة أو رصيد صفري في أدوية الطوارئ والعناية والتخدير أو المستلزمات الطبية الحرجة.",
+      "act": "توفير الاحتياج العاجل فوراً بمقصات مناقلة من الأوعية الأخرى بالمستشفى وتحرير مطالبات رسمية للشراء الموحد.",
+      "days": 2,
+      "grade": "حرج"
+    },
+    {
+      "cat": "10. وفرة أرصدة الأمصال الحيوية",
+      "desc": "وجود رصيد صفري (0) في واحد أو أكثر من الأمصال المنقذة للحياة (العقرب/الثعبان/الكلب/التيتانوس) بثلاجة الاستقبال.",
+      "act": "تحرير طلبية فورية لمخزن الإدارة الصحية وتصحيح تقييم الحالة بالسجلات والتنسيق لتدبير رصيد طوارئ.",
+      "days": 2,
+      "grade": "حرج"
+    },
+    {
+      "cat": "11. كفاءة الأجهزة الطبية والعمليات",
+      "desc": "تعطل أجهزة طبية حيوية (فنت / C-Arm / صدمات / سرنجات كهربائية / أجهزة تشفيط / مرطبات) أو كسور بحواجز أسرة العناية.",
+      "act": "إصلاح الأعطال البسيطة فوراً عبر الصيانة الداخلية واستعجال الشركات المتعاقدة رسمياً مع توثيق أسباب التأجيل.",
+      "days": 7,
+      "grade": "حرج"
+    },
+    {
+      "cat": "12. سلامة البنية التحتية والمرافق",
+      "desc": "عدم انتظام وتذبذب التيار الكهربائي بقسم العناية المركزة مما يهدد البوردات الإلكترونية أو تسريب مياه من التكييف.",
+      "act": "استدعاء فني الصيانة الكهربائية والتبريد فوراً لمراجعة لوحات التوزيع ومثبتات الجهد وبطاريات UPS وإصلاح التسريب.",
+      "days": 1,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "2. غرفة الطوارئ ورعايات مصر",
+      "desc": "غرفة الترياج والطوارئ غير مفعلة واستخدام الموبايل",
+      "act": "تفعيل الترياج والطوارئ مع التطوير",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "10. وفرة أرصدة الأمصال الحيوية",
+      "desc": "عدم توفر الأمصال (عقرب، ثعبان، كلب)",
+      "act": "عمل طلبية لمخزن الإدارة واستكمال الأمصال",
+      "days": 2,
+      "grade": "حرج"
+    },
+    {
+      "cat": "11. كفاءة الأجهزة الطبية والعمليات",
+      "desc": "عطل في سرنجة كهربائية (الذراع لا يعمل)",
+      "act": "إصلاح الأعطال فوراً بالتنسيق مع إدارة الورش",
+      "days": 7,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "9. الاكتفاء الدوائي والمستلزمات",
+      "desc": "نواقص أدوية (جاست ريج، سومازينا، لاكتيلوز، كلاسيد، برفلجان،دايسينون)",
+      "act": "استكمال النواقص بمقصات لحين التوريد",
+      "days": 2,
+      "grade": "حرج"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم التوثيق في شيت المضادات الحيوية",
+      "act": "التوثيق بدقة وانتظام",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "تأخر تسجيل المزرعة في الدفتر والبدء بالعلاج",
+      "act": "العمل بنتيجة المزرعة فور وصولها والتوثيق بدقة",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "9. الاكتفاء الدوائي والمستلزمات",
+      "desc": "نواقص مستلزمات طبية (سرنجات 50، مرايل، جوانتي معقم، وصلات ثلاثية،قسطرة بولية)",
+      "act": "استكمال النواقص من مخزن التموين الطبي",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "4. جاهزية عربات ودولاب الطوارئ",
+      "desc": "عربة الطوارئ (كراش كارت) ينقصها 4 أمبول أيزوبتين",
+      "act": "استكمال نواقص الكراش كارت فوراً",
+      "days": 1,
+      "grade": "حرج"
+    },
+    {
+      "cat": "9. الاكتفاء الدوائي والمستلزمات",
+      "desc": "نواقص أدوية (سومازينا، بروتوفكس، برفلجان)",
+      "act": "استكمال النواقص بمقصات لحين التوريد",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم التوثيق في دفتر المزارع لبعض حالات خروج تحسن",
+      "act": "التوثيق الدقيق أولاً بأول لجميع الحالات",
+      "days": 2,
+      "grade": "بسيط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "تعارض بين المضاد الاسترشادي بدفتر المزارع وملف المريض",
+      "act": "التوثيق بدقة لتلافي التعارض الدوائي",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "7. كفاءة الإشغال ودفتر العروض",
+      "desc": "تأخر وعدم الرد على بعض العروض ",
+      "act": "زيادة أيام التعاقد لأخصائي الأشعة",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم توافر زجاجات مزارع الدم (Blood Culture Media)",
+      "act": "التوفير الفوري للمزارع بالتنسيق مع التموين الطبي",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم سحب مزارع بصاق لحالات الالتهاب الرئوي (Pneumonia)",
+      "act": "تطبيق سياسات مكافحة العدوى وسحب المزارع الموجهة",
+      "days": 7,
+      "grade": "بسيط"
+    },
+    {
+      "cat": "6. حوكمة المضادات والمزارع",
+      "desc": "عدم تدوين المضاد الاسترشادي لحالة خروج في نفس اليوم",
+      "act": "استيفاء سجل المزارع وتدوين المضاد فور الدخول",
+      "days": 2,
+      "grade": "بسيط"
+    },
+    {
+      "cat": "4. جاهزية عربات ودولاب الطوارئ",
+      "desc": "عدم تدوين ساعة الفتح بمحضر فتح عربة الطوارئ",
+      "act": "تسجيل ساعة الفتح والتاريخ بدقة",
+      "days": 2,
+      "grade": "بسيط"
+    },
+    {
+      "cat": "3. منظومة الفرز (الترياج)",
+      "desc": "عدم تطابق دفتر التردد مع دفتر الترياج وقصور تسجيل الجراحة",
+      "act": "تدريب التمريض وتطبيق سياسة الترياج الشاملة",
+      "days": 1,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "9. الاكتفاء الدوائي والمستلزمات",
+      "desc": "نواقص حادة في محاليل طوارئ منقذة (هيستريل، جلوكوز 25%)",
+      "act": "توفير المحاليل فوراً بمقصات من أوعية أخرى",
+      "days": 2,
+      "grade": "حرج"
+    },
+    {
+      "cat": "1. الانضباط والقوى البشرية",
+      "desc": "عدم وجود فني الطوارئ في الغرفة",
+      "act": "التزام الفني بالتواجد المستمر بالغرفة",
+      "days": 2,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "2. غرفة الطوارئ ورعايات مصر",
+      "desc": "عدم توفير كمبيوتر وإنترنت وقصور إداري بسجلات الوحدة",
+      "act": "توفير جهاز كمبيوتر متصل بالنت فوراً واستيفاء السجلات",
+      "days": 7,
+      "grade": "متوسط"
+    },
+    {
+      "cat": "11. كفاءة الأجهزة الطبية والعمليات",
+      "desc": "عطل في مونيتور عطل في بوردة الباورسبلاي",
+      "act": "إصلاح الأعطال البسيطة فوراً عبر الصيانة الداخلية واستعجال الشركات المتعاقدة رسمياً مع توثيق أسباب التأجيل.",
+      "days": 7,
+      "grade": "متوسط"
+    }
+  ],
+  "visits": [
+    {
+      "id": "mw9o54vtwd3k",
+      "hosp": "مستشفى شبراهور المركزي",
+      "date": "2026-11-07",
+      "ins": "د. مجدي محمد سعد",
+      "status": "done",
+      "ind": {
+        "beds": "9",
+        "cases": "5",
+        "deaths": "",
+        "ops": "",
+        "postponed": "",
+        "sera": "0",
+        "cart": "نعم"
+      },
+      "pos": "1-تواجد الأطقم الطبية وفقاً للجداول المعلنه\n2-عدم وجود نواقص بعربة انعاش القلب الرئوي\n3-تطابق دفتر انعاش القلب الرئوي مع محضر الفتح",
+      "notes": [
+        {
+          "desc": "تأخر وعدم الرد على بعض العروض  فى االعناية",
+          "act": "الرد على العروض باسرع وقت",
+          "cat": "7. كفاءة الإشغال ودفتر العروض",
+          "grade": "متوسط",
+          "days": "0",
+          "done": "2026-11-07",
+          "tobank": false
+        },
+        {
+          "desc": "عطل في مونيتور عطل في بوردة الباورسبلاي فى الأستقبال",
+          "act": "إصلاح الأعطال البسيطة فوراً عبر الصيانة الداخلية واستعجال الشركات المتعاقدة رسمياً مع توثيق أسباب التأجيل.",
+          "cat": "11. كفاءة الأجهزة الطبية والعمليات",
+          "grade": "متوسط",
+          "days": "7",
+          "done": "2026-11-10",
+          "tobank": false,
+          "closedBy": "د/نجلاء فتحي"
+        },
+        {
+          "desc": "عدم توفر الأمصال (عقرب، ثعبان، كلب)",
+          "act": "عمل طلبية لمخزن الإدارة واستكمال الأمصال",
+          "cat": "10. وفرة أرصدة الأمصال الحيوية",
+          "grade": "حرج",
+          "days": "2",
+          "done": "2026-11-10",
+          "tobank": false,
+          "closedBy": "د/نجلاء فتحي"
+        },
+        {
+          "desc": "نواقص أدوية (جاست ريج، سومازينا، لاكتيلوز، كلاسيد، برفلجان،دايسينون) فى العناية",
+          "act": "استكمال النواقص بمقصات لحين التوريد",
+          "cat": "9. الاكتفاء الدوائي والمستلزمات",
+          "grade": "حرج",
+          "days": "2",
+          "done": "2026-11-10",
+          "tobank": false,
+          "closedBy": "د/نجلاء فتحي"
+        },
+        {
+          "desc": "غرفة الترياج والطوارئ غير مفعلة  مكانيا واستخدام الموبايل نظرا لوجود أعمال تطوير",
+          "act": "تفعيل الترياج والطوارئ مع التطوير ",
+          "cat": "2. غرفة الطوارئ ورعايات مصر",
+          "grade": "متوسط",
+          "days": "2",
+          "done": "2026-11-10",
+          "tobank": false,
+          "closedBy": "د/نجلاء فتحي"
+        },
+        {
+          "desc": "تعارض بين المضاد الاسترشادي بدفتر المزارع وملف المريض",
+          "act": "التوثيق بدقة لتلافي التعارض الدوائي",
+          "cat": "6. حوكمة المضادات والمزارع",
+          "grade": "متوسط",
+          "days": "2",
+          "done": "2026-11-07",
+          "tobank": false
+        }
+      ],
+      "chall": "1-تدخل الأدارة الهندسيه مع المقاول لسرعة الأنتهاء من أعمال التطوير بقسم الأستقبال",
+      "upd": 1794299586507
+    },
+    {
+      "id": "mwafjzfvcqts",
+      "hosp": "مستشفى تمي الأمديد المركزي",
+      "date": "2026-11-10",
+      "ins": "ابراهيم ",
+      "status": "done",
+      "ind": {
+        "beds": "9",
+        "cases": "3",
+        "deaths": "",
+        "ops": "",
+        "postponed": "",
+        "sera": "3",
+        "cart": "نعم"
+      },
+      "pos": "",
+      "notes": [
+        {
+          "desc": "نواقص أدوية (سومازينا، بروتوفكس، برفلجان)",
+          "act": "استكمال النواقص بمقصات لحين التوريد",
+          "cat": "9. الاكتفاء الدوائي والمستلزمات",
+          "grade": "متوسط",
+          "days": "2",
+          "done": "2026-11-10",
+          "closedBy": "د/نجلاء فتحي",
+          "followup": "",
+          "tobank": false,
+          "locked": true
+        }
+      ],
+      "chall": "",
+      "upd": 1794299587626
+    }
+  ]
+};
+</script>
+<script id="main-script">
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+const ymd = x => new Date(x - x.getTimezoneOffset() * 6e4).toISOString().slice(0, 10);
+const today = () => ymd(new Date());
+const addDays = (d, n) => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + (+n || 0)); return ymd(x); };
+const weekStart = d => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() - ((x.getDay() + 1) % 7)); return ymd(x); };
+const fmt = d => d ? d.split('-').reverse().join('/') : '';
+const st = (n, v) => n.done ? 'تم التلافي' : (addDays(v.date, n.days) < today() ? 'متأخر' : 'قيد المتابعة');
+const occ = i => (+i.beds > 0 && i.cases !== '') ? Math.round(i.cases / i.beds * 1000) / 10 : null;
+
+let unsavedDisk = false;
+let role = 'inspector'; // 'inspector' | 'manager'
+let mgrFilter = { hosp: '', grade: '', status: 'open', ins: '' };
+
+// ---------- MULTI-LAYER STORAGE & MERGE ENGINE ----------
+function mergeDBs(base, incoming) {
+  if (!incoming || typeof incoming !== 'object') return base;
+  const out = JSON.parse(JSON.stringify(base));
+  const delSet = new Set([...(out.deletedIds || []), ...(incoming.deletedIds || [])]);
+  out.deletedIds = [...delSet];
+
+  if ((incoming.upd || 0) >= (out.upd || 0)) {
+    if (incoming.ins) out.ins = incoming.ins;
+    if (typeof incoming.mgr === 'string' && incoming.mgr) out.mgr = incoming.mgr;
+    if (typeof incoming.undersec === 'string' && incoming.undersec) out.undersec = incoming.undersec;
+    if (typeof incoming.mgrPin === 'string' && incoming.mgrPin) out.mgrPin = incoming.mgrPin;
+    if (typeof incoming.sbUrl === 'string' && incoming.sbUrl) out.sbUrl = incoming.sbUrl;
+    if (typeof incoming.sbKey === 'string' && incoming.sbKey) out.sbKey = incoming.sbKey;
+    if (typeof incoming.autoDisk === 'boolean') out.autoDisk = incoming.autoDisk;
+    out.upd = incoming.upd || out.upd;
+  } else {
+    if (!out.mgr && incoming.mgr) out.mgr = incoming.mgr;
+    if (!out.undersec && incoming.undersec) out.undersec = incoming.undersec;
+    if (!out.sbUrl && incoming.sbUrl) out.sbUrl = incoming.sbUrl;
+    if (!out.sbKey && incoming.sbKey) out.sbKey = incoming.sbKey;
+  }
+
+  out.hospitals = [...new Set([...(out.hospitals || []), ...(incoming.hospitals || [])])];
+  out.inspectors = [...new Set([...(out.inspectors || []), ...(incoming.inspectors || []), out.ins].filter(Boolean))];
+  (incoming.bank || []).forEach(b => {
+    if (b && b.desc && !out.bank.some(x => x.desc === b.desc)) out.bank.push(b);
+  });
+
+  const vMap = new Map();
+  [...(out.visits || []), ...(incoming.visits || [])].forEach(v => {
+    if (!v || !v.id || delSet.has(v.id)) return;
+    const prev = vMap.get(v.id);
+    if (!prev || (v.upd || 0) >= (prev.upd || 0)) vMap.set(v.id, v);
+  });
+  out.visits = [...vMap.values()];
+  return out;
+}
+
+let db = JSON.parse(JSON.stringify(window.__SEED_DB__));
+try {
+  const lsRaw = localStorage.getItem('mrur1');
+  if (lsRaw) db = mergeDBs(db, JSON.parse(lsRaw));
+} catch (e) {}
+if (!db.inspectors || !db.inspectors.length) db.inspectors = [db.ins || 'د. مجدي محمد سعد'];
+if (!db.mgrPin) db.mgrPin = '1234';
+
+function idbOp(mode, cb) {
+  try {
+    const req = indexedDB.open('mrur_permanent_db', 1);
+    req.onupgradeneeded = e => {
+      const idb = e.target.result;
+      if (!idb.objectStoreNames.contains('store')) idb.createObjectStore('store');
+    };
+    req.onsuccess = e => {
+      try {
+        const idb = e.target.result;
+        const tx = idb.transaction('store', mode);
+        const st = tx.objectStore('store');
+        cb(st);
+      } catch (err) {}
+    };
+  } catch (e) {}
+}
+
+function updateSaveIndicator(msg) {
+  const el = $('#saveStatus');
+  if (!el) return;
+  const cnt = db.visits.length;
+  const cloudTxt = (db.sbUrl && db.sbKey) ? '☁️ متصل بالسحابة' : '💻 تخزين محلي';
+  el.innerHTML = msg || `🟢 ${cloudTxt} (<b>${cnt}</b> زيارة) — <span style="color:var(--or)">اضغط «💿 حفظ بملف البرنامج» لتثبيت الزيارات داخل الملف</span>`;
+}
+
+const save = (markUnsaved = true, triggerCloud = true) => {
+  db.upd = Date.now();
+  if (markUnsaved) unsavedDisk = true;
+  const raw = JSON.stringify(db);
+  try { localStorage.setItem('mrur1', raw); } catch (e) {}
+  try { window.name = 'MRUR_CACHE:' + raw; } catch (e) {}
+  idbOp('readwrite', st => st.put(db, 'main'));
+  updateSaveIndicator();
+  if (triggerCloud && db.sbUrl && db.sbKey) {
+    cloudSync(true);
+  }
+};
+
+try {
+  if (window.name && window.name.startsWith('MRUR_CACHE:')) {
+    const wnObj = JSON.parse(window.name.slice(11));
+    db = mergeDBs(db, wnObj);
+  }
+} catch (e) {}
+
+idbOp('readonly', st => {
+  const g = st.get('main');
+  g.onsuccess = () => {
+    if (g.result) {
+      const beforeCnt = db.visits.length;
+      db = mergeDBs(db, g.result);
+      try { localStorage.setItem('mrur1', JSON.stringify(db)); } catch (e) {}
+      if (db.visits.length !== beforeCnt || view === 'list') render();
+      updateSaveIndicator();
+    }
+  };
+});
+
+// ---------- SUPABASE CLOUD SYNC ENGINE ----------
+async function cloudSync(silent = false) {
+  const url = (db.sbUrl || '').trim().replace(/\/+$/, '');
+  const key = (db.sbKey || '').trim();
+  if (!url || !key) {
+    if (!silent) {
+      alert('الربط السحابي غير مفعل بعد.\nادخل إلى تبويب (⚙️ الإعدادات) وأدخل رابط Supabase والمفتاح لتفعيل المزامنة الفورية بين المفتشين ومدير الإدارة.');
+      go('set');
+    }
+    return;
+  }
+  try {
+    if (!silent) updateSaveIndicator('🔄 جاري المزامنة السحابية مع سيرفر المديرية...');
+    const headers = {
+      'apikey': key,
+      'Authorization': 'Bearer ' + key,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates,return=representation'
+    };
+
+    // 1. Pull remote state
+    const resGet = await fetch(`${url}/rest/v1/mrur_sync?id=eq.main_state&select=*`, { headers });
+    if (resGet.ok) {
+      const rows = await resGet.json();
+      if (rows && rows.length && rows[0].payload) {
+        db = mergeDBs(db, rows[0].payload);
+      }
+    }
+
+    // 2. Push merged state back
+    const resPost = await fetch(`${url}/rest/v1/mrur_sync`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify([{ id: 'main_state', payload: db, updated_at: new Date().toISOString() }])
+    });
+
+    if (!resPost.ok) throw new Error('تأكد من تشغيل كود SQL لإنشاء جدول mrur_sync في Supabase');
+    save(false, false);
+    render();
+    updateSaveIndicator(`☁️ تمت المزامنة السحابية بنجاح (${new Date().toLocaleTimeString('ar-EG')}) — إجمالي الزيارات: <b>${db.visits.length}</b>`);
+    if (!silent) alert('☁️ تمت المزامنة السحابية بنجاح وتحديث كافة الزيارات والملاحظات!');
+  } catch (err) {
+    if (!silent) alert('تعذّرت المزامنة السحابية: ' + err.message);
+    updateSaveIndicator('⚠️ تعذّر الاتصال بالسحابة — البيانات محفوظة محلياً بأمان');
+  }
+}
+
+window.addEventListener('beforeunload', e => {
+  if (view === 'form') collect();
+  if (unsavedDisk && db.visits.length > 0 && !(db.sbUrl && db.sbKey)) {
+    e.preventDefault();
+    e.returnValue = 'لديك زيارات مسجلة. يُنصح بالضغط على (حفظ بملف البرنامج) قبل إغلاق المتصفح.';
+  }
+});
+
+let cur = null, view = 'list', qFilter = '';
+let rep = { start: weekStart(today()), ex: [], big: false };
+
+const IND = [
+  ['beds', 'أسرة العناية'],
+  ['cases', 'عدد الحالات'],
+  ['deaths', 'الوفيات'],
+  ['ops', 'حالات العمليات'],
+  ['postponed', 'العمليات المؤجلة'],
+  ['sera', 'الأمصال الصفرية (من 5)']
+];
+
+const getCats = () => [...new Set(db.bank.map(b => b.cat).filter(Boolean))];
+const newNote = () => ({ desc: '', act: '', cat: '', grade: 'متوسط', days: 7, done: '', closedBy: '', followup: '', tobank: false });
+
+// Theme Toggle
+const themeBtn = $('#themeBtn');
+function setTheme(mode) {
+  document.documentElement.setAttribute('data-theme', mode);
+  themeBtn.textContent = mode === 'dark' ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي';
+  const chk = $('#darkPdf');
+  if (chk) chk.checked = (mode === 'dark');
+}
+themeBtn.addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  setTheme(isDark ? 'light' : 'dark');
+});
+
+function renderRoleBar() {
+  const bar = $('#roleBar');
+  if (!bar) return;
+  if (role === 'manager') {
+    bar.innerHTML = `
+      <div class="role-bar-inner mgr-active">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span class="role-badge role-mgr">👑 وضع مدير الإدارة (${esc(db.mgr || 'صلاحية كاملة')})</span>
+          <small>لديك الصلاحية الحصرية لاعتماد التلافي وإغلاق الملاحظات المفتوحة وتعديل كافة التقارير.</small>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button type="button" class="theme-btn" data-v="mgr" style="background:#d97706;border-color:#fbbf24">📊 لوحة ملخص المدير</button>
+          <button type="button" class="theme-btn" data-a="logoutMgr" style="background:var(--cd2);color:var(--tx);border-color:var(--bd)">🔒 العودة لوضع المفتش</button>
+        </div>
+      </div>`;
+  } else {
+    const insOpts = db.inspectors.map(x => `<option value="${esc(x)}" ${x === db.ins ? 'selected' : ''}>${esc(x)}</option>`).join('');
+    bar.innerHTML = `
+      <div class="role-bar-inner">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1">
+          <span class="role-badge role-ins">👨‍⚕️ وضع المفتش الميداني</span>
+          <select id="activeInsSel" style="width:auto;min-width:210px;min-height:34px;padding:4px 10px;font-weight:700">
+            ${insOpts}
+          </select>
+          <small>تُسجل التقرير المبدئي وإفادات المتابعة (إغلاق الملاحظات بصلاحية مدير الإدارة فقط).</small>
+        </div>
+        <button type="button" class="theme-btn" data-a="loginMgr" style="background:#d97706;border-color:#fbbf24">👑 دخول مدير الإدارة (PIN)</button>
+      </div>`;
+  }
+}
+
+function render() {
+  renderRoleBar();
+  $$('nav.bottom-nav button[data-v]').forEach(b => b.classList.toggle('on', b.dataset.v == view || (view == 'form' && b.dataset.v == 'list')));
+  $('#app').innerHTML = view == 'list' ? listV() : view == 'form' ? formV() : view == 'mgr' ? mgrV() : view == 'rep' ? repV() : setV();
+  if (view == 'form') upd();
+  updateSaveIndicator();
+}
+const go = v => {
+  if (view === 'form' && cur) collect();
+  view = v;
+  render();
+  scrollTo(0, 0);
+};
+
+// ---------- LIST VIEW ----------
+function listV() {
+  const vs = [...db.visits]
+    .filter(v => !qFilter || v.hosp.includes(qFilter) || v.date.includes(qFilter) || (v.ins || '').includes(qFilter))
+    .sort((a, b) => b.date.localeCompare(a.date) || b.upd - a.upd);
+
+  return `
+    <div class="cd np">
+      <div class="btn-row">
+        <button class="pri" data-a="new">➕ تسجيل زيارة ميدانية جديدة</button>
+        <button class="sec" data-a="selfhtml" style="border-color:var(--ac);color:var(--ac)">💿 حفظ البرنامج بالبيانات (${db.visits.length} زيارة)</button>
+        <button class="sec" data-a="demo">✨ تحميل زيارات تجريبية</button>
+      </div>
+      <input type="search" id="qSearch" placeholder="🔍 ابحث باسم المستشفى، المفتش، أو التاريخ..." value="${esc(qFilter)}" style="margin-top:10px">
+    </div>
+    ${vs.length ? vs.map(v => {
+      const openCrit = v.notes.filter(n => n.desc && n.grade == 'حرج' && !n.done).length;
+      const doneCnt = v.notes.filter(n => n.desc && n.done).length;
+      const followCnt = v.notes.filter(n => n.desc && !n.done && n.followup && n.followup.trim()).length;
+      const validNotesCnt = v.notes.filter(n => n.desc && n.desc.trim()).length;
+      const canDel = (role === 'manager' || v.status !== 'done');
+      return `
+      <div class="cd" data-a="open" data-id="${v.id}" style="cursor:pointer">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-left:42px;flex-wrap:wrap;gap:6px">
+          <b style="font-size:16px;color:var(--ac)">🏥 ${esc(v.hosp)}</b>
+          <div>
+            <span class="bd ${v.status}">${v.status == 'done' ? '🔒 تقرير مبدئي معتمد' : '📝 مسودة مفتش'}</span>
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:13px;color:var(--mu)">
+          📅 ${fmt(v.date)} &nbsp;|&nbsp; 👨‍⚕️ ${esc(v.ins || db.ins)} &nbsp;|&nbsp; 📝 ${validNotesCnt} ملاحظة
+          ${doneCnt ? ` &nbsp;|&nbsp; <span style="color:var(--gn);font-weight:700">✅ ${doneCnt} مغلقة</span>` : ''}
+          ${openCrit ? ` &nbsp;|&nbsp; <span style="color:var(--rd);font-weight:700">🔴 ${openCrit} حرج مفتوح</span>` : ''}
+          ${followCnt ? ` &nbsp;|&nbsp; <span style="color:var(--pu);font-weight:700">💬 ${followCnt} إفادة متابعة للمدير</span>` : ''}
+        </div>
+        ${canDel ? `<button class="x sec" data-a="delv" data-id="${v.id}" title="حذف الزيارة">🗑</button>` : `<span class="x" style="display:flex;align-items:center;justify-content:center;font-size:16px" title="التقرير المبدئي معتمد ولا يُحذف إلا بصلاحية مدير الإدارة">🔒</span>`}
+      </div>`;
+    }).join('') : '<div class="cd" style="text-align:center;padding:30px"><p class="mu">لا توجد زيارات مسجلة حالياً. اضغط «تسجيل زيارة ميدانية جديدة» للبدء.</p></div>'}
+  `;
+}
+
+// ---------- FORM VIEW (Role-Aware Locking) ----------
+function noteH(n, i, isLockedForIns) {
+  const cats = getCats();
+  const gOpts = ['حرج', 'متوسط', 'بسيط'].map(x => `<option ${n.grade == x ? 'selected' : ''}>${x}</option>`).join('');
+  const cOpts = `<option value="">-- كل المحاور الرقابية (اختياري) --</option>` + cats.map(c => `<option value="${esc(c)}" ${n.cat == c ? 'selected' : ''}>${esc(c)}</option>`).join('');
+  const listId = `bank_${i}`;
+  const filteredBank = n.cat ? db.bank.filter(b => b.cat == n.cat) : db.bank;
+  const dis = isLockedForIns ? 'disabled' : '';
+
+  return `
+  <div class="cd note" data-n="${i}" style="border-right:4px solid ${n.done ? '#22c55e' : n.grade=='حرج'?'#ef4444':n.grade=='متوسط'?'#f59e0b':'#3b82f6'}">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-left:40px">
+      <b style="font-size:13px;color:var(--mu)">ملاحظة #${i + 1} ${isLockedForIns ? '🔒 (معتمدة بالتقرير المبدئي)' : ''}</b>
+      ${n.done ? `<span class="pill p-gn">✅ تم إغلاقها بمعرفة المدير (${fmt(n.done)})</span>` : `<span class="pill p-or">⏳ مفتوحة للمتابعة</span>`}
+    </div>
+
+    <label>المحور الرقابي
+      <select data-f="cat" ${dis}>${cOpts}</select>
+    </label>
+    <label>الملاحظة المرصودة
+      <input data-f="desc" list="${listId}" placeholder="اختر من البنك الاسترشادي أو اكتب ملاحظة جديدة..." value="${esc(n.desc)}" ${dis}>
+    </label>
+    <datalist id="${listId}">${filteredBank.map(b => `<option value="${esc(b.desc)}">`).join('')}</datalist>
+    <label>الإجراء التصحيحي المطلوب
+      <textarea data-f="act" placeholder="الإجراء المطلوب للتلافي" ${dis}>${esc(n.act)}</textarea>
+    </label>
+
+    <div class="g3">
+      <label>درجة الخطورة<select data-f="grade" ${dis}>${gOpts}</select></label>
+      <label>المهلة (أيام)<input type="number" data-f="days" min="0" value="${esc(n.days)}" ${dis}></label>
+      <label>إغلاق الملاحظة (خاص بمدير الإدارة)
+        ${role === 'manager' ? `
+          <div style="display:flex;gap:4px">
+            <input type="date" data-f="done" value="${n.done || ''}">
+            ${!n.done
+              ? `<button type="button" class="pri" data-a="nowdone" data-n="${i}" style="width:auto;margin:0;padding:0 10px;font-size:12px" title="اعتماد التلافي وإغلاق الملاحظة">✅ إغلاق</button>`
+              : `<button type="button" class="mgr-btn" data-a="reopennote" data-n="${i}" style="width:auto;margin:0;padding:0 10px;font-size:12px" title="إعادة فتح الملاحظة">🔄 فتح</button>`}
+          </div>
+        ` : `
+          <input type="text" value="${n.done ? '✅ مغلقة بتاريخ ' + fmt(n.done) : '🔒 الإغلاق بصلاحية مدير الإدارة فقط'}" disabled style="color:${n.done ? 'var(--gn)' : 'var(--or)'};font-weight:700">
+        `}
+      </label>
+    </div>
+
+    <label style="color:var(--pu);margin-top:10px">💬 إفادة متابعة المفتش (ما تم رصده في مرور المتابعة ليعتمده مدير الإدارة)
+      <input data-f="followup" placeholder="اكتب إفادة المتابعة هنا (مثال: تم توفير المصل ومراجعة الثلاجة بمرور المتابعة)..." value="${esc(n.followup || '')}">
+    </label>
+
+    ${!isLockedForIns ? `
+      <label class="r" style="margin-top:10px">
+        <input type="checkbox" data-f="tobank" ${n.tobank ? 'checked' : ''}> حفظ هذه الملاحظة في البنك الاسترشادي للاستخدام مستقبلاً
+      </label>
+      <button class="x sec" data-a="deln" data-n="${i}" title="حذف الملاحظة">🗑</button>
+    ` : ''}
+  </div>`;
+}
+
+function formV() {
+  const v = cur, i = v.ind;
+  const isLockedForIns = (v.status === 'done' && role !== 'manager');
+  const dis = isLockedForIns ? 'disabled' : '';
+  const insList = [...new Set([...db.inspectors, v.ins].filter(Boolean))];
+
+  return `
+  ${isLockedForIns ? `
+    <div class="cd" style="border-color:var(--or);background:var(--or-bg)">
+      <b style="color:var(--or)">🔒 هذا التقرير المبدئي تم اعتماده وإرساله للإدارة.</b>
+      <div style="font-size:13px;margin-top:4px">كمفتش، يمكنك كتابة <b>«💬 إفادة متابعة المفتش»</b> أسفل أي ملاحظة مفتوحة أو إضافة ملاحظة جديدة، بينما ينفرد <b>مدير الإدارة</b> بصلاحية إغلاق الملاحظة النهائية.</div>
+    </div>
+  ` : ''}
+
+  <div class="cd">
+    <h3 style="margin:0 0 10px;color:var(--ac)">📋 البيانات الأساسية للزيارة</h3>
+    <label>المستشفى
+      <select id="h" ${dis}>${db.hospitals.map(h => `<option ${h == v.hosp ? 'selected' : ''}>${esc(h)}</option>`).join('')}</select>
+    </label>
+    <div class="g">
+      <label>تاريخ المرور<input type="date" id="d" value="${v.date}" ${dis}></label>
+      <label>القائم بالمرور (المفتش)
+        <input id="ins" list="ins_datalist" value="${esc(v.ins)}" ${dis}>
+        <datalist id="ins_datalist">${insList.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
+      </label>
+    </div>
+  </div>
+
+  <div class="cd">
+    <h3 style="margin:0 0 10px;color:var(--ac)">📊 مؤشرات العناية والطوارئ وقت المرور</h3>
+    <div class="g">
+      ${IND.map(([k, l]) => `<label>${l}<input type="number" inputmode="numeric" min="0" data-i="${k}" value="${esc(i[k])}" ${dis}></label>`).join('')}
+      <label>عربة الطوارئ (Crash Cart) مكتملة؟
+        <select data-i="cart" ${dis}>
+          <option value=""></option>
+          ${['نعم', 'لا'].map(x => `<option ${i.cart == x ? 'selected' : ''}>${x}</option>`).join('')}
+        </select>
+      </label>
+    </div>
+    <p style="margin:10px 0 0;font-weight:700">نسبة إشغال العناية المحسوبة: <b id="oc" style="color:var(--ac);font-size:17px"></b></p>
+  </div>
+
+  <div class="cd">
+    <label>✅ الإيجابيات ونقاط القوة المرصودة بالمستشفى
+      <textarea id="pos" placeholder="اكتب أبرز الإيجابيات أو الانضباط المرصود أثناء المرور..." ${dis}>${esc(v.pos)}</textarea>
+    </label>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px">
+    <b style="font-size:16px;color:var(--ac)">🔍 الملاحظات والإجراءات التصحيحية (${v.notes.length})</b>
+  </div>
+  ${v.notes.map((n, idx) => noteH(n, idx, isLockedForIns)).join('')}
+  <button class="sec" data-a="addn" style="border:2px dashed var(--ac);color:var(--ac)">➕ إضافة ملاحظة رقابية جديدة</button>
+
+  <div class="cd" style="margin-top:12px">
+    <label>⚠️ التحديات وطلبات الدعم من المديرية
+      <textarea id="ch" placeholder="المشكلات المزمنة التي تحتاج تدخل المديرية (تموين طبي / صيانة / قوى بشرية)..." ${dis}>${esc(v.chall)}</textarea>
+    </label>
+  </div>
+
+  <div class="cd" style="border-color:var(--ac)">
+    <label class="r" style="margin:0 0 8px">
+      <input type="checkbox" id="autoDiskChk" ${db.autoDisk ? 'checked' : ''}>
+      <span>💿 تنزيل نسخة محدثة من ملف البرنامج تلقائياً عند الضغط على الاعتماد</span>
+    </label>
+    <div class="btn-row">
+      ${!isLockedForIns ? `<button class="sec" data-a="draft">💾 حفظ كمسودة مفتش</button>` : ''}
+      <button class="pri" data-a="done">${isLockedForIns ? '💾 حفظ إفادات المتابعة وإرسال للمدير' : '📤 اعتماد التقرير المبدئي وإرساله للمدير'}</button>
+    </div>
+  </div>`;
+}
+
+function upd() {
+  const o = occ(cur.ind);
+  const e = $('#oc');
+  if (e) e.textContent = o === null ? '—' : o + '%';
+}
+
+function collect() {
+  if (!cur || view !== 'form') return;
+  const v = cur;
+  const isLockedForIns = (v.status === 'done' && role !== 'manager');
+
+  if (!isLockedForIns) {
+    if ($('#h')) v.hosp = $('#h').value;
+    if ($('#d')) v.date = $('#d').value;
+    if ($('#ins')) {
+      v.ins = $('#ins').value;
+      if (v.ins && !db.inspectors.includes(v.ins)) db.inspectors.push(v.ins);
+    }
+    if ($('#pos')) v.pos = $('#pos').value;
+    if ($('#ch')) v.chall = $('#ch').value;
+    $$('[data-i]').forEach(e => v.ind[e.dataset.i] = e.value);
+  }
+  if ($('#autoDiskChk')) db.autoDisk = $('#autoDiskChk').checked;
+
+  $$('.note').forEach(el => {
+    const idx = el.dataset.n;
+    const n = v.notes[idx];
+    if (!n) return;
+    $$(`.note[data-n="${idx}"] [data-f]`).forEach(f => {
+      const field = f.dataset.f;
+      // Inspector cannot alter 'done' or locked fields after submission
+      if (field === 'done' && role !== 'manager') return;
+      if (isLockedForIns && field !== 'followup' && n.locked) return;
+      n[field] = f.type == 'checkbox' ? f.checked : f.value;
+    });
+  });
+  v.upd = Date.now();
+  if (!db.visits.some(x => x.id == v.id)) db.visits.push(v);
+  save(true, false);
+  upd();
+}
+
+function finish(status) {
+  collect();
+  cur.status = status;
+  if (status == 'done') {
+    cur.notes = cur.notes.filter(n => n.desc.trim());
+    cur.notes.forEach(n => { n.locked = true; });
+  }
+  cur.notes.forEach(n => {
+    if (n.tobank && n.desc.trim() && !db.bank.some(b => b.desc == n.desc)) {
+      db.bank.push({
+        cat: n.cat || 'ملاحظات مضافة',
+        desc: n.desc,
+        act: n.act,
+        days: +n.days || 7,
+        grade: n.grade
+      });
+    }
+    n.tobank = false;
+  });
+  if (cur.date) rep.start = weekStart(cur.date);
+  save(true, true);
+  if (status == 'done' && db.autoDisk) {
+    saveSelfContainedHTML();
+  }
+  go('list');
+}
+
+// ---------- MANAGER EXECUTIVE DASHBOARD VIEW (👑 ملخص المدير) ----------
+function mgrV() {
+  const allNotes = db.visits.flatMap(v =>
+    v.notes.map((n, idx) => ({ ...n, idx, v, s: st(n, v) })).filter(n => n.desc && n.desc.trim())
+  );
+  const openNotes = allNotes.filter(n => !n.done);
+  const doneNotes = allNotes.filter(n => n.done);
+  const openCrit = openNotes.filter(n => n.grade === 'حرج');
+  const overdueNotes = openNotes.filter(n => n.s === 'متأخر');
+  const readyForReview = openNotes.filter(n => n.followup && n.followup.trim());
+  const rate = allNotes.length ? Math.round((doneNotes.length / allNotes.length) * 100) : 100;
+
+  // Inspector summary matrix
+  const insMap = new Map();
+  db.visits.forEach(v => {
+    const name = v.ins || 'غير محدد';
+    if (!insMap.has(name)) insMap.set(name, { name, visits: 0, totalN: 0, openN: 0, critOpen: 0, followups: 0 });
+    const rec = insMap.get(name);
+    rec.visits++;
+    v.notes.filter(n => n.desc && n.desc.trim()).forEach(n => {
+      rec.totalN++;
+      if (!n.done) {
+        rec.openN++;
+        if (n.grade === 'حرج') rec.critOpen++;
+        if (n.followup && n.followup.trim()) rec.followups++;
+      }
+    });
+  });
+  const insStats = [...insMap.values()];
+
+  // Filtered notes for manager action table
+  const filtered = allNotes.filter(n => {
+    if (mgrFilter.status === 'open' && n.done) return false;
+    if (mgrFilter.status === 'followup' && (!n.followup || !n.followup.trim() || n.done)) return false;
+    if (mgrFilter.status === 'done' && !n.done) return false;
+    if (mgrFilter.hosp && n.v.hosp !== mgrFilter.hosp) return false;
+    if (mgrFilter.grade && n.grade !== mgrFilter.grade) return false;
+    if (mgrFilter.ins && (n.v.ins || '') !== mgrFilter.ins) return false;
+    return true;
+  });
+
+  const usedHosps = [...new Set(db.visits.map(v => v.hosp))];
+  const usedIns = [...new Set(db.visits.map(v => v.ins).filter(Boolean))];
+
+  return `
+  <div class="cd">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <div>
+        <h2 style="margin:0;color:var(--ac);font-size:19px">👑 لوحة القيادة وملخص مدير الإدارة</h2>
+        <small>متابعة حية لكافة تقارير المفتشين، الملاحظات المفتوحة، واعتماد إغلاق الملاحظات</small>
+      </div>
+      ${role !== 'manager'
+        ? `<button type="button" class="mgr-btn" data-a="loginMgr" style="width:auto;margin:0">🔐 تفعيل صلاحية المدير لإغلاق الملاحظات</button>`
+        : `<span class="role-badge role-mgr">✅ صلاحية الإغلاق والاعتماد مفعلة</span>`}
+    </div>
+
+    <div class="k" style="margin-top:14px">
+      <div class="k-card k-bl"><b>${db.visits.length}</b>إجمالي الزيارات</div>
+      <div class="k-card k-or"><b>${openNotes.length}</b>ملاحظات مفتوحة</div>
+      <div class="k-card k-rd"><b>${openCrit.length}</b>حرج مفتوح</div>
+      <div class="k-card k-pu"><b>${readyForReview.length}</b>بها إفادة متابعة</div>
+      <div class="k-card k-rd"><b>${overdueNotes.length}</b>متأخر عن المهلة</div>
+      <div class="k-card k-gn"><b>${rate}%</b>نسبة الإغلاق الكلية</div>
+    </div>
+  </div>
+
+  <div class="cd">
+    <h3 style="margin:0 0 10px;color:var(--ac)">👨‍⚕️ ملخص نشاط المفتشين الميدانيين</h3>
+    <div class="sc">
+      <table>
+        <thead>
+          <tr>
+            <th>اسم المفتش (القائم بالمرور)</th>
+            <th>عدد الزيارات</th>
+            <th>إجمالي الملاحظات</th>
+            <th>المفتوحة حالياً</th>
+            <th>الحرجة المفتوحة</th>
+            <th>إفادات بانتظار اعتماد المدير</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${insStats.length ? insStats.map(s => `
+            <tr>
+              <td><b>${esc(s.name)}</b></td>
+              <td class="c">${s.visits}</td>
+              <td class="c">${s.totalN}</td>
+              <td class="c"><span class="pill p-or">${s.openN}</span></td>
+              <td class="c">${s.critOpen ? `<span class="pill p-rd">🔴 ${s.critOpen}</span>` : '0'}</td>
+              <td class="c">${s.followups ? `<span class="pill p-pu">💬 ${s.followups} جاهزة للاعتماد</span>` : '0'}</td>
+            </tr>
+          `).join('') : `<tr><td colspan="6" class="c mu">لا توجد زيارات مسجلة بعد</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="cd">
+    <h3 style="margin:0 0 10px;color:var(--ac)">🔓 جدول التحكم وإغلاق الملاحظات (صلاحية مدير الإدارة)</h3>
+    <div class="g" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px">
+      <label>حالة الملاحظة
+        <select id="mf_status">
+          <option value="open" ${mgrFilter.status==='open'?'selected':''}>⏳ الملاحظات المفتوحة فقط (${openNotes.length})</option>
+          <option value="followup" ${mgrFilter.status==='followup'?'selected':''}>💬 بها إفادة متابعة من المفتش (${readyForReview.length})</option>
+          <option value="done" ${mgrFilter.status==='done'?'selected':''}>✅ المغلقة المعتمدة (${doneNotes.length})</option>
+          <option value="all" ${mgrFilter.status==='all'?'selected':''}>📋 كل الملاحظات (${allNotes.length})</option>
+        </select>
+      </label>
+      <label>المستشفى
+        <select id="mf_hosp">
+          <option value="">كل المستشفيات</option>
+          ${usedHosps.map(h => `<option value="${esc(h)}" ${mgrFilter.hosp===h?'selected':''}>${esc(h)}</option>`).join('')}
+        </select>
+      </label>
+      <label>درجة الخطورة
+        <select id="mf_grade">
+          <option value="">كل الدرجات</option>
+          ${['حرج','متوسط','بسيط'].map(g => `<option value="${g}" ${mgrFilter.grade===g?'selected':''}>${g}</option>`).join('')}
+        </select>
+      </label>
+      <label>المفتش
+        <select id="mf_ins">
+          <option value="">كل المفتشين</option>
+          ${usedIns.map(x => `<option value="${esc(x)}" ${mgrFilter.ins===x?'selected':''}>${esc(x)}</option>`).join('')}
+        </select>
+      </label>
+    </div>
+
+    <div class="sc">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:16%">المستشفى / التاريخ</th>
+            <th style="width:12%">المفتش</th>
+            <th style="width:30%">الملاحظة وإفادة المتابعة</th>
+            <th style="width:18%">الإجراء المطلوب</th>
+            <th style="width:9%">الخطورة</th>
+            <th style="width:15%">الحالة وقرار المدير</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${filtered.length ? filtered.map(n => `
+            <tr>
+              <td>
+                <b>${esc(n.v.hosp)}</b><br>
+                <small>📅 ${fmt(n.v.date)} | مهلة: ${fmt(addDays(n.v.date, n.days))}</small>
+              </td>
+              <td class="c">${esc(n.v.ins || db.ins)}</td>
+              <td>
+                ${n.cat ? `<small style="display:block;color:var(--ac);font-weight:800">${esc(n.cat)}</small>` : ''}
+                ${esc(n.desc)}
+                ${n.followup ? `<div class="followup-box"><b>💬 إفادة المفتش:</b> ${esc(n.followup)}</div>` : ''}
+              </td>
+              <td>${esc(n.act)}</td>
+              <td class="c">${gradeBadge(n.grade)}</td>
+              <td class="c">${statusBadge(n.s, n.v.id, n.idx, n.done, n.closedBy)}</td>
+            </tr>
+          `).join('') : `<tr><td colspan="6" class="c mu" style="padding:20px">لا توجد ملاحظات مطابقة للفلتر المحدد.</td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+// ---------- REPORT VIEW ----------
+function carry(ws) {
+  return db.visits
+    .filter(v => v.date < ws && !rep.ex.includes(v.hosp))
+    .flatMap(v => v.notes.map((n, idx) => ({ ...n, idx, v, s: st(n, v) })).filter(n => n.desc && !n.done));
+}
+
+function repData() {
+  const ws = rep.start, we = addDays(ws, 6);
+  const inW = db.visits.filter(v => v.date >= ws && v.date <= we);
+  const hs = [...new Set(inW.map(v => v.hosp))];
+  const vs = inW
+    .filter(v => !rep.ex.includes(v.hosp))
+    .sort((a, b) => a.date.localeCompare(b.date) || a.hosp.localeCompare(b.hosp, 'ar'));
+  const all = vs.flatMap(v => v.notes.filter(n => n.desc).map(n => ({ ...n, v, s: st(n, v) })));
+  return { ws, we, hs, vs, all };
+}
+
+function gradeBadge(g) {
+  if (g === 'حرج') return `<span class="pill p-rd">🔴 حرج</span>`;
+  if (g === 'متوسط') return `<span class="pill p-or">🟠 متوسط</span>`;
+  return `<span class="pill p-bl">🔵 بسيط</span>`;
+}
+
+function statusBadge(s, vId, nIdx, doneDate, closedBy) {
+  const isMgr = (role === 'manager');
+  if (s === 'تم التلافي') {
+    const reopenBtn = (isMgr && typeof vId !== 'undefined')
+      ? `<br><button type="button" class="mini-btn reopen np" data-a="repreopen" data-vid="${vId}" data-nidx="${nIdx}" title="إعادة فتح الملاحظة">🔄 إعادة فتح</button>`
+      : '';
+    return `<span class="pill p-gn">✅ تم التلافي</span>${doneDate ? `<br><small>${fmt(doneDate)}</small>` : ''}${reopenBtn}`;
+  }
+  const closeBtn = (typeof vId !== 'undefined')
+    ? (isMgr
+        ? `<br><button type="button" class="mini-btn np" data-a="repdone" data-vid="${vId}" data-nidx="${nIdx}" title="اعتماد التلافي وإغلاق الملاحظة">✅ اعتماد التلافي</button>`
+        : `<br><small class="np" style="font-size:10px;color:var(--mu)">🔒 الإغلاق للمدير</small>`)
+    : '';
+  if (s === 'متأخر') return `<span class="pill p-rd">🚨 متأخر</span>${closeBtn}`;
+  return `<span class="pill p-or">⏳ قيد المتابعة</span>${closeBtn}`;
+}
+
+function repV() {
+  const { ws, we, hs, vs, all } = repData();
+  const c = s => all.filter(n => n.s == s).length;
+  const prev = carry(ws);
+  const crit = all.filter(n => n.grade == 'حرج' && n.s != 'تم التلافي').length;
+  const ch = vs.filter(v => v.chall.trim()).length;
+  const rate = all.length ? Math.round((c('تم التلافي') / all.length) * 100) : 100;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const weekInspectors = [...new Set(vs.map(v => v.ins || db.ins))].join(' ، ');
+
+  const ctl = `
+  <div class="cd np">
+    <h3 style="margin:0 0 8px;color:var(--ac)">⚙️ إعدادات التقرير الأسبوعي والاعتماد</h3>
+    <div class="g">
+      <label>بداية أسبوع التقرير (السبت)
+        <input type="date" id="ws" value="${ws}">
+      </label>
+      <label>القائم بالمرور والمراجعة
+        <input id="r_ins" value="${esc(db.ins)}" placeholder="د. مجدي محمد سعد">
+      </label>
+      <label>مدير إدارة الرعاية الحرجة والعاجلة
+        <input id="r_mgr" value="${esc(db.mgr)}" placeholder="اكتب اسم مدير الإدارة ليظهر في التوقيع...">
+      </label>
+      <label>وكيل وزارة الصحة بالدقهلية
+        <input id="r_und" value="${esc(db.undersec)}" placeholder="اكتب اسم وكيل الوزارة ليظهر في الاعتماد...">
+      </label>
+    </div>
+
+    <label style="margin-top:10px">المستشفيات المضمّنة في هذا الأسبوع:</label>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:6px 0">
+      ${hs.map(h => `<label class="r" style="margin:0"><input type="checkbox" class="hx" data-h="${esc(h)}" ${rep.ex.includes(h) ? '' : 'checked'}> ${esc(h)}</label>`).join('') || '<small>لا توجد زيارات في هذا الأسبوع — اختر أسبوعاً آخر أو سجّل زيارة جديدة.</small>'}
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:18px;margin-top:10px">
+      <label class="r" style="margin:0">
+        <input type="checkbox" id="darkPdf" ${isDark ? 'checked' : ''}> 🌙 تصدير الـ PDF والتقرير بألوان الوضع الليلي (تباين عالٍ ومريح للعين)
+      </label>
+      <label class="r" style="margin:0">
+        <input type="checkbox" id="big" ${rep.big ? 'checked' : ''}> 🔍 تكبير الخط الإضافي لقراءة الموبايل
+      </label>
+    </div>
+
+    <div class="btn-row">
+      <button class="pri" data-a="pdf">🖨️ طباعة / حفظ التقرير كـ PDF</button>
+      <button class="sec" data-a="htmlf">📄 تنزيل التقرير كملف HTML مستقل</button>
+      <button class="sec" data-a="csv">📊 تصدير سجل الملاحظات للإكسيل (CSV)</button>
+    </div>
+    <small style="display:block;margin-top:6px">💡 تأكد من تفعيل خيار <b>(Background graphics / رسومات الخلفية)</b> في نافذة الطباعة ليحتفظ ملف الـ PDF بألوان الوضع الليلي كاملة.</small>
+  </div>`;
+
+  if (!vs.length) return ctl + '<div class="cd"><p class="mu" style="text-align:center">لا توجد زيارات مضمّنة في الفترة المحددة.</p></div>';
+
+  return ctl + `
+  <div id="rep" class="${rep.big ? 'big' : ''}">
+    <div class="rep-banner">
+      <div class="gov-info">
+        مديرية الشئون الصحية بالدقهلية<br>
+        إدارة الرعاية الحرجة والعاجلة<br>
+        منظومة المرور الميداني الرقابي
+      </div>
+      <div class="rep-main-title">
+        <h1>التقرير الأسبوعي المجمّع للمرور الميداني</h1>
+        <div class="meta-strip">
+          الفترة: ${fmt(ws)} إلى ${fmt(we)} &nbsp;|&nbsp; المستشفيات: ${new Set(vs.map(v => v.hosp)).size} &nbsp;|&nbsp; الزيارات: ${vs.length} &nbsp;|&nbsp; فريق المرور: ${esc(weekInspectors)}
+        </div>
+      </div>
+      <div class="rate-box">
+        <b>${rate}%</b>
+        <span>نسبة إنجاز التلافي</span>
+      </div>
+    </div>
+
+    <div class="k">
+      <div class="k-card k-bl"><b>${all.length}</b>إجمالي الملاحظات</div>
+      <div class="k-card k-gn"><b>${c('تم التلافي')}</b>تم التلافي</div>
+      <div class="k-card k-or"><b>${c('قيد المتابعة')}</b>قيد المتابعة</div>
+      <div class="k-card k-rd"><b>${c('متأخر')}</b>متأخر عن المهلة</div>
+      <div class="k-card k-rd"><b>${crit}</b>حرج غير متلافى</div>
+      <div class="k-card k-or"><b>${ch}</b>تحديات تحتاج دعم</div>
+    </div>
+
+    <div class="sec-hdr">📊 أولاً: مصفوفة مقارنة مؤشرات العناية المركزة والطوارئ</div>
+    <div class="sc">
+      <table>
+        <thead>
+          <tr>
+            <th>المستشفى</th>
+            <th>تاريخ المرور</th>
+            <th>أسرة العناية</th>
+            <th>الحالات</th>
+            <th>نسبة الإشغال</th>
+            <th>الوفيات</th>
+            <th>العمليات</th>
+            <th>المؤجلة</th>
+            <th>الأمصال الصفرية</th>
+            <th>عربة الطوارئ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${vs.map(v => {
+            const i = v.ind, o = occ(i);
+            const occBadge = o === null ? '—' : `<span class="pill ${o >= 90 ? 'p-rd' : o >= 75 ? 'p-or' : 'p-gn'}">${o}%</span>`;
+            const postBadge = (+i.postponed > 0) ? `<span class="pill p-or">⚠️ ${esc(i.postponed)}</span>` : esc(i.postponed || '0');
+            const seraBadge = (+i.sera > 0) ? `<span class="pill p-rd">🔴 ${esc(i.sera)} / 5</span>` : `<span class="pill p-gn">0 / 5</span>`;
+            const cartBadge = i.cart === 'لا' ? `<span class="pill p-rd">غير مكتملة</span>` : i.cart === 'نعم' ? `<span class="pill p-gn">مكتملة</span>` : '—';
+            return `
+            <tr>
+              <td><b>${esc(v.hosp)}</b></td>
+              <td class="c">${fmt(v.date)}</td>
+              <td class="c">${esc(i.beds || '—')}</td>
+              <td class="c">${esc(i.cases || '—')}</td>
+              <td class="c">${occBadge}</td>
+              <td class="c">${esc(i.deaths || '0')}</td>
+              <td class="c">${esc(i.ops || '0')}</td>
+              <td class="c">${postBadge}</td>
+              <td class="c">${seraBadge}</td>
+              <td class="c">${cartBadge}</td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-hdr">🏥 ثانياً: التقارير التفصيلية للمنشآت التي تم المرور عليها</div>
+    ${vs.map(v => {
+      const validNotes = v.notes.map((n, idx) => ({ ...n, idx, s: st(n, v) })).filter(n => n.desc);
+      return `
+      <div class="hosp-block keep">
+        <div class="hosp-hdr">
+          <h3>🏥 ${esc(v.hosp)}</h3>
+          <span style="font-size:12.5px;font-weight:700;color:var(--mu)">تاريخ المرور: ${fmt(v.date)} | القائم بالمرور: ${esc(v.ins || db.ins)}</span>
+        </div>
+        ${v.pos.trim() ? `<div class="pos-box"><b>✅ الإيجابيات:</b> ${esc(v.pos).replace(/\n/g, '<br>')}</div>` : ''}
+        ${validNotes.length ? `
+        <div class="sc">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:34%">الملاحظة المرصودة</th>
+                <th style="width:31%">الإجراء التصحيحي المطلوب</th>
+                <th style="width:10%">الخطورة</th>
+                <th style="width:11%">موعد التلافي</th>
+                <th style="width:14%">الحالة والاعتماد</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${validNotes.map(n => `
+              <tr>
+                <td>
+                  ${n.cat ? `<small style="display:block;color:var(--ac);font-weight:800;margin-bottom:2px">${esc(n.cat)}</small>` : ''}
+                  ${esc(n.desc)}
+                  ${n.followup ? `<div class="followup-box"><b>💬 إفادة المتابعة:</b> ${esc(n.followup)}</div>` : ''}
+                </td>
+                <td>${esc(n.act)}</td>
+                <td class="c">${gradeBadge(n.grade)}</td>
+                <td class="c">${fmt(addDays(v.date, n.days))}</td>
+                <td class="c">${statusBadge(n.s, v.id, n.idx, n.done, n.closedBy)}</td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>` : '<p class="mu" style="margin:4px 0"><small>لا توجد ملاحظات سلبية مرصودة بهذه الزيارة.</small></p>'}
+        ${v.chall.trim() ? `<div class="chall-box"><b>⚠️ التحديات وطلب دعم المديرية:</b> ${esc(v.chall).replace(/\n/g, '<br>')}</div>` : ''}
+      </div>`;
+    }).join('')}
+
+    ${prev.length ? `
+    <div class="sec-hdr">🔄 ثالثاً: متابعة ملاحظات الأسابيع السابقة (غير المتلافاة)</div>
+    <div class="sc">
+      <table>
+        <thead>
+          <tr>
+            <th>المستشفى</th>
+            <th>تاريخ الزيارة</th>
+            <th>الملاحظة وإفادة المتابعة</th>
+            <th>الخطورة</th>
+            <th>موعد التلافي</th>
+            <th>الحالة والاعتماد</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${prev.map(n => `
+          <tr>
+            <td><b>${esc(n.v.hosp)}</b></td>
+            <td class="c">${fmt(n.v.date)}</td>
+            <td>
+              ${esc(n.desc)}
+              ${n.followup ? `<div class="followup-box"><b>💬 إفادة المتابعة:</b> ${esc(n.followup)}</div>` : ''}
+            </td>
+            <td class="c">${gradeBadge(n.grade)}</td>
+            <td class="c">${fmt(addDays(n.v.date, n.days))}</td>
+            <td class="c">${statusBadge(n.s, n.v.id, n.idx, n.done, n.closedBy)}</td>
+          </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>` : ''}
+
+    <div class="sig-grid">
+      <div class="sig-col">
+        <div class="sig-role">القائم بالمرور والمراجعة</div>
+        <div class="sig-name">${esc(db.ins)}</div>
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-role">مدير إدارة الرعاية الحرجة والعاجلة</div>
+        <div class="sig-name">${esc(db.mgr)}</div>
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-role">يعتمد ، وكيل وزارة الصحة بالدقهلية</div>
+        <div class="sig-name">${esc(db.undersec)}</div>
+        <div class="sig-line"></div>
+      </div>
+    </div>
+
+    <div class="rep-designer-footer">
+      <span>منظومة المرور الميداني الرقابي – إدارة الرعاية الحرجة والعاجلة بصحة الدقهلية</span>
+      <span>تصميم وتطوير المنظومة الرقمية: <b>د. مجدي محمد سعد</b></span>
+    </div>
+  </div>`;
+}
+
+// ---------- SETTINGS VIEW ----------
+function setV() {
+  return `
+  <div class="cd">
+    <h3 style="margin:0 0 10px;color:var(--ac)">⚙️ إعدادات المسئولين، قائمة المفتشين، والاعتماد</h3>
+    <div class="g">
+      <label>اسم المفتش الحالي (القائم بالمرور)
+        <input id="sins" value="${esc(db.ins)}">
+      </label>
+      <label>اسم مدير إدارة الرعاية الحرجة والعاجلة
+        <input id="smgr" value="${esc(db.mgr)}" placeholder="يظهر في توقيع التقرير النهائي">
+      </label>
+      <label>اسم وكيل وزارة الصحة بالدقهلية
+        <input id="sund" value="${esc(db.undersec)}" placeholder="يظهر في اعتماد التقرير النهائي">
+      </label>
+      <label>الرقم السري (PIN) الخاص بدخول مدير الإدارة
+        <input type="password" id="spin" value="${esc(db.mgrPin || '1234')}" ${role !== 'manager' ? 'disabled title="لتغيير الرقم السري، ادخل أولاً بوضع مدير الإدارة"' : ''}>
+      </label>
+    </div>
+
+    <div class="g" style="margin-top:8px">
+      <label>قائمة أسماء المفتشين بالإدارة (مفتش في كل سطر)
+        <textarea id="sinslist" rows="6">${esc((db.inspectors || []).join('\n'))}</textarea>
+      </label>
+      <label>قائمة المستشفيات (مستشفى في كل سطر)
+        <textarea id="shos" rows="6">${esc(db.hospitals.join('\n'))}</textarea>
+      </label>
+    </div>
+    <button class="pri" data-a="sset">💾 حفظ الإعدادات وقوائم المفتشين</button>
+  </div>
+
+  <div class="cd" style="border-color:var(--ac)">
+    <h3 style="margin:0 0 8px;color:var(--ac)">☁️ الربط السحابي المباشر (Supabase Cloud) — للمفتشين ومدير الإدارة</h3>
+    <p class="mu" style="margin:4px 0 10px;font-size:13px">
+      عند إدخال بيانات مشروع <b>Supabase</b> المجاني هنا، تتحول المنظومة تلقائياً إلى نظام سحابي لحظي؛ أي زيارة يعتمدها المفتش من هاتفه تسمّع فوراً على شاشة مدير الإدارة.
+    </p>
+    <div class="g">
+      <label>رابط المشروع (Supabase Project URL)
+        <input id="ssburl" dir="ltr" placeholder="https://xxxxxxxxxxxx.supabase.co" value="${esc(db.sbUrl || '')}">
+      </label>
+      <label>مفتاح الربط العام (Supabase Anon Public Key)
+        <input id="ssbkey" dir="ltr" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI..." value="${esc(db.sbKey || '')}">
+      </label>
+    </div>
+    <div class="btn-row">
+      <button class="pri" data-a="savesb">☁️ حفظ وتفعيل الربط السحابي الآن</button>
+      <button class="sec" data-a="copysql">📋 نسخ كود إنشاء جدول Supabase (SQL)</button>
+    </div>
+  </div>
+
+  <div class="cd">
+    <h3 style="margin:0 0 8px;color:var(--ac)">💿 الحفظ الدائم داخل ملف البرنامج والنسخ الاحتياطي</h3>
+    <p class="mu" style="margin:4px 0 10px">
+      بنك الملاحظات الاسترشادي: <b>${db.bank.length}</b> بند &nbsp;|&nbsp; إجمالي الزيارات المسجلة: <b>${db.visits.length}</b> زيارة.
+    </p>
+    <div class="btn-row">
+      <button class="pri" data-a="selfhtml">💿 حفظ نسخة البرنامج شاملة البيانات (HTML ذاتي الحفظ)</button>
+      <button class="sec" data-a="bk">⬇️ تنزيل ملف بيانات (JSON)</button>
+    </div>
+    <label style="margin-top:12px">استعادة أو دمج بيانات من ملف سابق (يقبل ملفات .json أو ملفات البرنامج .html من المفتشين)
+      <input type="file" id="rs" accept=".json,.html,application/json,text/html">
+    </label>
+  </div>`;
+}
+
+// ---------- FILE DOWNLOADS & SELF-SAVING HTML ----------
+function saveFile(filename, data, mime = 'text/plain;charset=utf-8') {
+  try {
+    const blob = new Blob([data], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 400);
+  } catch (e) {
+    alert('تعذّر تنزيل الملف: ' + e.message);
+  }
+}
+
+function saveSelfContainedHTML() {
+  if (view === 'form' && cur) collect();
+  unsavedDisk = false;
+  const curTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const styleText = $('#main-style').textContent;
+  const scriptText = $('#main-script').textContent;
+  const seedJson = JSON.stringify(db, null, 2);
+
+  const fullHtml = `<!doctype html>
+<html lang="ar" dir="rtl" data-theme="${curTheme}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>منظومة المرور الميداني – التقرير الأسبوعي المجمّع (v5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style id="main-style">${styleText}</style>
+</head>
+<body>
+<header class="app-hdr np">
+  <div class="title-wrap">
+    <div class="main-t">
+      <span>🏥 منظومة المرور الميداني – الرعاية الحرجة والطوارئ</span>
+      <span class="designer-badge">✨ تصميم وتطوير: د. مجدي محمد سعد</span>
+    </div>
+    <span class="sub-t">مديرية الشئون الصحية بالدقهلية – إدارة الرعاية الحرجة والعاجلة (الإصدار السحابي التشاركي v5)</span>
+  </div>
+  <div class="hdr-actions">
+    <button class="theme-btn" data-a="cloudsync" type="button" title="مزامنة فورية مع السيرفر السحابي">🔄 مزامنة سحابية</button>
+    <button class="theme-btn save-Self-btn" data-a="selfhtml" type="button" title="يحفظ جميع الزيارات داخل ملف البرنامج نفسه">💿 حفظ بملف البرنامج</button>
+    <button class="theme-btn" id="themeBtn" type="button">${curTheme === 'dark' ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي'}</button>
+  </div>
+</header>
+<div class="role-bar np" id="roleBar"></div>
+<div class="save-bar np">
+  <div class="save-bar-inner">
+    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (${db.visits.length} زيارة)</span>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
+      <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
+      <input type="file" id="qrs" accept=".json,.html,application/json,text/html" style="display:none">
+    </div>
+  </div>
+</div>
+<div id="app"></div>
+<div class="app-footer-credit np">
+  منظومة المرور الميداني وإدارة الرعاية الحرجة والعاجلة بالدقهلية — تصميم وتطوير: <b>د. مجدي محمد سعد</b> © 2026
+</div>
+<nav class="bottom-nav np">
+  <button data-v="list">📋 الزيارات</button>
+  <button data-a="new">➕ زيارة جديدة</button>
+  <button data-v="mgr">👑 ملخص المدير</button>
+  <button data-v="rep">📑 التقرير الأسبوعي</button>
+  <button data-v="set">⚙️ الإعدادات</button>
+</nav>
+<script id="db-seed">
+window.__SEED_DB__ = ${seedJson};
+<\/script>
+<script id="main-script">${scriptText}<\/script>
+</body>
+</html>`;
+
+  saveFile('منظومة_المرور_الميداني_v5_محفوظة.html', fullHtml, 'text/html;charset=utf-8');
+  updateSaveIndicator(`🟢 تم تنزيل ملف البرنامج شاملاً <b>${db.visits.length}</b> زيارة بنجاح!`);
+}
+
+function handleRestoreFile(file) {
+  if (!file) return;
+  file.text().then(tx => {
+    try {
+      let o = null;
+      if (tx.trim().startsWith('{')) {
+        o = JSON.parse(tx);
+      } else {
+        const m1 = tx.match(/window\.__SEED_DB__\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
+        const m2 = tx.match(/const\s+DATA\s*=\s*(\{[\s\S]*?\});/);
+        if (m1) o = JSON.parse(m1[1]);
+        else if (m2) o = JSON.parse(m2[1]);
+      }
+      if (!o) throw new Error('لم يتم العثور على بيانات');
+      const incomingIds = new Set((o.visits || []).map(v => v.id));
+      db.deletedIds = (db.deletedIds || []).filter(id => !incomingIds.has(id));
+      db = mergeDBs(db, o);
+      save(false, true);
+      render();
+      alert(`تم استعادة ودمج البيانات بنجاح ✅ (إجمالي الزيارات الآن: ${db.visits.length})`);
+    } catch (x) {
+      alert('تعذّر قراءة الملف. اختر ملف نسخة احتياطية (.json) أو ملف منظومة (.html) صالح.');
+    }
+  });
+}
+
+const csvq = s => '"' + String(s ?? '').replace(/"/g, '""') + '"';
+function csv() {
+  const rows = [['المستشفى', 'التاريخ', 'المفتش', 'المحور الرقابي', 'الملاحظة', 'الإجراء المطلوب', 'إفادة المتابعة', 'الدرجة', 'المهلة بالأيام', 'موعد التلافي', 'الحالة', 'تاريخ إغلاق المدير']];
+  db.visits.forEach(v => v.notes.filter(n => n.desc).forEach(n => {
+    rows.push([v.hosp, fmt(v.date), v.ins || db.ins, n.cat, n.desc, n.act, n.followup || '', n.grade, n.days, fmt(addDays(v.date, n.days)), st(n, v), fmt(n.done)]);
+  }));
+  saveFile('سجل-ملاحظات-المرور-' + today() + '.csv', '\ufeff' + rows.map(r => r.map(csvq).join(';')).join('\r\n'), 'text/csv;charset=utf-8');
+}
+
+function htmlFile() {
+  const css = $('#main-style').textContent;
+  const repHtml = $('#rep').outerHTML;
+  const curTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const doc = `<!doctype html><html lang="ar" dir="rtl" data-theme="${curTheme}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>التقرير الأسبوعي - ${rep.start}</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>${css}</style></head><body><div id="app"><div class="np btn-row" style="margin-bottom:12px"><button class="pri" onclick="window.print()">🖨️ طباعة / حفظ كـ PDF</button><button class="sec" onclick="const r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark')">🌓 تبديل الوضع الليلي / النهاري</button></div>${repHtml}</div></body></html>`;
+  saveFile('تقرير-المرور-الأسبوعي-' + rep.start + '.html', doc, 'text/html;charset=utf-8');
+}
+
+function loadDemo() {
+  const ws = weekStart(today());
+  const d1 = addDays(ws, 1);
+  const d2 = addDays(ws, 3);
+  const demoVisits = [
+    {
+      id: 'demo_1',
+      hosp: 'مستشفى تمي الأمديد المركزي',
+      date: d1,
+      ins: 'د. مجدي محمد سعد',
+      status: 'done',
+      ind: { beds: '12', cases: '10', deaths: '0', ops: '9', postponed: '1', sera: '1', cart: 'لا' },
+      pos: 'انتظام تواجد الفريق الطبي بقسم العناية المركزة، وتحديث سجلات الدخول والخروج.',
+      chall: 'مخاطبة التموين الطبي بالمديرية لتعويض الرصيد الصفري لمصل العقرب، واستعجال صيانة المونيتور.',
+      notes: [
+        { cat: '4. جاهزية عربات ودولاب الطوارئ', desc: 'عربة الطوارئ (كراش كارت) ينقصها 4 أمبول أيزوبتين', act: 'استكمال نواقص الكراش كارت فوراً من صيدلية الطوارئ', followup: 'تم استكمال الأمبولات بمرور المتابعة وفي انتظار اعتماد المدير للإغلاق', grade: 'حرج', days: 1, done: '', locked: true, tobank: false },
+        { cat: '10. وفرة أرصدة الأمصال الحيوية', desc: 'وجود رصيد صفري (0) في واحد أو أكثر من الأمصال المنقذة للحياة (العقرب/الثعبان/الكلب/التيتانوس) بثلاجة الاستقبال.', act: 'تحرير طلبية فورية لمخزن الإدارة الصحية وتدبير رصيد طوارئ.', followup: '', grade: 'حرج', days: 2, done: '', locked: true, tobank: false },
+        { cat: '6. حوكمة المضادات والمزارع', desc: 'تأخر تسجيل المزرعة في الدفتر والبدء بالعلاج', act: 'العمل بنتيجة المزرعة فور وصولها والتوثيق بدقة', followup: 'تم مطابقة الدفتر والتذكرة', grade: 'متوسط', days: 2, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false }
+      ],
+      upd: Date.now()
+    },
+    {
+      id: 'demo_2',
+      hosp: 'مستشفى السنبلاوين العام',
+      date: d2,
+      ins: 'د. مجدي محمد سعد',
+      status: 'done',
+      ind: { beds: '18', cases: '17', deaths: '1', ops: '14', postponed: '0', sera: '0', cart: 'نعم' },
+      pos: 'اكتمال عربة الطوارئ وتوافر جميع الأمصال الحيوية، وتفعيل جيد لمنظومة الترياج بالاستقبال.',
+      chall: 'الحاجة لزيادة أيام التعاقد لأخصائي الأشعة لتغطية عروض الدوبلر الطارئة.',
+      notes: [
+        { cat: '7. كفاءة الإشغال ودفتر العروض', desc: 'تأخر الرد على استشارات وعروض العناية المركزة (مخ وأعصاب / أشعة ودوبلر / جراحة) أو إغفال تدوين ساعة طلب العرض.', act: 'إلزام التمريض بتوثيق ساعة الطلب وإلزام الأطباء بالرد خلال ساعتين للطارئ.', followup: 'تم التنبيه وتفعيل سجل توقيتات العروض', grade: 'متوسط', days: 1, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false },
+        { cat: '8. جاهزية وحدة السكتة الدماغية', desc: 'تأخر استكمال التوثيق الإلكتروني لحالات السكتة الدماغية على منصة (RES-Q) أو نقص بيانات الدخول والخروج بالسجل.', act: 'تكليف مسئول محدد بوحدة السكتة لتحديث المنصة فور التعامل مع كل حالة.', followup: 'تم تكليف طبيب مقيم وتم رفع الحالات المتأخرة', grade: 'متوسط', days: 2, done: '', locked: true, tobank: false }
+      ],
+      upd: Date.now()
+    }
+  ];
+  db.deletedIds = (db.deletedIds || []).filter(id => id !== 'demo_1' && id !== 'demo_2');
+  demoVisits.forEach(dv => {
+    const idx = db.visits.findIndex(x => x.id === dv.id);
+    if (idx < 0) db.visits.push(dv);
+    else db.visits[idx] = dv;
+  });
+  rep.start = ws;
+  save(true, true);
+  go('mgr');
+}
+
+// ---------- EVENTS ----------
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-v],[data-a]');
+  if (!t) return;
+  if (t.dataset.v) { go(t.dataset.v); return; }
+  const a = t.dataset.a, id = t.dataset.id;
+
+  if (a == 'loginMgr') {
+    const pin = prompt('👑 أدخل الرقم السري (PIN) الخاص بمدير الإدارة لتفعيل صلاحية إغلاق الملاحظات:', '');
+    if (pin === null) return;
+    if (pin.trim() === (db.mgrPin || '1234')) {
+      role = 'manager';
+      render();
+    } else {
+      alert('❌ الرقم السري غير صحيح!');
+    }
+  }
+  else if (a == 'logoutMgr') {
+    role = 'inspector';
+    render();
+  }
+  else if (a == 'cloudsync') {
+    cloudSync(false);
+  }
+  else if (a == 'savesb') {
+    db.sbUrl = ($('#ssburl').value || '').trim();
+    db.sbKey = ($('#ssbkey').value || '').trim();
+    save(true, false);
+    if (db.sbUrl && db.sbKey) cloudSync(false);
+    else alert('تم حفظ إعدادات السحابة.');
+  }
+  else if (a == 'copysql') {
+    const sqlCode = `create table if not exists public.mrur_sync (
+  id text primary key,
+  payload jsonb not null,
+  updated_at timestamptz default now()
+);
+alter table public.mrur_sync enable row level security;
+create policy "Allow public read write mrur" on public.mrur_sync for all using (true) with check (true);`;
+    navigator.clipboard.writeText(sqlCode).then(() => {
+      alert('✅ تم نسخ كود SQL بنجاح!\nافتح SQL Editor في موقع Supabase والصق الكود واضغط Run.');
+    }).catch(() => {
+      prompt('انسخ كود SQL التالي والصقه في SQL Editor داخل Supabase:', sqlCode);
+    });
+  }
+  else if (a == 'new') {
+    if (view === 'form' && cur) collect();
+    cur = {
+      id: uid(),
+      hosp: db.hospitals[0] || '',
+      date: today(),
+      ins: db.ins,
+      status: 'draft',
+      ind: { beds: '', cases: '', deaths: '', ops: '', postponed: '', sera: '', cart: '' },
+      pos: '',
+      notes: [newNote()],
+      chall: '',
+      upd: Date.now()
+    };
+    db.visits.push(cur);
+    save(true, false);
+    go('form');
+  }
+  else if (a == 'demo') { loadDemo(); }
+  else if (a == 'selfhtml') { saveSelfContainedHTML(); }
+  else if (a == 'qrestore') { $('#qrs').click(); }
+  else if (a == 'open') { cur = db.visits.find(v => v.id == id); if (cur) go('form'); }
+  else if (a == 'delv') {
+    e.stopPropagation();
+    const targetV = db.visits.find(v => v.id == id);
+    if (targetV && targetV.status === 'done' && role !== 'manager') {
+      alert('🔒 لا يمكن حذف زيارة معتمدة إلا بصلاحية مدير الإدارة.');
+      return;
+    }
+    if (confirm('هل أنت متأكد من حذف هذه الزيارة نهائياً؟')) {
+      db.visits = db.visits.filter(v => v.id != id);
+      if (!db.deletedIds) db.deletedIds = [];
+      if (!db.deletedIds.includes(id)) db.deletedIds.push(id);
+      save(true, true);
+      render();
+    }
+  }
+  else if (a == 'addn') { collect(); cur.notes.push(newNote()); save(true, false); render(); }
+  else if (a == 'deln') {
+    collect();
+    if (cur.status === 'done' && role !== 'manager' && cur.notes[+t.dataset.n].locked) {
+      alert('🔒 لا يمكن حذف ملاحظة معتمدة بالتقرير المبدئي إلا بصلاحية مدير الإدارة.');
+      return;
+    }
+    cur.notes.splice(+t.dataset.n, 1);
+    save(true, false);
+    render();
+  }
+  else if (a == 'nowdone') {
+    if (role !== 'manager') {
+      alert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط.');
+      return;
+    }
+    collect();
+    cur.notes[+t.dataset.n].done = today();
+    cur.notes[+t.dataset.n].closedBy = db.mgr || 'مدير الإدارة';
+    save(true, true);
+    render();
+  }
+  else if (a == 'reopennote') {
+    if (role !== 'manager') return;
+    collect();
+    cur.notes[+t.dataset.n].done = '';
+    cur.notes[+t.dataset.n].closedBy = '';
+    save(true, true);
+    render();
+  }
+  else if (a == 'repdone') {
+    if (role !== 'manager') {
+      alert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط. اضغط «👑 دخول مدير الإدارة» أعلى الشاشة.');
+      return;
+    }
+    const v = db.visits.find(x => x.id == t.dataset.vid);
+    if (v && v.notes[+t.dataset.nidx]) {
+      v.notes[+t.dataset.nidx].done = today();
+      v.notes[+t.dataset.nidx].closedBy = db.mgr || 'مدير الإدارة';
+      v.upd = Date.now();
+      save(true, true);
+      render();
+    }
+  }
+  else if (a == 'repreopen') {
+    if (role !== 'manager') return;
+    const v = db.visits.find(x => x.id == t.dataset.vid);
+    if (v && v.notes[+t.dataset.nidx]) {
+      v.notes[+t.dataset.nidx].done = '';
+      v.notes[+t.dataset.nidx].closedBy = '';
+      v.upd = Date.now();
+      save(true, true);
+      render();
+    }
+  }
+  else if (a == 'draft') finish('draft');
+  else if (a == 'done') finish('done');
+  else if (a == 'pdf') { window.print(); }
+  else if (a == 'htmlf') htmlFile();
+  else if (a == 'csv') csv();
+  else if (a == 'sset') {
+    db.ins = $('#sins').value.trim() || db.ins;
+    db.mgr = $('#smgr').value.trim();
+    db.undersec = $('#sund').value.trim();
+    if (role === 'manager' && $('#spin') && $('#spin').value.trim()) {
+      db.mgrPin = $('#spin').value.trim();
+    }
+    db.inspectors = $('#sinslist').value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (!db.inspectors.includes(db.ins)) db.inspectors.unshift(db.ins);
+    db.hospitals = $('#shos').value.split('\n').map(s => s.trim()).filter(Boolean);
+    save(true, true);
+    alert('تم حفظ الإعدادات وقوائم المفتشين وأسماء الاعتماد بنجاح ✅');
+    render();
+  }
+  else if (a == 'bk') {
+    if (view === 'form' && cur) collect();
+    unsavedDisk = false;
+    saveFile('نسخة-احتياطية-المرور-' + today() + '.json', JSON.stringify(db, null, 2), 'application/json;charset=utf-8');
+    updateSaveIndicator(`🟢 تم تنزيل ملف النسخة الاحتياطية (JSON) شاملاً <b>${db.visits.length}</b> زيارة.`);
+  }
+});
+
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (view == 'form' && t.closest('#app')) collect();
+  else if (view == 'list' && t.id == 'qSearch') {
+    qFilter = t.value;
+    render();
+    const el = $('#qSearch');
+    if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); }
+  }
+  else if (view == 'rep' && (t.id == 'r_ins' || t.id == 'r_mgr' || t.id == 'r_und')) {
+    if (t.id == 'r_ins') db.ins = t.value;
+    if (t.id == 'r_mgr') db.mgr = t.value;
+    if (t.id == 'r_und') db.undersec = t.value;
+    save(true, false);
+    const sigNames = $$('#rep .sig-col .sig-name');
+    if (sigNames.length === 3) {
+      sigNames[0].textContent = db.ins;
+      sigNames[1].textContent = db.mgr;
+      sigNames[2].textContent = db.undersec;
+    }
+  }
+});
+
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id == 'activeInsSel') {
+    db.ins = t.value;
+    save(true, false);
+    render();
+    return;
+  }
+  if (t.id == 'rs' || t.id == 'qrs') {
+    if (t.files && t.files[0]) handleRestoreFile(t.files[0]);
+    t.value = '';
+    return;
+  }
+  if (view == 'mgr') {
+    if (t.id == 'mf_status') mgrFilter.status = t.value;
+    else if (t.id == 'mf_hosp') mgrFilter.hosp = t.value;
+    else if (t.id == 'mf_grade') mgrFilter.grade = t.value;
+    else if (t.id == 'mf_ins') mgrFilter.ins = t.value;
+    render();
+    return;
+  }
+  if (view == 'form') {
+    collect();
+    if (t.dataset.f == 'cat') {
+      render();
+    } else if (t.dataset.f == 'desc') {
+      const n = cur.notes[t.closest('.note').dataset.n];
+      const b = db.bank.find(x => x.desc == n.desc);
+      if (b) {
+        Object.assign(n, { cat: b.cat, act: b.act, grade: b.grade, days: b.days });
+        save(true, false);
+        render();
+      }
+    }
+  }
+  else if (view == 'rep') {
+    if (t.id == 'ws' && t.value) { rep.start = weekStart(t.value); render(); }
+    else if (t.id == 'big') { rep.big = t.checked; render(); }
+    else if (t.id == 'darkPdf') { setTheme(t.checked ? 'dark' : 'light'); }
+    else if (t.classList.contains('hx')) {
+      const h = t.dataset.h;
+      rep.ex = t.checked ? rep.ex.filter(x => x != h) : [...rep.ex, h];
+      render();
+    }
+  }
+});
+
+// Auto-pull from Supabase on startup if configured
+render();
+if (db.sbUrl && db.sbKey) {
+  cloudSync(true);
+}
+</script>
+</body>
+</html>
