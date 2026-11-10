@@ -738,7 +738,7 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <div class="role-bar np" id="roleBar"></div>
 <div class="save-bar np">
   <div class="save-bar-inner">
-    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (2 زيارة)</span>
+    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (0 زيارة)</span>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
       <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
@@ -760,31 +760,27 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <script id="db-seed">
 window.__SEED_DB__ = {
   "ver": 5,
-  "upd": 1794302384025,
-  "ins": "مفتش الرعاية الحرجة (2)",
+  "upd": 1794308651176,
+  "ins": "",
   "inspectors": [
-    "د. مجدي محمد سعد",
-    "مفتش الرعاية الحرجة (2)",
-    "مفتش الرعاية الحرجة (3)",
-    "مفتش الطوارئ (1)",
-    "ا",
-    "اب",
-    "ابر",
-    "ابرا",
-    "ابراه",
-    "ابراهي",
-    "ابراهيم",
-    "ابراهيم "
-  ],
+  "د. مجدي محمد سعد",
+  "مفتش الرعاية الحرجة (2)",
+  "مفتش الرعاية الحرجة (3)"
+],
   "mgr": "د/نجلاء فتحي",
   "undersec": "د/حموده الجزار",
-  "mgrPin": "1234",
+  "mgrPin": "Nm$2026",
   "sbUrl": "https://vwtprvodmxxkuhcvzlxh.supabase.co",
   "sbKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dHBydm9kbXh4a3VoY3Z6bHhoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyOTkxODksImV4cCI6MjEwOTg3NTE4OX0.3wO1jWbRfvMuTWbyyWfE3_xMbNJHdlXMAV9Cy-CvEFw",
   "autoDisk": false,
   "deletedIds": [
     "mw9egupiuty2",
-    "mw9egupj7936"
+    "mw9egupj7936",
+    "mwahqsd0vhua",
+    "mwaht39821cc",
+    "mwafjzfvcqts",
+    "mw87jlw7aoqi",
+    "mw9o54vtwd3k"
   ],
   "hospitals": [
     "مستشفى تمي الأمديد المركزي",
@@ -798,7 +794,8 @@ window.__SEED_DB__ = {
     "مستشفى ميت غمر المركزي",
     "مستشفى شربين المركزي",
     "مستشفى أجا المركزي",
-    "مستشفى طلخا المركزي"
+    "مستشفى طلخا المركزي",
+    "مستشفى صدر المنصوره"
   ],
   "bank": [
     {
@@ -1033,120 +1030,7 @@ window.__SEED_DB__ = {
       "grade": "متوسط"
     }
   ],
-  "visits": [
-    {
-      "id": "mw9o54vtwd3k",
-      "hosp": "مستشفى شبراهور المركزي",
-      "date": "2026-11-07",
-      "ins": "د. مجدي محمد سعد",
-      "status": "done",
-      "ind": {
-        "beds": "9",
-        "cases": "5",
-        "deaths": "",
-        "ops": "",
-        "postponed": "",
-        "sera": "0",
-        "cart": "نعم"
-      },
-      "pos": "1-تواجد الأطقم الطبية وفقاً للجداول المعلنه\n2-عدم وجود نواقص بعربة انعاش القلب الرئوي\n3-تطابق دفتر انعاش القلب الرئوي مع محضر الفتح",
-      "notes": [
-        {
-          "desc": "تأخر وعدم الرد على بعض العروض  فى االعناية",
-          "act": "الرد على العروض باسرع وقت",
-          "cat": "7. كفاءة الإشغال ودفتر العروض",
-          "grade": "متوسط",
-          "days": "0",
-          "done": "2026-11-07",
-          "tobank": false
-        },
-        {
-          "desc": "عطل في مونيتور عطل في بوردة الباورسبلاي فى الأستقبال",
-          "act": "إصلاح الأعطال البسيطة فوراً عبر الصيانة الداخلية واستعجال الشركات المتعاقدة رسمياً مع توثيق أسباب التأجيل.",
-          "cat": "11. كفاءة الأجهزة الطبية والعمليات",
-          "grade": "متوسط",
-          "days": "7",
-          "done": "2026-11-10",
-          "tobank": false,
-          "closedBy": "د/نجلاء فتحي"
-        },
-        {
-          "desc": "عدم توفر الأمصال (عقرب، ثعبان، كلب)",
-          "act": "عمل طلبية لمخزن الإدارة واستكمال الأمصال",
-          "cat": "10. وفرة أرصدة الأمصال الحيوية",
-          "grade": "حرج",
-          "days": "2",
-          "done": "2026-11-10",
-          "tobank": false,
-          "closedBy": "د/نجلاء فتحي"
-        },
-        {
-          "desc": "نواقص أدوية (جاست ريج، سومازينا، لاكتيلوز، كلاسيد، برفلجان،دايسينون) فى العناية",
-          "act": "استكمال النواقص بمقصات لحين التوريد",
-          "cat": "9. الاكتفاء الدوائي والمستلزمات",
-          "grade": "حرج",
-          "days": "2",
-          "done": "2026-11-10",
-          "tobank": false,
-          "closedBy": "د/نجلاء فتحي"
-        },
-        {
-          "desc": "غرفة الترياج والطوارئ غير مفعلة  مكانيا واستخدام الموبايل نظرا لوجود أعمال تطوير",
-          "act": "تفعيل الترياج والطوارئ مع التطوير ",
-          "cat": "2. غرفة الطوارئ ورعايات مصر",
-          "grade": "متوسط",
-          "days": "2",
-          "done": "2026-11-10",
-          "tobank": false,
-          "closedBy": "د/نجلاء فتحي"
-        },
-        {
-          "desc": "تعارض بين المضاد الاسترشادي بدفتر المزارع وملف المريض",
-          "act": "التوثيق بدقة لتلافي التعارض الدوائي",
-          "cat": "6. حوكمة المضادات والمزارع",
-          "grade": "متوسط",
-          "days": "2",
-          "done": "2026-11-07",
-          "tobank": false
-        }
-      ],
-      "chall": "1-تدخل الأدارة الهندسيه مع المقاول لسرعة الأنتهاء من أعمال التطوير بقسم الأستقبال",
-      "upd": 1794299586507
-    },
-    {
-      "id": "mwafjzfvcqts",
-      "hosp": "مستشفى تمي الأمديد المركزي",
-      "date": "2026-11-10",
-      "ins": "ابراهيم ",
-      "status": "done",
-      "ind": {
-        "beds": "9",
-        "cases": "3",
-        "deaths": "",
-        "ops": "",
-        "postponed": "",
-        "sera": "3",
-        "cart": "نعم"
-      },
-      "pos": "",
-      "notes": [
-        {
-          "desc": "نواقص أدوية (سومازينا، بروتوفكس، برفلجان)",
-          "act": "استكمال النواقص بمقصات لحين التوريد",
-          "cat": "9. الاكتفاء الدوائي والمستلزمات",
-          "grade": "متوسط",
-          "days": "2",
-          "done": "2026-11-10",
-          "closedBy": "د/نجلاء فتحي",
-          "followup": "",
-          "tobank": false,
-          "locked": true
-        }
-      ],
-      "chall": "",
-      "upd": 1794299587626
-    }
-  ]
+  "visits": []
 };
 </script>
 <script id="main-script">
