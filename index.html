@@ -738,7 +738,7 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <div class="role-bar np" id="roleBar"></div>
 <div class="save-bar np">
   <div class="save-bar-inner">
-    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (3 زيارة)</span>
+    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (0 زيارة)</span>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
       <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
@@ -760,12 +760,14 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <script id="db-seed">
 window.__SEED_DB__ = {
   "ver": 5,
-  "upd": 1794317624130,
-  "listsUpd": 1794313708103,
-  "ins": "د. مجدي محمد سعد",
+  "upd": 1794308651176,
+  "listsUpd": 1794320960835,
+  "ins": "",
   "inspectors": [
-    "د. مجدي محمد سعد"
-  ],
+  "د. مجدي محمد سعد",
+  "مفتش الرعاية الحرجة (2)",
+  "مفتش الرعاية الحرجة (3)"
+],
   "mgr": "د/نجلاء فتحي",
   "undersec": "د/حموده الجزار",
   "mgrPin": "Nm$2026",
@@ -779,9 +781,7 @@ window.__SEED_DB__ = {
     "mwaht39821cc",
     "mwafjzfvcqts",
     "mw87jlw7aoqi",
-    "mw9o54vtwd3k",
-    "demo_1",
-    "demo_2"
+    "mw9o54vtwd3k"
   ],
   "hospitals": [
     "مستشفى تمي الأمديد المركزي",
@@ -1031,104 +1031,7 @@ window.__SEED_DB__ = {
       "grade": "متوسط"
     }
   ],
-  "visits": [
-    {
-      "id": "mwaklfa0cg2p",
-      "ind": {
-        "ops": "",
-        "beds": "",
-        "cart": "",
-        "sera": "",
-        "cases": "",
-        "deaths": "",
-        "postponed": ""
-      },
-      "ins": "",
-      "pos": "",
-      "upd": 1794308179833,
-      "date": "2026-11-10",
-      "hosp": "مستشفى شبراهور المركزي",
-      "chall": "",
-      "notes": [
-        {
-          "act": "",
-          "cat": "",
-          "days": "7",
-          "desc": "",
-          "done": "",
-          "grade": "متوسط",
-          "tobank": false,
-          "closedBy": "",
-          "followup": ""
-        }
-      ],
-      "status": "draft"
-    },
-    {
-      "id": "mwap3esxurbm",
-      "ind": {
-        "ops": "",
-        "beds": "",
-        "cart": "",
-        "sera": "",
-        "cases": "",
-        "deaths": "",
-        "postponed": ""
-      },
-      "ins": "د. مجدي محمد سعد",
-      "pos": "",
-      "upd": 1794315460121,
-      "date": "2026-11-10",
-      "hosp": "مستشفى تمي الأمديد المركزي",
-      "chall": "",
-      "notes": [
-        {
-          "act": "",
-          "cat": "",
-          "days": "7",
-          "desc": "",
-          "done": "",
-          "grade": "متوسط",
-          "tobank": false,
-          "closedBy": "",
-          "followup": ""
-        }
-      ],
-      "status": "draft"
-    },
-    {
-      "id": "mwaqdl3wj9s2",
-      "hosp": "مستشفى تمي الأمديد المركزي",
-      "date": "2026-11-10",
-      "ins": "د. مجدي محمد سعد",
-      "status": "draft",
-      "ind": {
-        "beds": "",
-        "cases": "",
-        "deaths": "",
-        "ops": "",
-        "postponed": "",
-        "sera": "",
-        "cart": ""
-      },
-      "pos": "",
-      "notes": [
-        {
-          "desc": "",
-          "act": "",
-          "cat": "",
-          "grade": "متوسط",
-          "days": "7",
-          "done": "",
-          "closedBy": "",
-          "followup": "",
-          "tobank": false
-        }
-      ],
-      "chall": "",
-      "upd": 1794317615662
-    }
-  ]
+  "visits": []
 };
 </script>
 <script id="main-script">
@@ -1171,7 +1074,6 @@ function mergeDBs(base, incoming) {
     if (!out.sbKey && incoming.sbKey) out.sbKey = incoming.sbKey;
   }
 
-  // القوائم (المفتشين/المستشفيات): الأحدث (listsUpd) هو الذي يفوز بدل الدمج، حتى تختفي الأسماء المحذوفة
   const outL = out.listsUpd || 0, inL = incoming.listsUpd || 0;
   if (inL > outL) {
     if (incoming.inspectors && incoming.inspectors.length) out.inspectors = [...incoming.inspectors];
@@ -1193,7 +1095,6 @@ function mergeDBs(base, incoming) {
     if (!prev || (v.upd || 0) >= (prev.upd || 0)) vMap.set(v.id, v);
   });
   out.visits = [...vMap.values()];
-  // هوية المفتش محفوظة على الجهاز نفسه ولا تتأثر بالمزامنة
   try { const me = localStorage.getItem('mrur_me'); if (me) out.ins = me; } catch (e) {}
   return out;
 }
@@ -1267,7 +1168,13 @@ idbOp('readonly', st => {
 });
 
 // ---------- SUPABASE CLOUD SYNC ENGINE ----------
+let _syncing = false, _syncAgain = false;
 async function cloudSync(silent = false) {
+  if (_syncing) { _syncAgain = true; return; }
+  _syncing = true;
+  try { await cloudSyncRun(silent); } finally { _syncing = false; if (_syncAgain) { _syncAgain = false; cloudSync(true); } }
+}
+async function cloudSyncRun(silent = false) {
   const url = (db.sbUrl || '').trim().replace(/\/+$/, '');
   const key = (db.sbKey || '').trim();
   if (!url || !key) {
@@ -1286,23 +1193,29 @@ async function cloudSync(silent = false) {
       'Prefer': 'resolution=merge-duplicates,return=representation'
     };
 
-    // 1. Pull remote state
-    const resGet = await fetch(`${url}/rest/v1/mrur_sync?id=eq.main_state&select=*`, { headers });
-    if (resGet.ok) {
+    const tbl = `${url}/rest/v1/mrur_sync`;
+    let done = false;
+    for (let attempt = 0; attempt < 4 && !done; attempt++) {
+      const resGet = await fetch(`${tbl}?id=eq.main_state&select=*`, { headers });
+      if (!resGet.ok) throw new Error('تعذّر قراءة البيانات من السحابة (' + resGet.status + ')');
       const rows = await resGet.json();
-      if (rows && rows.length && rows[0].payload) {
-        db = mergeDBs(db, rows[0].payload);
+      if (rows && rows.length) {
+        if (rows[0].payload) db = mergeDBs(db, rows[0].payload);
+        const res = await fetch(`${tbl}?id=eq.main_state&updated_at=eq.${encodeURIComponent(rows[0].updated_at)}`, {
+          method: 'PATCH', headers: { ...headers, 'Prefer': 'return=representation' },
+          body: JSON.stringify({ payload: db, updated_at: new Date().toISOString() })
+        });
+        if (!res.ok) throw new Error('تعذّر رفع البيانات (' + res.status + ')');
+        const upd = await res.json();
+        done = Array.isArray(upd) && upd.length > 0;
+      } else {
+        const res = await fetch(tbl, { method: 'POST', headers, body: JSON.stringify([{ id: 'main_state', payload: db, updated_at: new Date().toISOString() }]) });
+        if (!res.ok) throw new Error('تأكد من تشغيل كود SQL لإنشاء جدول mrur_sync في Supabase');
+        done = true;
       }
     }
+    if (!done) throw new Error('الخادم مشغول، أعد المحاولة بعد لحظات');
 
-    // 2. Push merged state back
-    const resPost = await fetch(`${url}/rest/v1/mrur_sync`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify([{ id: 'main_state', payload: db, updated_at: new Date().toISOString() }])
-    });
-
-    if (!resPost.ok) throw new Error('تأكد من تشغيل كود SQL لإنشاء جدول mrur_sync في Supabase');
     save(false, false);
     render();
     updateSaveIndicator(`☁️ تمت المزامنة السحابية بنجاح (${new Date().toLocaleTimeString('ar-EG')}) — إجمالي الزيارات: <b>${db.visits.length}</b>`);
@@ -1360,8 +1273,14 @@ async function registerMe(name) {
   save(true, true);
   render();
 }
+// المفتش يرى تقاريره فقط، والمدير يرى الكل
+const myVisits = () => (role === 'manager' || !getMe()) ? db.visits : db.visits.filter(v => v.ins === getMe());
 
+function syncMgrNav() {
+  document.querySelectorAll('[data-v="mgr"]').forEach(b => { if (b.closest('.bottom-nav')) b.style.display = role === 'manager' ? '' : 'none'; });
+}
 function renderRoleBar() {
+  syncMgrNav();
   const bar = $('#roleBar');
   if (!bar) return;
   if (role === 'manager') {
@@ -1380,8 +1299,8 @@ function renderRoleBar() {
     bar.innerHTML = `
       <div class="role-bar-inner">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1">
-          <span class="role-badge role-ins">👨‍⚕️ تسجيل مفتش جديد</span>
-          <input id="regName" placeholder="اكتب اسمك الكامل (مرة واحدة فقط)" style="width:auto;min-width:230px;min-height:34px;padding:4px 10px;font-weight:700" list="regList">
+          <span class="role-badge role-ins">👨‍⚕️ تسجيل مفتش</span>
+          <input id="regName" placeholder="اختر اسمك أو اكتبه (مرة واحدة فقط)" style="width:auto;min-width:230px;min-height:34px;padding:4px 10px;font-weight:700" list="regList">
           <datalist id="regList">${db.inspectors.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
           <button type="button" class="theme-btn" data-a="regMe">✅ حفظ اسمي</button>
         </div>
@@ -1406,11 +1325,13 @@ function renderRoleBar() {
 function render() {
   renderRoleBar();
   $$('nav.bottom-nav button[data-v]').forEach(b => b.classList.toggle('on', b.dataset.v == view || (view == 'form' && b.dataset.v == 'list')));
+  if (view == 'mgr' && role !== 'manager') view = 'list';
   $('#app').innerHTML = view == 'list' ? listV() : view == 'form' ? formV() : view == 'mgr' ? mgrV() : view == 'rep' ? repV() : setV();
   if (view == 'form') upd();
   updateSaveIndicator();
 }
 const go = v => {
+  if (v === 'mgr' && role !== 'manager') v = 'list';
   if (view === 'form' && cur) collect();
   view = v;
   render();
@@ -1419,7 +1340,7 @@ const go = v => {
 
 // ---------- LIST VIEW ----------
 function listV() {
-  const vs = [...db.visits]
+  const vs = [...myVisits()]
     .filter(v => !qFilter || v.hosp.includes(qFilter) || v.date.includes(qFilter) || (v.ins || '').includes(qFilter))
     .sort((a, b) => b.date.localeCompare(a.date) || b.upd - a.upd);
 
@@ -1828,7 +1749,7 @@ function carry(ws) {
 
 function repData() {
   const ws = rep.start, we = addDays(ws, 6);
-  const inW = db.visits.filter(v => v.date >= ws && v.date <= we);
+  const inW = myVisits().filter(v => v.date >= ws && v.date <= we);
   const hs = [...new Set(inW.map(v => v.hosp))];
   const vs = inW
     .filter(v => !rep.ex.includes(v.hosp))
