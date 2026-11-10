@@ -761,11 +761,10 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 window.__SEED_DB__ = {
   "ver": 5,
   "upd": 1794308651176,
+  "listsUpd": 1794313708103,
   "ins": "",
   "inspectors": [
-  "د. مجدي محمد سعد",
-  "مفتش الرعاية الحرجة (2)",
-  "مفتش الرعاية الحرجة (3)"
+  "د. مجدي محمد سعد"
 ],
   "mgr": "د/نجلاء فتحي",
   "undersec": "د/حموده الجزار",
@@ -1073,8 +1072,17 @@ function mergeDBs(base, incoming) {
     if (!out.sbKey && incoming.sbKey) out.sbKey = incoming.sbKey;
   }
 
-  out.hospitals = [...new Set([...(out.hospitals || []), ...(incoming.hospitals || [])])];
-  out.inspectors = [...new Set([...(out.inspectors || []), ...(incoming.inspectors || []), out.ins].filter(Boolean))];
+  // القوائم (المفتشين/المستشفيات): الأحدث (listsUpd) هو الذي يفوز بدل الدمج، حتى تختفي الأسماء المحذوفة
+  const outL = out.listsUpd || 0, inL = incoming.listsUpd || 0;
+  if (inL > outL) {
+    if (incoming.inspectors && incoming.inspectors.length) out.inspectors = [...incoming.inspectors];
+    if (incoming.hospitals && incoming.hospitals.length) out.hospitals = [...incoming.hospitals];
+    out.listsUpd = inL;
+  } else {
+    out.hospitals = out.hospitals && out.hospitals.length ? out.hospitals : [...(incoming.hospitals || [])];
+    out.inspectors = out.inspectors && out.inspectors.length ? out.inspectors : [...(incoming.inspectors || [])];
+  }
+  if (out.ins && !out.inspectors.includes(out.ins)) out.inspectors.unshift(out.ins);
   (incoming.bank || []).forEach(b => {
     if (b && b.desc && !out.bank.some(x => x.desc === b.desc)) out.bank.push(b);
   });
@@ -1086,6 +1094,8 @@ function mergeDBs(base, incoming) {
     if (!prev || (v.upd || 0) >= (prev.upd || 0)) vMap.set(v.id, v);
   });
   out.visits = [...vMap.values()];
+  // هوية المفتش محفوظة على الجهاز نفسه ولا تتأثر بالمزامنة
+  try { const me = localStorage.getItem('mrur_me'); if (me) out.ins = me; } catch (e) {}
   return out;
 }
 
@@ -1096,6 +1106,7 @@ try {
 } catch (e) {}
 if (!db.inspectors || !db.inspectors.length) db.inspectors = [db.ins || 'د. مجدي محمد سعد'];
 if (!db.mgrPin) db.mgrPin = '1234';
+try { const _me = localStorage.getItem('mrur_me'); if (_me) db.ins = _me; } catch (e) {}
 
 function idbOp(mode, cb) {
   try {
@@ -1239,6 +1250,18 @@ themeBtn.addEventListener('click', () => {
   setTheme(isDark ? 'light' : 'dark');
 });
 
+const getMe = () => { try { return localStorage.getItem('mrur_me') || ''; } catch (e) { return ''; } };
+async function registerMe(name) {
+  name = (name || '').trim();
+  if (!name) { alert('اكتب اسمك أولاً'); return; }
+  try { localStorage.setItem('mrur_me', name); } catch (e) {}
+  if (db.sbUrl && db.sbKey) { try { await cloudSync(true); } catch (e) {} }
+  db.ins = name;
+  if (!db.inspectors.includes(name)) { db.inspectors.push(name); db.listsUpd = Date.now(); }
+  save(true, true);
+  render();
+}
+
 function renderRoleBar() {
   const bar = $('#roleBar');
   if (!bar) return;
@@ -1253,6 +1276,17 @@ function renderRoleBar() {
           <button type="button" class="theme-btn" data-v="mgr" style="background:#d97706;border-color:#fbbf24">📊 لوحة ملخص المدير</button>
           <button type="button" class="theme-btn" data-a="logoutMgr" style="background:var(--cd2);color:var(--tx);border-color:var(--bd)">🔒 العودة لوضع المفتش</button>
         </div>
+      </div>`;
+  } else if (!getMe()) {
+    bar.innerHTML = `
+      <div class="role-bar-inner">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1">
+          <span class="role-badge role-ins">👨‍⚕️ تسجيل مفتش جديد</span>
+          <input id="regName" placeholder="اكتب اسمك الكامل (مرة واحدة فقط)" style="width:auto;min-width:230px;min-height:34px;padding:4px 10px;font-weight:700" list="regList">
+          <datalist id="regList">${db.inspectors.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
+          <button type="button" class="theme-btn" data-a="regMe">✅ حفظ اسمي</button>
+        </div>
+        <button type="button" class="theme-btn" data-a="loginMgr" style="background:#d97706;border-color:#fbbf24">👑 دخول مدير الإدارة (PIN)</button>
       </div>`;
   } else {
     const insOpts = db.inspectors.map(x => `<option value="${esc(x)}" ${x === db.ins ? 'selected' : ''}>${esc(x)}</option>`).join('');
@@ -2208,6 +2242,7 @@ document.addEventListener('click', e => {
     role = 'inspector';
     render();
   }
+  else if (a == 'regMe') { registerMe($('#regName') && $('#regName').value); }
   else if (a == 'cloudsync') {
     cloudSync(false);
   }
@@ -2233,6 +2268,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
     });
   }
   else if (a == 'new') {
+    if (role !== 'manager' && !getMe()) { alert('سجّل اسمك أولاً من الشريط العلوي (حفظ اسمي) ثم ابدأ زيارة جديدة.'); go('list'); return; }
     if (view === 'form' && cur) collect();
     cur = {
       id: uid(),
@@ -2331,6 +2367,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
   else if (a == 'csv') csv();
   else if (a == 'sset') {
     db.ins = $('#sins').value.trim() || db.ins;
+    try { if (db.ins) localStorage.setItem('mrur_me', db.ins); } catch (e) {}
     db.mgr = $('#smgr').value.trim();
     db.undersec = $('#sund').value.trim();
     if (role === 'manager' && $('#spin') && $('#spin').value.trim()) {
@@ -2339,6 +2376,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
     db.inspectors = $('#sinslist').value.split('\n').map(s => s.trim()).filter(Boolean);
     if (!db.inspectors.includes(db.ins)) db.inspectors.unshift(db.ins);
     db.hospitals = $('#shos').value.split('\n').map(s => s.trim()).filter(Boolean);
+    db.listsUpd = Date.now();
     save(true, true);
     alert('تم حفظ الإعدادات وقوائم المفتشين وأسماء الاعتماد بنجاح ✅');
     render();
@@ -2378,6 +2416,7 @@ document.addEventListener('change', e => {
   const t = e.target;
   if (t.id == 'activeInsSel') {
     db.ins = t.value;
+    try { localStorage.setItem('mrur_me', t.value); } catch (e) {}
     save(true, false);
     render();
     return;
