@@ -738,7 +738,7 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <div class="role-bar np" id="roleBar"></div>
 <div class="save-bar np">
   <div class="save-bar-inner">
-    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (0 زيارة)</span>
+    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (3 زيارة)</span>
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
       <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
@@ -760,12 +760,12 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <script id="db-seed">
 window.__SEED_DB__ = {
   "ver": 5,
-  "upd": 1794308651176,
+  "upd": 1794317624130,
   "listsUpd": 1794313708103,
-  "ins": "",
+  "ins": "د. مجدي محمد سعد",
   "inspectors": [
-  "د. مجدي محمد سعد"
-],
+    "د. مجدي محمد سعد"
+  ],
   "mgr": "د/نجلاء فتحي",
   "undersec": "د/حموده الجزار",
   "mgrPin": "Nm$2026",
@@ -779,7 +779,9 @@ window.__SEED_DB__ = {
     "mwaht39821cc",
     "mwafjzfvcqts",
     "mw87jlw7aoqi",
-    "mw9o54vtwd3k"
+    "mw9o54vtwd3k",
+    "demo_1",
+    "demo_2"
   ],
   "hospitals": [
     "مستشفى تمي الأمديد المركزي",
@@ -1029,7 +1031,104 @@ window.__SEED_DB__ = {
       "grade": "متوسط"
     }
   ],
-  "visits": []
+  "visits": [
+    {
+      "id": "mwaklfa0cg2p",
+      "ind": {
+        "ops": "",
+        "beds": "",
+        "cart": "",
+        "sera": "",
+        "cases": "",
+        "deaths": "",
+        "postponed": ""
+      },
+      "ins": "",
+      "pos": "",
+      "upd": 1794308179833,
+      "date": "2026-11-10",
+      "hosp": "مستشفى شبراهور المركزي",
+      "chall": "",
+      "notes": [
+        {
+          "act": "",
+          "cat": "",
+          "days": "7",
+          "desc": "",
+          "done": "",
+          "grade": "متوسط",
+          "tobank": false,
+          "closedBy": "",
+          "followup": ""
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "mwap3esxurbm",
+      "ind": {
+        "ops": "",
+        "beds": "",
+        "cart": "",
+        "sera": "",
+        "cases": "",
+        "deaths": "",
+        "postponed": ""
+      },
+      "ins": "د. مجدي محمد سعد",
+      "pos": "",
+      "upd": 1794315460121,
+      "date": "2026-11-10",
+      "hosp": "مستشفى تمي الأمديد المركزي",
+      "chall": "",
+      "notes": [
+        {
+          "act": "",
+          "cat": "",
+          "days": "7",
+          "desc": "",
+          "done": "",
+          "grade": "متوسط",
+          "tobank": false,
+          "closedBy": "",
+          "followup": ""
+        }
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "mwaqdl3wj9s2",
+      "hosp": "مستشفى تمي الأمديد المركزي",
+      "date": "2026-11-10",
+      "ins": "د. مجدي محمد سعد",
+      "status": "draft",
+      "ind": {
+        "beds": "",
+        "cases": "",
+        "deaths": "",
+        "ops": "",
+        "postponed": "",
+        "sera": "",
+        "cart": ""
+      },
+      "pos": "",
+      "notes": [
+        {
+          "desc": "",
+          "act": "",
+          "cat": "",
+          "grade": "متوسط",
+          "days": "7",
+          "done": "",
+          "closedBy": "",
+          "followup": "",
+          "tobank": false
+        }
+      ],
+      "chall": "",
+      "upd": 1794317615662
+    }
+  ]
 };
 </script>
 <script id="main-script">
