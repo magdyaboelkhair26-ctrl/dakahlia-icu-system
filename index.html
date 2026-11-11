@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>منظومة المرور الميداني – التقرير الأسبوعي المجمّع (v5)</title>
+<title>منظومة المرور الميداني – التقرير الأسبوعي وتقرير المستشفى المصوّر (v5)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
   padding-top: env(safe-area-inset-top, 0px);
 }
 
-/* High-Contrast Readable Dark Mode (Default for Screen & PDF) */
+/* الوضع الليلي عالي التباين للعرض والطباعة */
 :root[data-theme="dark"] {
   --bg: #0b131e;
   --cd: #111c2d;
@@ -69,6 +69,13 @@ body {
   font: 15px/1.65 "Cairo", "Segoe UI", Tahoma, sans-serif;
   padding-bottom: 105px;
 }
+
+/* إخفاء ملخص المدير والإعدادات عن غير المدير */
+body:not(.mgr-mode) nav.bottom-nav button[data-v="mgr"],
+body:not(.mgr-mode) nav.bottom-nav button[data-v="set"] {
+  display: none !important;
+}
+
 header.app-hdr {
   background: linear-gradient(135deg, #071925, #0f3d56);
   color: #fff;
@@ -307,6 +314,159 @@ button {
 }
 .mu, small { color: var(--mu); }
 
+/* تنسيقات إرفاق ومعرض الصور داخل الملاحظات وتقرير المستشفى */
+.photo-zone {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px dashed var(--ac);
+  border-radius: 10px;
+  background: rgba(13, 148, 136, 0.05);
+}
+.photo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+.photo-thumb-card {
+  position: relative;
+  width: 110px;
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cd);
+  box-shadow: var(--sh);
+}
+.photo-thumb-card img {
+  width: 100%;
+  height: 82px;
+  object-fit: cover;
+  display: block;
+  cursor: zoom-in;
+}
+.photo-thumb-card .ph-del {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  min-height: 22px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.9);
+  color: #fff;
+  border: 0;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-thumb-card .ph-cap {
+  font-size: 10.5px;
+  padding: 2px 4px;
+  text-align: center;
+  color: var(--mu);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* بطاقات الصور في تقرير المستشفى المنفرد */
+.hrep-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.hrep-photo-box {
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--cd);
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.hrep-photo-box img {
+  width: 100%;
+  max-height: 210px;
+  object-fit: contain;
+  background: #000;
+  display: block;
+  cursor: zoom-in;
+}
+.hrep-photo-meta {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-top: 1px solid var(--bd);
+}
+
+/* عارض الصور المكبرة Lightbox */
+#lightbox-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 16px;
+}
+#lightbox-modal.show { display: flex; }
+#lightbox-modal img {
+  max-width: 95vw;
+  max-height: 82vh;
+  border-radius: 10px;
+  border: 2px solid var(--ac);
+  object-fit: contain;
+}
+
+/* النوافذ الحوارية والإشعارات البديلة عن alert/confirm/prompt */
+#toast-container {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 250;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+.toast-msg {
+  background: #0f3d56;
+  color: #fff;
+  border: 1px solid #2dd4bf;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+#ui-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 25, 37, 0.72);
+  backdrop-filter: blur(3px);
+  z-index: 220;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+#ui-modal.show { display: flex; }
+.ui-modal-box {
+  background: var(--cd);
+  border: 1.5px solid var(--ac);
+  border-radius: 14px;
+  max-width: 430px;
+  width: 100%;
+  padding: 18px;
+  box-shadow: 0 20px 36px rgba(0,0,0,0.5);
+}
+
 /* App Footer Credit */
 .app-footer-credit {
   text-align: center;
@@ -438,15 +598,15 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 }
 
 /* Executive Report Styling */
-#rep {
+#rep, #hrep {
   background: var(--cd);
   border: 1px solid var(--bd);
   border-radius: 12px;
   padding: 20px;
   box-shadow: var(--sh);
 }
-#rep.big { font-size: 17px; }
-#rep.big table { font-size: 15.5px; }
+#rep.big, #hrep.big { font-size: 17px; }
+#rep.big table, #hrep.big table { font-size: 15.5px; }
 
 .rep-banner {
   display: flex;
@@ -621,7 +781,7 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  .np, nav.bottom-nav, header.app-hdr, .role-bar, .save-bar, .mini-btn, .app-footer-credit {
+  .np, nav.bottom-nav, header.app-hdr, .role-bar, .save-bar, .mini-btn, .app-footer-credit, #toast-container, #ui-modal, #lightbox-modal {
     display: none !important;
   }
   @page {
@@ -642,7 +802,7 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
     padding: 0 !important;
     margin: 0 !important;
   }
-  #rep {
+  #rep, #hrep {
     background: var(--cd) !important;
     border: 1px solid var(--bd) !important;
     box-shadow: none !important;
@@ -692,9 +852,9 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
     font-size: 10.5px !important;
     padding: 1px 7px !important;
   }
-  .hosp-block, .keep {
-    break-inside: auto !important;
-    page-break-inside: auto !important;
+  .hosp-block, .keep, .hrep-photo-box {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
     margin-bottom: 8px !important;
     padding: 9px !important;
     background: var(--cd2) !important;
@@ -731,10 +891,33 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
   </div>
   <div class="hdr-actions">
     <button class="theme-btn" data-a="cloudsync" type="button" title="مزامنة فورية مع السيرفر السحابي">🔄 مزامنة سحابية</button>
-    <button class="theme-btn save-Self-btn" data-a="selfhtml" type="button" title="يحفظ جميع الزيارات داخل ملف البرنامج نفسه">💿 حفظ بملف البرنامج</button>
+    <button class="theme-btn save-Self-btn" data-a="selfhtml" type="button" title="يحفظ جميع الزيارات والصور داخل ملف البرنامج نفسه">💿 حفظ بملف البرنامج</button>
     <button class="theme-btn" id="themeBtn" type="button">☀️ الوضع النهاري</button>
   </div>
 </header>
+
+<div id="toast-container" class="np"></div>
+
+<!-- نافذة حوارية مخصصة بديلة عن alert / confirm / prompt -->
+<div id="ui-modal" class="np">
+  <div class="ui-modal-box">
+    <h3 id="ui-modal-title" style="margin:0 0 8px;color:var(--ac);font-size:16.5px">تنبيه المنظومة</h3>
+    <p id="ui-modal-msg" style="margin:0 0 12px;font-size:14px;white-space:pre-line"></p>
+    <input id="ui-modal-input" style="display:none;margin-bottom:12px" />
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button type="button" id="ui-modal-ok" class="pri" style="width:auto;min-width:95px;margin:0">موافق</button>
+      <button type="button" id="ui-modal-cancel" class="sec" style="width:auto;min-width:85px;margin:0;display:none">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- عارض الصور المكبر Lightbox -->
+<div id="lightbox-modal" class="np" data-a="close-lb">
+  <img id="lightbox-img" src="" alt="صورة الملاحظة">
+  <div id="lightbox-cap" style="color:#fff;margin-top:10px;font-weight:700;font-size:14px;text-align:center"></div>
+  <button type="button" class="theme-btn" style="margin-top:10px;background:#dc2626;border-color:#fca5a5" data-a="close-lb">✕ إغلاق الصورة</button>
+</div>
+
 <div class="role-bar np" id="roleBar"></div>
 <div class="save-bar np">
   <div class="save-bar-inner">
@@ -753,8 +936,9 @@ tbody tr:nth-child(even) { background: var(--row-alt); }
 <nav class="bottom-nav np">
   <button data-v="list">📋 الزيارات</button>
   <button data-a="new">➕ زيارة جديدة</button>
-  <button data-v="mgr">👑 ملخص المدير</button>
+  <button data-v="hrep">🏥 تقرير المستشفى بالصور</button>
   <button data-v="rep">📑 التقرير الأسبوعي</button>
+  <button data-v="mgr">👑 ملخص المدير</button>
   <button data-v="set">⚙️ الإعدادات</button>
 </nav>
 <script id="db-seed">
@@ -764,10 +948,18 @@ window.__SEED_DB__ = {
   "listsUpd": 1794320960835,
   "ins": "",
   "inspectors": [
-  "د. مجدي محمد سعد",
-  "مفتش الرعاية الحرجة (2)",
-  "مفتش الرعاية الحرجة (3)"
-],
+    "د. مجدي محمد سعد",
+    "د. ابراهيم المهدي شحاته",
+    "د. طاهر",
+    "د.حسين",
+    "د. احمد شميس",
+    "د. محمد طه",
+    "د. نبيله",
+    "د. ضحي",
+    "د.ايه صلاح الدين",
+    "مفتش الرعاية الحرجة (2)",
+    "مفتش الرعاية الحرجة (3)"
+  ],
   "mgr": "د/نجلاء فتحي",
   "undersec": "د/حموده الجزار",
   "mgrPin": "Nm$2026",
@@ -1047,9 +1239,124 @@ const fmt = d => d ? d.split('-').reverse().join('/') : '';
 const st = (n, v) => n.done ? 'تم التلافي' : (addDays(v.date, n.days) < today() ? 'متأخر' : 'قيد المتابعة');
 const occ = i => (+i.beds > 0 && i.cases !== '') ? Math.round(i.cases / i.beds * 1000) / 10 : null;
 
+// ---------- CUSTOM NON-BLOCKING UI MODALS & TOASTS ----------
+function showToast(msg, duration = 3000) {
+  const box = $('#toast-container');
+  if (!box) return;
+  const el = document.createElement('div');
+  el.className = 'toast-msg';
+  el.textContent = msg;
+  box.appendChild(el);
+  setTimeout(() => el.remove(), duration);
+}
+
+function uiDialog({ title = 'تنبيه المنظومة', msg = '', mode = 'alert', defaultVal = '', inputType = 'text' }) {
+  return new Promise(resolve => {
+    const modal = $('#ui-modal');
+    const titleEl = $('#ui-modal-title');
+    const msgEl = $('#ui-modal-msg');
+    const inpEl = $('#ui-modal-input');
+    const okBtn = $('#ui-modal-ok');
+    const cancelBtn = $('#ui-modal-cancel');
+
+    titleEl.textContent = title;
+    msgEl.textContent = msg;
+
+    if (mode === 'prompt') {
+      inpEl.style.display = 'block';
+      inpEl.type = inputType;
+      inpEl.value = defaultVal;
+    } else {
+      inpEl.style.display = 'none';
+    }
+
+    cancelBtn.style.display = (mode === 'confirm' || mode === 'prompt') ? 'inline-block' : 'none';
+    modal.classList.add('show');
+    if (mode === 'prompt') setTimeout(() => inpEl.focus(), 50);
+
+    const cleanup = () => {
+      modal.classList.remove('show');
+      okBtn.onclick = null;
+      cancelBtn.onclick = null;
+      inpEl.onkeydown = null;
+    };
+
+    okBtn.onclick = () => {
+      const val = inpEl.value;
+      cleanup();
+      resolve(mode === 'prompt' ? val : true);
+    };
+    cancelBtn.onclick = () => {
+      cleanup();
+      resolve(mode === 'prompt' ? null : false);
+    };
+    inpEl.onkeydown = e => {
+      if (e.key === 'Enter') { e.preventDefault(); okBtn.click(); }
+    };
+  });
+}
+const uiAlert = (msg, title = 'تنبيه المنظومة') => uiDialog({ title, msg, mode: 'alert' });
+const uiConfirm = (msg, title = 'تأكيد الإجراء') => uiDialog({ title, msg, mode: 'confirm' });
+const uiPrompt = (msg, defaultVal = '', inputType = 'text', title = 'إدخال بيانات') => uiDialog({ title, msg, mode: 'prompt', defaultVal, inputType });
+
+function openLightbox(src, cap = '') {
+  const m = $('#lightbox-modal');
+  const img = $('#lightbox-img');
+  const c = $('#lightbox-cap');
+  if (!m || !img) return;
+  img.src = src;
+  c.textContent = cap || '';
+  m.classList.add('show');
+}
+
+// ---------- SANITIZE INSPECTORS (منع الأسماء المقطعة نهائياً) ----------
+function cleanInspectorNames(list) {
+  if (!Array.isArray(list)) return [...window.__SEED_DB__.inspectors];
+  const badFragments = /^(ا|أ|إ|اب|ابر|ابرا|ابراه|ابراهي|إبراهي|د|د\.|د\/|م|مف|مفت|مفتش)$/;
+  const out = list
+    .map(x => String(x || '').trim())
+    .filter(x => x.length >= 5 && !badFragments.test(x));
+  return out.length ? [...new Set(out)] : [...window.__SEED_DB__.inspectors];
+}
+
+// ---------- SMART CLIENT-SIDE IMAGE COMPRESSION ENGINE ----------
+function compressImageFile(file, maxDim = 920, quality = 0.68) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('تعذر قراءة ملف الصورة'));
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('ملف الصورة غير صالح'));
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+          else { w = Math.round((w * maxDim) / h); h = maxDim; }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        // تصدير بصيغة مضغوطة عالية الوضوح (~35-50 كيلوبايت للصورة)
+        let dataUrl = canvas.toDataURL('image/webp', quality);
+        if (!dataUrl.startsWith('data:image/webp')) {
+          dataUrl = canvas.toDataURL('image/jpeg', quality);
+        }
+        resolve(dataUrl);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 let unsavedDisk = false;
 let role = 'inspector'; // 'inspector' | 'manager'
 let mgrFilter = { hosp: '', grade: '', status: 'open', ins: '' };
+let hrepState = { visitId: '', showPhotos: true, big: false };
 
 // ---------- MULTI-LAYER STORAGE & MERGE ENGINE ----------
 function mergeDBs(base, incoming) {
@@ -1059,7 +1366,7 @@ function mergeDBs(base, incoming) {
   out.deletedIds = [...delSet];
 
   if ((incoming.upd || 0) >= (out.upd || 0)) {
-    if (incoming.ins) out.ins = incoming.ins;
+    if (incoming.ins && incoming.ins.trim().length >= 5) out.ins = incoming.ins.trim();
     if (typeof incoming.mgr === 'string' && incoming.mgr) out.mgr = incoming.mgr;
     if (typeof incoming.undersec === 'string' && incoming.undersec) out.undersec = incoming.undersec;
     if (typeof incoming.mgrPin === 'string' && incoming.mgrPin) out.mgrPin = incoming.mgrPin;
@@ -1076,14 +1383,16 @@ function mergeDBs(base, incoming) {
 
   const outL = out.listsUpd || 0, inL = incoming.listsUpd || 0;
   if (inL > outL) {
-    if (incoming.inspectors && incoming.inspectors.length) out.inspectors = [...incoming.inspectors];
+    if (incoming.inspectors && incoming.inspectors.length) out.inspectors = cleanInspectorNames(incoming.inspectors);
     if (incoming.hospitals && incoming.hospitals.length) out.hospitals = [...incoming.hospitals];
     out.listsUpd = inL;
   } else {
     out.hospitals = out.hospitals && out.hospitals.length ? out.hospitals : [...(incoming.hospitals || [])];
-    out.inspectors = out.inspectors && out.inspectors.length ? out.inspectors : [...(incoming.inspectors || [])];
+    out.inspectors = cleanInspectorNames(out.inspectors && out.inspectors.length ? out.inspectors : (incoming.inspectors || []));
   }
-  if (out.ins && !out.inspectors.includes(out.ins)) out.inspectors.unshift(out.ins);
+  if (out.ins && out.ins.trim().length >= 5 && !out.inspectors.includes(out.ins)) {
+    out.inspectors.unshift(out.ins);
+  }
   (incoming.bank || []).forEach(b => {
     if (b && b.desc && !out.bank.some(x => x.desc === b.desc)) out.bank.push(b);
   });
@@ -1092,10 +1401,25 @@ function mergeDBs(base, incoming) {
   [...(out.visits || []), ...(incoming.visits || [])].forEach(v => {
     if (!v || !v.id || delSet.has(v.id)) return;
     const prev = vMap.get(v.id);
-    if (!prev || (v.upd || 0) >= (prev.upd || 0)) vMap.set(v.id, v);
+    if (!prev) {
+      vMap.set(v.id, v);
+    } else {
+      // الحفاظ على الصور المرفقة عند الدمج حتى لو تم التحديث من جهاز آخر
+      const winner = (v.upd || 0) >= (prev.upd || 0) ? v : prev;
+      const loser = winner === v ? prev : v;
+      (winner.notes || []).forEach((n, idx) => {
+        if ((!n.photos || !n.photos.length) && loser.notes && loser.notes[idx] && Array.isArray(loser.notes[idx].photos)) {
+          n.photos = loser.notes[idx].photos;
+        }
+      });
+      vMap.set(v.id, winner);
+    }
   });
   out.visits = [...vMap.values()];
-  try { const me = localStorage.getItem('mrur_me'); if (me) out.ins = me; } catch (e) {}
+  try {
+    const me = localStorage.getItem('mrur_me');
+    if (me && me.trim().length >= 5) out.ins = me.trim();
+  } catch (e) {}
   return out;
 }
 
@@ -1104,9 +1428,12 @@ try {
   const lsRaw = localStorage.getItem('mrur1');
   if (lsRaw) db = mergeDBs(db, JSON.parse(lsRaw));
 } catch (e) {}
-if (!db.inspectors || !db.inspectors.length) db.inspectors = [db.ins || 'د. مجدي محمد سعد'];
-if (!db.mgrPin) db.mgrPin = '1234';
-try { const _me = localStorage.getItem('mrur_me'); if (_me) db.ins = _me; } catch (e) {}
+db.inspectors = cleanInspectorNames(db.inspectors);
+if (!db.mgrPin) db.mgrPin = 'Nm$2026';
+try {
+  const _me = localStorage.getItem('mrur_me');
+  if (_me && _me.trim().length >= 5) db.ins = _me.trim();
+} catch (e) {}
 
 function idbOp(mode, cb) {
   try {
@@ -1136,9 +1463,19 @@ function updateSaveIndicator(msg) {
 
 const save = (markUnsaved = true, triggerCloud = true) => {
   db.upd = Date.now();
+  db.inspectors = cleanInspectorNames(db.inspectors);
   if (markUnsaved) unsavedDisk = true;
   const raw = JSON.stringify(db);
-  try { localStorage.setItem('mrur1', raw); } catch (e) {}
+  try {
+    localStorage.setItem('mrur1', raw);
+  } catch (e) {
+    // في حال امتلأت localStorage بسبب كثرة الصور، نحفظ النص في localStorage وتبقى الصور كاملة في IndexedDB والسحابة
+    try {
+      const lite = JSON.parse(raw);
+      (lite.visits || []).forEach(v => (v.notes || []).forEach(n => { delete n.photos; }));
+      localStorage.setItem('mrur1', JSON.stringify(lite));
+    } catch (err) {}
+  }
   try { window.name = 'MRUR_CACHE:' + raw; } catch (e) {}
   idbOp('readwrite', st => st.put(db, 'main'));
   updateSaveIndicator();
@@ -1160,7 +1497,6 @@ idbOp('readonly', st => {
     if (g.result) {
       const beforeCnt = db.visits.length;
       db = mergeDBs(db, g.result);
-      try { localStorage.setItem('mrur1', JSON.stringify(db)); } catch (e) {}
       if (db.visits.length !== beforeCnt || view === 'list') render();
       updateSaveIndicator();
     }
@@ -1179,8 +1515,7 @@ async function cloudSyncRun(silent = false) {
   const key = (db.sbKey || '').trim();
   if (!url || !key) {
     if (!silent) {
-      alert('الربط السحابي غير مفعل بعد.\nادخل إلى تبويب (⚙️ الإعدادات) وأدخل رابط Supabase والمفتاح لتفعيل المزامنة الفورية بين المفتشين ومدير الإدارة.');
-      go('set');
+      await uiAlert('الربط السحابي غير مفعل بعد.\nادخل بوضع المدير إلى تبويب (⚙️ الإعدادات) لتفعيل المزامنة الفورية.');
     }
     return;
   }
@@ -1219,9 +1554,9 @@ async function cloudSyncRun(silent = false) {
     save(false, false);
     render();
     updateSaveIndicator(`☁️ تمت المزامنة السحابية بنجاح (${new Date().toLocaleTimeString('ar-EG')}) — إجمالي الزيارات: <b>${db.visits.length}</b>`);
-    if (!silent) alert('☁️ تمت المزامنة السحابية بنجاح وتحديث كافة الزيارات والملاحظات!');
+    if (!silent) showToast('☁️ تمت المزامنة السحابية بنجاح وتحديث كافة الزيارات والصور!');
   } catch (err) {
-    if (!silent) alert('تعذّرت المزامنة السحابية: ' + err.message);
+    if (!silent) await uiAlert('تعذّرت المزامنة السحابية: ' + err.message);
     updateSaveIndicator('⚠️ تعذّر الاتصال بالسحابة — البيانات محفوظة محلياً بأمان');
   }
 }
@@ -1247,7 +1582,7 @@ const IND = [
 ];
 
 const getCats = () => [...new Set(db.bank.map(b => b.cat).filter(Boolean))];
-const newNote = () => ({ desc: '', act: '', cat: '', grade: 'متوسط', days: 7, done: '', closedBy: '', followup: '', tobank: false });
+const newNote = () => ({ desc: '', act: '', cat: '', grade: 'متوسط', days: 7, done: '', closedBy: '', followup: '', photos: [], tobank: false });
 
 // Theme Toggle
 const themeBtn = $('#themeBtn');
@@ -1262,23 +1597,38 @@ themeBtn.addEventListener('click', () => {
   setTheme(isDark ? 'light' : 'dark');
 });
 
-const getMe = () => { try { return localStorage.getItem('mrur_me') || ''; } catch (e) { return ''; } };
+const getMe = () => {
+  try {
+    const val = (localStorage.getItem('mrur_me') || '').trim();
+    return val.length >= 5 ? val : '';
+  } catch (e) { return ''; }
+};
+
 async function registerMe(name) {
   name = (name || '').trim();
-  if (!name) { alert('اكتب اسمك أولاً'); return; }
+  if (name.length < 5) {
+    await uiAlert('يرجى اختيار أو كتابة الاسم الثلاثي الكامل للمفتش (5 أحرف على الأقل).');
+    return;
+  }
   try { localStorage.setItem('mrur_me', name); } catch (e) {}
   if (db.sbUrl && db.sbKey) { try { await cloudSync(true); } catch (e) {} }
   db.ins = name;
-  if (!db.inspectors.includes(name)) { db.inspectors.push(name); db.listsUpd = Date.now(); }
+  if (!db.inspectors.includes(name)) {
+    db.inspectors.push(name);
+    db.inspectors = cleanInspectorNames(db.inspectors);
+    db.listsUpd = Date.now();
+  }
   save(true, true);
+  showToast('✅ تم تسجيل اسم القائم بالمرور: ' + name);
   render();
 }
-// المفتش يرى تقاريره فقط، والمدير يرى الكل
+
 const myVisits = () => (role === 'manager' || !getMe()) ? db.visits : db.visits.filter(v => v.ins === getMe());
 
 function syncMgrNav() {
-  document.querySelectorAll('[data-v="mgr"]').forEach(b => { if (b.closest('.bottom-nav')) b.style.display = role === 'manager' ? '' : 'none'; });
+  document.body.classList.toggle('mgr-mode', role === 'manager');
 }
+
 function renderRoleBar() {
   syncMgrNav();
   const bar = $('#roleBar');
@@ -1288,10 +1638,11 @@ function renderRoleBar() {
       <div class="role-bar-inner mgr-active">
         <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
           <span class="role-badge role-mgr">👑 وضع مدير الإدارة (${esc(db.mgr || 'صلاحية كاملة')})</span>
-          <small>لديك الصلاحية الحصرية لاعتماد التلافي وإغلاق الملاحظات المفتوحة وتعديل كافة التقارير.</small>
+          <small>لديك الصلاحية الحصرية لاعتماد التلافي وإغلاق الملاحظات المفتوحة ومراجعة تقارير المستشفيات بالصور.</small>
         </div>
-        <div style="display:flex;gap:6px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
           <button type="button" class="theme-btn" data-v="mgr" style="background:#d97706;border-color:#fbbf24">📊 لوحة ملخص المدير</button>
+          <button type="button" class="theme-btn" data-v="set" style="background:#0f3d56;border-color:#2dd4bf">⚙️ الإعدادات</button>
           <button type="button" class="theme-btn" data-a="logoutMgr" style="background:var(--cd2);color:var(--tx);border-color:var(--bd)">🔒 العودة لوضع المفتش</button>
         </div>
       </div>`;
@@ -1300,7 +1651,7 @@ function renderRoleBar() {
       <div class="role-bar-inner">
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1">
           <span class="role-badge role-ins">👨‍⚕️ تسجيل مفتش</span>
-          <input id="regName" placeholder="اختر اسمك أو اكتبه (مرة واحدة فقط)" style="width:auto;min-width:230px;min-height:34px;padding:4px 10px;font-weight:700" list="regList">
+          <input id="regName" placeholder="اختر اسمك من القائمة أو اكتبه كاملاً" style="width:auto;min-width:230px;min-height:34px;padding:4px 10px;font-weight:700" list="regList">
           <datalist id="regList">${db.inspectors.map(x => `<option value="${esc(x)}">`).join('')}</datalist>
           <button type="button" class="theme-btn" data-a="regMe">✅ حفظ اسمي</button>
         </div>
@@ -1315,7 +1666,7 @@ function renderRoleBar() {
           <select id="activeInsSel" style="width:auto;min-width:210px;min-height:34px;padding:4px 10px;font-weight:700">
             ${insOpts}
           </select>
-          <small>تُسجل التقرير المبدئي وإفادات المتابعة (إغلاق الملاحظات بصلاحية مدير الإدارة فقط).</small>
+          <small>تُسجل التقرير المبدئي وصور الملاحظات لتقرير المستشفى (إغلاق الملاحظات بصلاحية مدير الإدارة فقط).</small>
         </div>
         <button type="button" class="theme-btn" data-a="loginMgr" style="background:#d97706;border-color:#fbbf24">👑 دخول مدير الإدارة (PIN)</button>
       </div>`;
@@ -1324,14 +1675,22 @@ function renderRoleBar() {
 
 function render() {
   renderRoleBar();
+  if ((view === 'mgr' || view === 'set') && role !== 'manager') view = 'list';
   $$('nav.bottom-nav button[data-v]').forEach(b => b.classList.toggle('on', b.dataset.v == view || (view == 'form' && b.dataset.v == 'list')));
-  if (view == 'mgr' && role !== 'manager') view = 'list';
-  $('#app').innerHTML = view == 'list' ? listV() : view == 'form' ? formV() : view == 'mgr' ? mgrV() : view == 'rep' ? repV() : setV();
+  $('#app').innerHTML =
+    view == 'list' ? listV() :
+    view == 'form' ? formV() :
+    view == 'hrep' ? hospRepV() :
+    view == 'mgr' ? mgrV() :
+    view == 'rep' ? repV() : setV();
   if (view == 'form') upd();
   updateSaveIndicator();
 }
 const go = v => {
-  if (v === 'mgr' && role !== 'manager') v = 'list';
+  if ((v === 'mgr' || v === 'set') && role !== 'manager') {
+    showToast('🔒 هذا القسم مخصص لمدير الإدارة فقط');
+    return;
+  }
   if (view === 'form' && cur) collect();
   view = v;
   render();
@@ -1358,17 +1717,22 @@ function listV() {
       const doneCnt = v.notes.filter(n => n.desc && n.done).length;
       const followCnt = v.notes.filter(n => n.desc && !n.done && n.followup && n.followup.trim()).length;
       const validNotesCnt = v.notes.filter(n => n.desc && n.desc.trim()).length;
+      const photosCnt = v.notes.reduce((sum, n) => sum + ((n.photos && n.photos.length) || 0), 0);
       const canDel = (role === 'manager' || v.status !== 'done');
       return `
       <div class="cd" data-a="open" data-id="${v.id}" style="cursor:pointer">
         <div style="display:flex;justify-content:space-between;align-items:center;padding-left:42px;flex-wrap:wrap;gap:6px">
           <b style="font-size:16px;color:var(--ac)">🏥 ${esc(v.hosp)}</b>
-          <div>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+            <button type="button" class="theme-btn" data-a="open-hrep" data-id="${v.id}" style="background:#0f3d56;border-color:#2dd4bf;padding:3px 10px;min-height:28px;font-size:12px">
+              🏥 تقرير المستشفى ${photosCnt ? `📷 (${photosCnt})` : ''}
+            </button>
             <span class="bd ${v.status}">${v.status == 'done' ? '🔒 تقرير مبدئي معتمد' : '📝 مسودة مفتش'}</span>
           </div>
         </div>
         <div style="margin-top:6px;font-size:13px;color:var(--mu)">
           📅 ${fmt(v.date)} &nbsp;|&nbsp; 👨‍⚕️ ${esc(v.ins || db.ins)} &nbsp;|&nbsp; 📝 ${validNotesCnt} ملاحظة
+          ${photosCnt ? ` &nbsp;|&nbsp; <span style="color:var(--ac);font-weight:700">📷 ${photosCnt} صورة موثقة</span>` : ''}
           ${doneCnt ? ` &nbsp;|&nbsp; <span style="color:var(--gn);font-weight:700">✅ ${doneCnt} مغلقة</span>` : ''}
           ${openCrit ? ` &nbsp;|&nbsp; <span style="color:var(--rd);font-weight:700">🔴 ${openCrit} حرج مفتوح</span>` : ''}
           ${followCnt ? ` &nbsp;|&nbsp; <span style="color:var(--pu);font-weight:700">💬 ${followCnt} إفادة متابعة للمدير</span>` : ''}
@@ -1379,7 +1743,7 @@ function listV() {
   `;
 }
 
-// ---------- FORM VIEW (Role-Aware Locking) ----------
+// ---------- FORM VIEW (With Smart Camera & Photo Attachments) ----------
 function noteH(n, i, isLockedForIns) {
   const cats = getCats();
   const gOpts = ['حرج', 'متوسط', 'بسيط'].map(x => `<option ${n.grade == x ? 'selected' : ''}>${x}</option>`).join('');
@@ -1387,12 +1751,16 @@ function noteH(n, i, isLockedForIns) {
   const listId = `bank_${i}`;
   const filteredBank = n.cat ? db.bank.filter(b => b.cat == n.cat) : db.bank;
   const dis = isLockedForIns ? 'disabled' : '';
+  const photos = Array.isArray(n.photos) ? n.photos : [];
 
   return `
   <div class="cd note" data-n="${i}" style="border-right:4px solid ${n.done ? '#22c55e' : n.grade=='حرج'?'#ef4444':n.grade=='متوسط'?'#f59e0b':'#3b82f6'}">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding-left:40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-left:40px;flex-wrap:wrap;gap:6px">
       <b style="font-size:13px;color:var(--mu)">ملاحظة #${i + 1} ${isLockedForIns ? '🔒 (معتمدة بالتقرير المبدئي)' : ''}</b>
-      ${n.done ? `<span class="pill p-gn">✅ تم إغلاقها بمعرفة المدير (${fmt(n.done)})</span>` : `<span class="pill p-or">⏳ مفتوحة للمتابعة</span>`}
+      <div style="display:flex;gap:6px;align-items:center">
+        ${photos.length ? `<span class="pill p-bl">📷 ${photos.length} صورة مرفقة</span>` : ''}
+        ${n.done ? `<span class="pill p-gn">✅ تم إغلاقها بمعرفة المدير (${fmt(n.done)})</span>` : `<span class="pill p-or">⏳ مفتوحة للمتابعة</span>`}
+      </div>
     </div>
 
     <label>المحور الرقابي
@@ -1427,6 +1795,41 @@ function noteH(n, i, isLockedForIns) {
       <input data-f="followup" placeholder="اكتب إفادة المتابعة هنا (مثال: تم توفير المصل ومراجعة الثلاجة بمرور المتابعة)..." value="${esc(n.followup || '')}">
     </label>
 
+    <!-- منطقة توثيق الملاحظة بالصور (تظهر في تقرير المستشفى فقط ولا تظهر في التقرير الأسبوعي) -->
+    <div class="photo-zone">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <b style="font-size:13px;color:var(--ac)">📷 صور توثيق الملاحظة (تظهر في تقرير المستشفى المنفرد فقط)</b>
+          <div style="font-size:11.5px;color:var(--mu)">يتم ضغط الصور تلقائياً لتعمل بسرعة فائقة مع المزامنة السحابية</div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button type="button" class="theme-btn" data-a="addphoto" data-n="${i}" data-ptype="رصد مبدئي" style="background:#0d9488;border-color:#2dd4bf">
+            📸 تصوير / إرفاق صورة رصد
+          </button>
+          <button type="button" class="theme-btn" data-a="addphoto" data-n="${i}" data-ptype="إفادة تلافي" style="background:#7c3aed;border-color:#c4b5fd">
+            ✅ صورة بعد التلافي
+          </button>
+          <input type="file" id="ph_inp_${i}" data-n="${i}" accept="image/*" multiple style="display:none">
+        </div>
+      </div>
+
+      ${photos.length ? `
+        <div class="photo-strip">
+          ${photos.map((p, pidx) => {
+            const src = typeof p === 'string' ? p : p.data;
+            const label = (typeof p === 'object' && p.label) ? p.label : `صورة #${pidx + 1}`;
+            return `
+              <div class="photo-thumb-card">
+                <img src="${src}" alt="${esc(label)}" data-a="zoom-ph" data-src="${src}" data-cap="${esc('ملاحظة #' + (i + 1) + ' (' + label + '): ' + (n.desc || ''))}">
+                <button type="button" class="ph-del" data-a="delphoto" data-n="${i}" data-pidx="${pidx}" title="حذف الصورة">×</button>
+                <div class="ph-cap">${esc(label)}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      ` : ''}
+    </div>
+
     ${!isLockedForIns ? `
       <label class="r" style="margin-top:10px">
         <input type="checkbox" data-f="tobank" ${n.tobank ? 'checked' : ''}> حفظ هذه الملاحظة في البنك الاسترشادي للاستخدام مستقبلاً
@@ -1440,13 +1843,21 @@ function formV() {
   const v = cur, i = v.ind;
   const isLockedForIns = (v.status === 'done' && role !== 'manager');
   const dis = isLockedForIns ? 'disabled' : '';
-  const insList = [...new Set([...db.inspectors, v.ins].filter(Boolean))];
+  const insList = cleanInspectorNames([...db.inspectors, v.ins].filter(Boolean));
+  const totalPhotos = v.notes.reduce((s, n) => s + ((n.photos && n.photos.length) || 0), 0);
 
   return `
+  <div class="cd np" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 14px">
+    <button type="button" class="theme-btn" data-v="list" style="background:var(--cd2);color:var(--tx);border-color:var(--bd)">↩ العودة لقائمة الزيارات</button>
+    <button type="button" class="theme-btn" data-a="open-hrep" data-id="${v.id}" style="background:#0d9488;border-color:#2dd4bf">
+      🏥 معاينة وطباعة تقرير المستشفى بالصور (${totalPhotos} صورة)
+    </button>
+  </div>
+
   ${isLockedForIns ? `
     <div class="cd" style="border-color:var(--or);background:var(--or-bg)">
       <b style="color:var(--or)">🔒 هذا التقرير المبدئي تم اعتماده وإرساله للإدارة.</b>
-      <div style="font-size:13px;margin-top:4px">كمفتش، يمكنك كتابة <b>«💬 إفادة متابعة المفتش»</b> أسفل أي ملاحظة مفتوحة أو إضافة ملاحظة جديدة، بينما ينفرد <b>مدير الإدارة</b> بصلاحية إغلاق الملاحظة النهائية.</div>
+      <div style="font-size:13px;margin-top:4px">كمفتش، يمكنك كتابة <b>«💬 إفادة متابعة المفتش»</b> أو إرفاق <b>«📷 صورة بعد التلافي»</b> أسفل أي ملاحظة مفتوحة، بينما ينفرد <b>مدير الإدارة</b> بصلاحية إغلاق الملاحظة النهائية.</div>
     </div>
   ` : ''}
 
@@ -1485,7 +1896,7 @@ function formV() {
   </div>
 
   <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 8px">
-    <b style="font-size:16px;color:var(--ac)">🔍 الملاحظات والإجراءات التصحيحية (${v.notes.length})</b>
+    <b style="font-size:16px;color:var(--ac)">🔍 الملاحظات والإجراءات التصحيحية وتوثيق الصور (${v.notes.length})</b>
   </div>
   ${v.notes.map((n, idx) => noteH(n, idx, isLockedForIns)).join('')}
   <button class="sec" data-a="addn" style="border:2px dashed var(--ac);color:var(--ac)">➕ إضافة ملاحظة رقابية جديدة</button>
@@ -1503,7 +1914,7 @@ function formV() {
     </label>
     <div class="btn-row">
       ${!isLockedForIns ? `<button class="sec" data-a="draft">💾 حفظ كمسودة مفتش</button>` : ''}
-      <button class="pri" data-a="done">${isLockedForIns ? '💾 حفظ إفادات المتابعة وإرسال للمدير' : '📤 اعتماد التقرير المبدئي وإرساله للمدير'}</button>
+      <button class="pri" data-a="done">${isLockedForIns ? '💾 حفظ إفادات المتابعة والصور وإرسال للمدير' : '📤 اعتماد التقرير المبدئي وإرساله للمدير'}</button>
     </div>
   </div>`;
 }
@@ -1514,6 +1925,7 @@ function upd() {
   if (e) e.textContent = o === null ? '—' : o + '%';
 }
 
+// ملاحظة هامة: لا نضيف اسم المفتش إلى قائمة المفتشين أثناء الكتابة اللحظية لمنع الحروف المقطعة
 function collect() {
   if (!cur || view !== 'form') return;
   const v = cur;
@@ -1522,10 +1934,7 @@ function collect() {
   if (!isLockedForIns) {
     if ($('#h')) v.hosp = $('#h').value;
     if ($('#d')) v.date = $('#d').value;
-    if ($('#ins')) {
-      v.ins = $('#ins').value;
-      if (v.ins && !db.inspectors.includes(v.ins)) db.inspectors.push(v.ins);
-    }
+    if ($('#ins')) v.ins = $('#ins').value;
     if ($('#pos')) v.pos = $('#pos').value;
     if ($('#ch')) v.chall = $('#ch').value;
     $$('[data-i]').forEach(e => v.ind[e.dataset.i] = e.value);
@@ -1538,7 +1947,6 @@ function collect() {
     if (!n) return;
     $$(`.note[data-n="${idx}"] [data-f]`).forEach(f => {
       const field = f.dataset.f;
-      // Inspector cannot alter 'done' or locked fields after submission
       if (field === 'done' && role !== 'manager') return;
       if (isLockedForIns && field !== 'followup' && n.locked) return;
       n[field] = f.type == 'checkbox' ? f.checked : f.value;
@@ -1553,8 +1961,12 @@ function collect() {
 function finish(status) {
   collect();
   cur.status = status;
+  if (cur.ins && cur.ins.trim().length >= 5 && !db.inspectors.includes(cur.ins.trim())) {
+    db.inspectors.push(cur.ins.trim());
+    db.inspectors = cleanInspectorNames(db.inspectors);
+  }
   if (status == 'done') {
-    cur.notes = cur.notes.filter(n => n.desc.trim());
+    cur.notes = cur.notes.filter(n => n.desc.trim() || (n.photos && n.photos.length));
     cur.notes.forEach(n => { n.locked = true; });
   }
   cur.notes.forEach(n => {
@@ -1570,11 +1982,203 @@ function finish(status) {
     n.tobank = false;
   });
   if (cur.date) rep.start = weekStart(cur.date);
+  hrepState.visitId = cur.id;
   save(true, true);
   if (status == 'done' && db.autoDisk) {
     saveSelfContainedHTML();
   }
+  showToast(status === 'done' ? '✅ تم اعتماد التقرير وحفظ الصور بنجاح' : '💾 تم حفظ المسودة بنجاح');
   go('list');
+}
+
+// ---------- SINGLE HOSPITAL REPORT WITH PHOTOS (🏥 تقرير المستشفى بالصور) ----------
+function hospRepV() {
+  const vs = [...myVisits()].sort((a, b) => b.date.localeCompare(a.date) || b.upd - a.upd);
+  if (!vs.length) {
+    return `<div class="cd" style="text-align:center;padding:30px">
+      <p class="mu">لا توجد زيارات مسجلة لعرض تقرير المستشفى المصوّر. سجّل زيارة جديدة أولاً.</p>
+      <button class="pri" data-a="new" style="width:auto">➕ تسجيل زيارة جديدة</button>
+    </div>`;
+  }
+
+  let v = vs.find(x => x.id === hrepState.visitId) || cur || vs[0];
+  hrepState.visitId = v.id;
+
+  const i = v.ind || {};
+  const o = occ(i);
+  const validNotes = (v.notes || []).map((n, idx) => ({ ...n, idx, s: st(n, v) })).filter(n => n.desc || (n.photos && n.photos.length));
+  const doneCnt = validNotes.filter(n => n.s === 'تم التلافي').length;
+  const critCnt = validNotes.filter(n => n.grade === 'حرج' && n.s !== 'تم التلافي').length;
+  const totalPhotos = validNotes.reduce((sum, n) => sum + ((n.photos && n.photos.length) || 0), 0);
+  const rate = validNotes.length ? Math.round((doneCnt / validNotes.length) * 100) : 100;
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+
+  const ctl = `
+  <div class="cd np">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <h3 style="margin:0;color:var(--ac)">🏥 إعدادات تقرير المستشفى التفصيلي والموثّق بالصور</h3>
+      <button type="button" class="theme-btn" data-a="open" data-id="${v.id}" style="background:#0f3d56;border-color:#2dd4bf">✏️ تعديل الزيارة أو إضافة صور</button>
+    </div>
+
+    <div class="g">
+      <label>اختر زيارة المستشفى المراد عرض أو طباعة تقريرها
+        <select id="hrep_sel">
+          ${vs.map(item => {
+            const pCount = (item.notes || []).reduce((s, n) => s + ((n.photos && n.photos.length) || 0), 0);
+            return `<option value="${item.id}" ${item.id === v.id ? 'selected' : ''}>🏥 ${esc(item.hosp)} — 📅 ${fmt(item.date)} (${esc(item.ins || db.ins)}) ${pCount ? `[📷 ${pCount} صورة]` : ''}</option>`;
+          }).join('')}
+        </select>
+      </label>
+      <div style="display:flex;flex-direction:column;justify-content:flex-end;gap:6px">
+        <label class="r" style="margin:0">
+          <input type="checkbox" id="hrep_photos_chk" ${hrepState.showPhotos ? 'checked' : ''}>
+          <span>📷 تضمين صور الملاحظات داخل تقرير المستشفى (${totalPhotos} صورة مرفقة)</span>
+        </label>
+        <label class="r" style="margin:0">
+          <input type="checkbox" id="darkPdf" ${isDark ? 'checked' : ''}>
+          <span>🌙 تصدير التقرير بألوان الوضع الليلي</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="pri" data-a="pdf">🖨️ طباعة / حفظ تقرير المستشفى PDF بالصور</button>
+      <button class="sec" data-a="hrep-html">📄 تنزيل تقرير المستشفى كملف HTML مستقل بالصور</button>
+    </div>
+  </div>`;
+
+  return ctl + `
+  <div id="hrep" class="${hrepState.big ? 'big' : ''}">
+    <div class="rep-banner">
+      <div class="gov-info">
+        مديرية الشئون الصحية بالدقهلية<br>
+        إدارة الرعاية الحرجة والعاجلة<br>
+        تقرير مرور ميداني منفرد وموثّق
+      </div>
+      <div class="rep-main-title">
+        <h1>تقرير المرور الميداني — ${esc(v.hosp)}</h1>
+        <div class="meta-strip">
+          📅 تاريخ المرور: ${fmt(v.date)} &nbsp;|&nbsp; 👨‍⚕️ القائم بالمرور: ${esc(v.ins || db.ins)} &nbsp;|&nbsp; 📷 الصور الموثقة: ${totalPhotos}
+        </div>
+      </div>
+      <div class="rate-box">
+        <b>${rate}%</b>
+        <span>نسبة إنجاز التلافي</span>
+      </div>
+    </div>
+
+    <!-- بطاقات مؤشرات المستشفى -->
+    <div class="k">
+      <div class="k-card k-bl"><b>${esc(i.beds || '0')} / ${esc(i.cases || '0')}</b>أسرة العناية / الإشغال (${o === null ? '—' : o + '%'})</div>
+      <div class="k-card k-rd"><b>${esc(i.deaths || '0')}</b>حالات الوفيات</div>
+      <div class="k-card k-gn"><b>${esc(i.ops || '0')}</b>العمليات المجراة</div>
+      <div class="k-card k-or"><b>${esc(i.postponed || '0')}</b>العمليات المؤجلة</div>
+      <div class="k-card ${+i.sera > 0 ? 'k-rd' : 'k-gn'}"><b>${esc(i.sera || '0')} / 5</b>الأمصال الصفرية</div>
+      <div class="k-card ${i.cart === 'لا' ? 'k-rd' : 'k-gn'}"><b>${esc(i.cart || '—')}</b>اكتمال عربة الطوارئ</div>
+    </div>
+
+    ${v.pos && v.pos.trim() ? `
+      <div class="sec-hdr">✅ أولاً: الإيجابيات ونقاط القوة المرصودة بالمستشفى</div>
+      <div class="pos-box">${esc(v.pos).replace(/\n/g, '<br>')}</div>
+    ` : ''}
+
+    <div class="sec-hdr">🔍 ثانياً: بيان الملاحظات المرصودة والإجراءات التصحيحية (${validNotes.length})</div>
+    ${validNotes.length ? `
+      <div class="sc">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:5%">م</th>
+              <th style="width:33%">الملاحظة المرصودة</th>
+              <th style="width:30%">الإجراء التصحيحي المطلوب</th>
+              <th style="width:10%">الخطورة</th>
+              <th style="width:10%">موعد التلافي</th>
+              <th style="width:12%">الحالة والاعتماد</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${validNotes.map((n, idx) => `
+              <tr>
+                <td class="c"><b>${idx + 1}</b></td>
+                <td>
+                  ${n.cat ? `<small style="display:block;color:var(--ac);font-weight:800;margin-bottom:2px">${esc(n.cat)}</small>` : ''}
+                  ${esc(n.desc)}
+                  ${n.followup ? `<div class="followup-box"><b>💬 إفادة المتابعة:</b> ${esc(n.followup)}</div>` : ''}
+                  ${(n.photos && n.photos.length) ? `<div style="margin-top:4px"><span class="pill p-bl">📷 موثق بـ ${n.photos.length} صورة بالملحق المصور</span></div>` : ''}
+                </td>
+                <td>${esc(n.act)}</td>
+                <td class="c">${gradeBadge(n.grade)}</td>
+                <td class="c">${fmt(addDays(v.date, n.days))}</td>
+                <td class="c">${statusBadge(n.s, v.id, n.idx, n.done, n.closedBy)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    ` : '<p class="mu">لا توجد ملاحظات سلبية مرصودة في هذه الزيارة.</p>'}
+
+    <!-- الملحق المصور لتوثيق الملاحظات (خاص بتقرير المستشفى فقط) -->
+    ${hrepState.showPhotos && totalPhotos > 0 ? `
+      <div class="sec-hdr">📸 ثالثاً: التوثيق المصوّر للملاحظات وإفادات التلافي (${totalPhotos} صورة)</div>
+      ${validNotes.filter(n => n.photos && n.photos.length).map((n, idx) => `
+        <div class="hosp-block keep" style="margin-bottom:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:8px;border-bottom:1px solid var(--bd);padding-bottom:6px">
+            <div>
+              <b style="color:var(--ac)">📌 صور الملاحظة (${idx + 1}): ${esc(n.desc)}</b>
+              ${n.cat ? `<div style="font-size:12px;color:var(--mu)">المحور: ${esc(n.cat)} | الإجراء: ${esc(n.act)}</div>` : ''}
+            </div>
+            <div>${gradeBadge(n.grade)} ${statusBadge(n.s)}</div>
+          </div>
+          <div class="hrep-photo-grid">
+            ${n.photos.map((p, pidx) => {
+              const src = typeof p === 'string' ? p : p.data;
+              const label = (typeof p === 'object' && p.label) ? p.label : `صورة توثيقية #${pidx + 1}`;
+              const time = (typeof p === 'object' && p.time) ? p.time : fmt(v.date);
+              return `
+                <div class="hrep-photo-box">
+                  <img src="${src}" alt="${esc(label)}" data-a="zoom-ph" data-src="${src}" data-cap="${esc(v.hosp + ' — ' + n.desc)}">
+                  <div class="hrep-photo-meta">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                      <b style="color:var(--ac)">${esc(label)}</b>
+                      <small>${esc(time)}</small>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `).join('')}
+    ` : ''}
+
+    ${v.chall && v.chall.trim() ? `
+      <div class="sec-hdr">⚠️ التحديات وطلب دعم المديرية</div>
+      <div class="chall-box">${esc(v.chall).replace(/\n/g, '<br>')}</div>
+    ` : ''}
+
+    <div class="sig-grid">
+      <div class="sig-col">
+        <div class="sig-role">القائم بالمرور الميداني</div>
+        <div class="sig-name">${esc(v.ins || db.ins)}</div>
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-role">مدير إدارة الرعاية الحرجة والعاجلة</div>
+        <div class="sig-name">${esc(db.mgr)}</div>
+        <div class="sig-line"></div>
+      </div>
+      <div class="sig-col">
+        <div class="sig-role">يعتمد ، وكيل وزارة الصحة بالدقهلية</div>
+        <div class="sig-name">${esc(db.undersec)}</div>
+        <div class="sig-line"></div>
+      </div>
+    </div>
+
+    <div class="rep-designer-footer">
+      <span>تقرير مستشفى تفصيلي – إدارة الرعاية الحرجة والعاجلة بصحة الدقهلية</span>
+      <span>تصميم وتطوير المنظومة الرقمية: <b>د. مجدي محمد سعد</b></span>
+    </div>
+  </div>`;
 }
 
 // ---------- MANAGER EXECUTIVE DASHBOARD VIEW (👑 ملخص المدير) ----------
@@ -1589,15 +2193,15 @@ function mgrV() {
   const readyForReview = openNotes.filter(n => n.followup && n.followup.trim());
   const rate = allNotes.length ? Math.round((doneNotes.length / allNotes.length) * 100) : 100;
 
-  // Inspector summary matrix
   const insMap = new Map();
   db.visits.forEach(v => {
     const name = v.ins || 'غير محدد';
-    if (!insMap.has(name)) insMap.set(name, { name, visits: 0, totalN: 0, openN: 0, critOpen: 0, followups: 0 });
+    if (!insMap.has(name)) insMap.set(name, { name, visits: 0, totalN: 0, openN: 0, critOpen: 0, followups: 0, photos: 0 });
     const rec = insMap.get(name);
     rec.visits++;
     v.notes.filter(n => n.desc && n.desc.trim()).forEach(n => {
       rec.totalN++;
+      rec.photos += (n.photos && n.photos.length) || 0;
       if (!n.done) {
         rec.openN++;
         if (n.grade === 'حرج') rec.critOpen++;
@@ -1607,7 +2211,6 @@ function mgrV() {
   });
   const insStats = [...insMap.values()];
 
-  // Filtered notes for manager action table
   const filtered = allNotes.filter(n => {
     if (mgrFilter.status === 'open' && n.done) return false;
     if (mgrFilter.status === 'followup' && (!n.followup || !n.followup.trim() || n.done)) return false;
@@ -1626,11 +2229,9 @@ function mgrV() {
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
       <div>
         <h2 style="margin:0;color:var(--ac);font-size:19px">👑 لوحة القيادة وملخص مدير الإدارة</h2>
-        <small>متابعة حية لكافة تقارير المفتشين، الملاحظات المفتوحة، واعتماد إغلاق الملاحظات</small>
+        <small>متابعة حية لكافة تقارير المفتشين، الصور المرفقة، واعتماد إغلاق الملاحظات</small>
       </div>
-      ${role !== 'manager'
-        ? `<button type="button" class="mgr-btn" data-a="loginMgr" style="width:auto;margin:0">🔐 تفعيل صلاحية المدير لإغلاق الملاحظات</button>`
-        : `<span class="role-badge role-mgr">✅ صلاحية الإغلاق والاعتماد مفعلة</span>`}
+      <span class="role-badge role-mgr">✅ صلاحية الإغلاق والاعتماد مفعلة</span>
     </div>
 
     <div class="k" style="margin-top:14px">
@@ -1652,9 +2253,10 @@ function mgrV() {
             <th>اسم المفتش (القائم بالمرور)</th>
             <th>عدد الزيارات</th>
             <th>إجمالي الملاحظات</th>
+            <th>الصور الموثقة</th>
             <th>المفتوحة حالياً</th>
             <th>الحرجة المفتوحة</th>
-            <th>إفادات بانتظار اعتماد المدير</th>
+            <th>إفادات بانتظار الاعتماد</th>
           </tr>
         </thead>
         <tbody>
@@ -1663,18 +2265,19 @@ function mgrV() {
               <td><b>${esc(s.name)}</b></td>
               <td class="c">${s.visits}</td>
               <td class="c">${s.totalN}</td>
+              <td class="c">${s.photos ? `<span class="pill p-bl">📷 ${s.photos}</span>` : '0'}</td>
               <td class="c"><span class="pill p-or">${s.openN}</span></td>
               <td class="c">${s.critOpen ? `<span class="pill p-rd">🔴 ${s.critOpen}</span>` : '0'}</td>
               <td class="c">${s.followups ? `<span class="pill p-pu">💬 ${s.followups} جاهزة للاعتماد</span>` : '0'}</td>
             </tr>
-          `).join('') : `<tr><td colspan="6" class="c mu">لا توجد زيارات مسجلة بعد</td></tr>`}
+          `).join('') : `<tr><td colspan="7" class="c mu">لا توجد زيارات مسجلة بعد</td></tr>`}
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="cd">
-    <h3 style="margin:0 0 10px;color:var(--ac)">🔓 جدول التحكم وإغلاق الملاحظات (صلاحية مدير الإدارة)</h3>
+    <h3 style="margin:0 0 10px;color:var(--ac)">🔓 جدول التحكم وإغلاق الملاحظات ومراجعة الصور (صلاحية مدير الإدارة)</h3>
     <div class="g" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px">
       <label>حالة الملاحظة
         <select id="mf_status">
@@ -1708,39 +2311,51 @@ function mgrV() {
       <table>
         <thead>
           <tr>
-            <th style="width:16%">المستشفى / التاريخ</th>
+            <th style="width:17%">المستشفى / التاريخ</th>
             <th style="width:12%">المفتش</th>
-            <th style="width:30%">الملاحظة وإفادة المتابعة</th>
-            <th style="width:18%">الإجراء المطلوب</th>
-            <th style="width:9%">الخطورة</th>
+            <th style="width:31%">الملاحظة وإفادة المتابعة والصور</th>
+            <th style="width:17%">الإجراء المطلوب</th>
+            <th style="width:8%">الخطورة</th>
             <th style="width:15%">الحالة وقرار المدير</th>
           </tr>
         </thead>
         <tbody>
-          ${filtered.length ? filtered.map(n => `
+          ${filtered.length ? filtered.map(n => {
+            const phs = Array.isArray(n.photos) ? n.photos : [];
+            return `
             <tr>
               <td>
                 <b>${esc(n.v.hosp)}</b><br>
-                <small>📅 ${fmt(n.v.date)} | مهلة: ${fmt(addDays(n.v.date, n.days))}</small>
+                <small>📅 ${fmt(n.v.date)} | مهلة: ${fmt(addDays(n.v.date, n.days))}</small><br>
+                <button type="button" class="mini-btn" style="background:#0f3d56;margin-top:4px" data-a="open-hrep" data-id="${n.v.id}">🏥 تقرير المستشفى</button>
               </td>
               <td class="c">${esc(n.v.ins || db.ins)}</td>
               <td>
                 ${n.cat ? `<small style="display:block;color:var(--ac);font-weight:800">${esc(n.cat)}</small>` : ''}
                 ${esc(n.desc)}
                 ${n.followup ? `<div class="followup-box"><b>💬 إفادة المفتش:</b> ${esc(n.followup)}</div>` : ''}
+                ${phs.length ? `
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">
+                    ${phs.map((p, pidx) => {
+                      const src = typeof p === 'string' ? p : p.data;
+                      const lbl = (typeof p === 'object' && p.label) ? p.label : `صورة ${pidx + 1}`;
+                      return `<img src="${src}" title="${esc(lbl)}" style="width:48px;height:48px;object-fit:cover;border-radius:6px;border:1px solid var(--ac);cursor:zoom-in" data-a="zoom-ph" data-src="${src}" data-cap="${esc(n.v.hosp + ' — ' + n.desc)}">`;
+                    }).join('')}
+                  </div>
+                ` : ''}
               </td>
               <td>${esc(n.act)}</td>
               <td class="c">${gradeBadge(n.grade)}</td>
               <td class="c">${statusBadge(n.s, n.v.id, n.idx, n.done, n.closedBy)}</td>
             </tr>
-          `).join('') : `<tr><td colspan="6" class="c mu" style="padding:20px">لا توجد ملاحظات مطابقة للفلتر المحدد.</td></tr>`}
+          `}).join('') : `<tr><td colspan="6" class="c mu" style="padding:20px">لا توجد ملاحظات مطابقة للفلتر المحدد.</td></tr>`}
         </tbody>
       </table>
     </div>
   </div>`;
 }
 
-// ---------- REPORT VIEW ----------
+// ---------- WEEKLY AGGREGATED REPORT VIEW (بدون صور ليبقى مختصراً ورسمياً) ----------
 function carry(ws) {
   return db.visits
     .filter(v => v.date < ws && !rep.ex.includes(v.hosp))
@@ -1793,7 +2408,7 @@ function repV() {
 
   const ctl = `
   <div class="cd np">
-    <h3 style="margin:0 0 8px;color:var(--ac)">⚙️ إعدادات التقرير الأسبوعي والاعتماد</h3>
+    <h3 style="margin:0 0 8px;color:var(--ac)">⚙️ إعدادات التقرير الأسبوعي المجمّع (مختصر بدون صور)</h3>
     <div class="g">
       <label>بداية أسبوع التقرير (السبت)
         <input type="date" id="ws" value="${ws}">
@@ -1824,11 +2439,11 @@ function repV() {
     </div>
 
     <div class="btn-row">
-      <button class="pri" data-a="pdf">🖨️ طباعة / حفظ التقرير كـ PDF</button>
-      <button class="sec" data-a="htmlf">📄 تنزيل التقرير كملف HTML مستقل</button>
+      <button class="pri" data-a="pdf">🖨️ طباعة / حفظ التقرير الأسبوعي كـ PDF</button>
+      <button class="sec" data-a="htmlf">📄 تنزيل التقرير الأسبوعي كملف HTML مستقل</button>
       <button class="sec" data-a="csv">📊 تصدير سجل الملاحظات للإكسيل (CSV)</button>
     </div>
-    <small style="display:block;margin-top:6px">💡 تأكد من تفعيل خيار <b>(Background graphics / رسومات الخلفية)</b> في نافذة الطباعة ليحتفظ ملف الـ PDF بألوان الوضع الليلي كاملة.</small>
+    <small style="display:block;margin-top:6px">💡 التقرير الأسبوعي يعرض الجداول التنفيذية المجمّعة بدون صور. لطباعة تقرير مستشفى منفرد شاملاً الصور اضغط تبويب <b>«🏥 تقرير المستشفى بالصور»</b>.</small>
   </div>`;
 
   if (!vs.length) return ctl + '<div class="cd"><p class="mu" style="text-align:center">لا توجد زيارات مضمّنة في الفترة المحددة.</p></div>';
@@ -1911,7 +2526,10 @@ function repV() {
       <div class="hosp-block keep">
         <div class="hosp-hdr">
           <h3>🏥 ${esc(v.hosp)}</h3>
-          <span style="font-size:12.5px;font-weight:700;color:var(--mu)">تاريخ المرور: ${fmt(v.date)} | القائم بالمرور: ${esc(v.ins || db.ins)}</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span style="font-size:12.5px;font-weight:700;color:var(--mu)">تاريخ المرور: ${fmt(v.date)} | القائم بالمرور: ${esc(v.ins || db.ins)}</span>
+            <button type="button" class="mini-btn np" style="background:#0f3d56" data-a="open-hrep" data-id="${v.id}">🏥 تقرير المستشفى بالصور</button>
+          </div>
         </div>
         ${v.pos.trim() ? `<div class="pos-box"><b>✅ الإيجابيات:</b> ${esc(v.pos).replace(/\n/g, '<br>')}</div>` : ''}
         ${validNotes.length ? `
@@ -2006,7 +2624,7 @@ function repV() {
 function setV() {
   return `
   <div class="cd">
-    <h3 style="margin:0 0 10px;color:var(--ac)">⚙️ إعدادات المسئولين، قائمة المفتشين، والاعتماد</h3>
+    <h3 style="margin:0 0 10px;color:var(--ac)">⚙️ إعدادات المسئولين، قائمة المفتشين، والاعتماد (خاص بمدير الإدارة)</h3>
     <div class="g">
       <label>اسم المفتش الحالي (القائم بالمرور)
         <input id="sins" value="${esc(db.ins)}">
@@ -2018,13 +2636,13 @@ function setV() {
         <input id="sund" value="${esc(db.undersec)}" placeholder="يظهر في اعتماد التقرير النهائي">
       </label>
       <label>الرقم السري (PIN) الخاص بدخول مدير الإدارة
-        <input type="password" id="spin" value="${esc(db.mgrPin || '1234')}" ${role !== 'manager' ? 'disabled title="لتغيير الرقم السري، ادخل أولاً بوضع مدير الإدارة"' : ''}>
+        <input type="password" id="spin" value="${esc(db.mgrPin || 'Nm$2026')}">
       </label>
     </div>
 
     <div class="g" style="margin-top:8px">
       <label>قائمة أسماء المفتشين بالإدارة (مفتش في كل سطر)
-        <textarea id="sinslist" rows="6">${esc((db.inspectors || []).join('\n'))}</textarea>
+        <textarea id="sinslist" rows="6">${esc(cleanInspectorNames(db.inspectors).join('\n'))}</textarea>
       </label>
       <label>قائمة المستشفيات (مستشفى في كل سطر)
         <textarea id="shos" rows="6">${esc(db.hospitals.join('\n'))}</textarea>
@@ -2036,7 +2654,7 @@ function setV() {
   <div class="cd" style="border-color:var(--ac)">
     <h3 style="margin:0 0 8px;color:var(--ac)">☁️ الربط السحابي المباشر (Supabase Cloud) — للمفتشين ومدير الإدارة</h3>
     <p class="mu" style="margin:4px 0 10px;font-size:13px">
-      عند إدخال بيانات مشروع <b>Supabase</b> المجاني هنا، تتحول المنظومة تلقائياً إلى نظام سحابي لحظي؛ أي زيارة يعتمدها المفتش من هاتفه تسمّع فوراً على شاشة مدير الإدارة.
+      عند إدخال بيانات مشروع <b>Supabase</b> المجاني هنا، تتحول المنظومة تلقائياً إلى نظام سحابي لحظي؛ أي زيارة وصور يعتمدها المفتش من هاتفه تسمّع فوراً على شاشة مدير الإدارة.
     </p>
     <div class="g">
       <label>رابط المشروع (Supabase Project URL)
@@ -2048,7 +2666,7 @@ function setV() {
     </div>
     <div class="btn-row">
       <button class="pri" data-a="savesb">☁️ حفظ وتفعيل الربط السحابي الآن</button>
-      <button class="sec" data-a="copysql">📋 نسخ كود إنشاء جدول Supabase (SQL)</button>
+      <button class="sec" data-a="copysql">📋 نسخ كود إنشاء وتأمين جدول Supabase (SQL)</button>
     </div>
   </div>
 
@@ -2058,7 +2676,7 @@ function setV() {
       بنك الملاحظات الاسترشادي: <b>${db.bank.length}</b> بند &nbsp;|&nbsp; إجمالي الزيارات المسجلة: <b>${db.visits.length}</b> زيارة.
     </p>
     <div class="btn-row">
-      <button class="pri" data-a="selfhtml">💿 حفظ نسخة البرنامج شاملة البيانات (HTML ذاتي الحفظ)</button>
+      <button class="pri" data-a="selfhtml">💿 حفظ نسخة البرنامج شاملة البيانات والصور (index.html)</button>
       <button class="sec" data-a="bk">⬇️ تنزيل ملف بيانات (JSON)</button>
     </div>
     <label style="margin-top:12px">استعادة أو دمج بيانات من ملف سابق (يقبل ملفات .json أو ملفات البرنامج .html من المفتشين)
@@ -2079,80 +2697,27 @@ function saveFile(filename, data, mime = 'text/plain;charset=utf-8') {
     a.click();
     setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 400);
   } catch (e) {
-    alert('تعذّر تنزيل الملف: ' + e.message);
+    uiAlert('تعذّر تنزيل الملف: ' + e.message);
   }
 }
 
 function saveSelfContainedHTML() {
   if (view === 'form' && cur) collect();
   unsavedDisk = false;
-  const curTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-  const styleText = $('#main-style').textContent;
-  const scriptText = $('#main-script').textContent;
-  const seedJson = JSON.stringify(db, null, 2);
-
-  const fullHtml = `<!doctype html>
-<html lang="ar" dir="rtl" data-theme="${curTheme}">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>منظومة المرور الميداني – التقرير الأسبوعي المجمّع (v5)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-<style id="main-style">${styleText}</style>
-</head>
-<body>
-<header class="app-hdr np">
-  <div class="title-wrap">
-    <div class="main-t">
-      <span>🏥 منظومة المرور الميداني – الرعاية الحرجة والطوارئ</span>
-      <span class="designer-badge">✨ تصميم وتطوير: د. مجدي محمد سعد</span>
-    </div>
-    <span class="sub-t">مديرية الشئون الصحية بالدقهلية – إدارة الرعاية الحرجة والعاجلة (الإصدار السحابي التشاركي v5)</span>
-  </div>
-  <div class="hdr-actions">
-    <button class="theme-btn" data-a="cloudsync" type="button" title="مزامنة فورية مع السيرفر السحابي">🔄 مزامنة سحابية</button>
-    <button class="theme-btn save-Self-btn" data-a="selfhtml" type="button" title="يحفظ جميع الزيارات داخل ملف البرنامج نفسه">💿 حفظ بملف البرنامج</button>
-    <button class="theme-btn" id="themeBtn" type="button">${curTheme === 'dark' ? '☀️ الوضع النهاري' : '🌙 الوضع الليلي'}</button>
-  </div>
-</header>
-<div class="role-bar np" id="roleBar"></div>
-<div class="save-bar np">
-  <div class="save-bar-inner">
-    <span id="saveStatus">🟢 محفوظ بشكل دائم داخل الملف (${db.visits.length} زيارة)</span>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button type="button" class="theme-btn" data-a="bk" style="background:var(--cd);color:var(--ac);border-color:var(--ac);padding:3px 10px;min-height:30px">⬇️ حفظ نسخة JSON</button>
-      <button type="button" class="theme-btn" data-a="qrestore" style="background:var(--cd);color:var(--tx);border-color:var(--bd);padding:3px 10px;min-height:30px">📂 استعادة ملف سابق</button>
-      <input type="file" id="qrs" accept=".json,.html,application/json,text/html" style="display:none">
-    </div>
-  </div>
-</div>
-<div id="app"></div>
-<div class="app-footer-credit np">
-  منظومة المرور الميداني وإدارة الرعاية الحرجة والعاجلة بالدقهلية — تصميم وتطوير: <b>د. مجدي محمد سعد</b> © 2026
-</div>
-<nav class="bottom-nav np">
-  <button data-v="list">📋 الزيارات</button>
-  <button data-a="new">➕ زيارة جديدة</button>
-  <button data-v="mgr">👑 ملخص المدير</button>
-  <button data-v="rep">📑 التقرير الأسبوعي</button>
-  <button data-v="set">⚙️ الإعدادات</button>
-</nav>
-<script id="db-seed">
-window.__SEED_DB__ = ${seedJson};
-<\/script>
-<script id="main-script">${scriptText}<\/script>
-</body>
-</html>`;
-
-  saveFile('منظومة_المرور_الميداني_v5_محفوظة.html', fullHtml, 'text/html;charset=utf-8');
-  updateSaveIndicator(`🟢 تم تنزيل ملف البرنامج شاملاً <b>${db.visits.length}</b> زيارة بنجاح!`);
+  db.inspectors = cleanInspectorNames(db.inspectors);
+  const seedEl = $('#db-seed');
+  if (seedEl) {
+    seedEl.textContent = '\nwindow.__SEED_DB__ = ' + JSON.stringify(db, null, 2) + ';\n';
+  }
+  const fullHtml = '<!doctype html>\n' + document.documentElement.outerHTML;
+  saveFile('index.html', fullHtml, 'text/html;charset=utf-8');
+  updateSaveIndicator(`🟢 تم تنزيل ملف البرنامج (index.html) شاملاً <b>${db.visits.length}</b> زيارة بنجاح!`);
+  showToast('💿 تم تنزيل ملف index.html المحدث الجاهز للرفع على GitHub');
 }
 
 function handleRestoreFile(file) {
   if (!file) return;
-  file.text().then(tx => {
+  file.text().then(async tx => {
     try {
       let o = null;
       if (tx.trim().startsWith('{')) {
@@ -2169,28 +2734,30 @@ function handleRestoreFile(file) {
       db = mergeDBs(db, o);
       save(false, true);
       render();
-      alert(`تم استعادة ودمج البيانات بنجاح ✅ (إجمالي الزيارات الآن: ${db.visits.length})`);
+      showToast(`✅ تم استعادة ودمج البيانات بنجاح (إجمالي الزيارات: ${db.visits.length})`);
     } catch (x) {
-      alert('تعذّر قراءة الملف. اختر ملف نسخة احتياطية (.json) أو ملف منظومة (.html) صالح.');
+      await uiAlert('تعذّر قراءة الملف. اختر ملف نسخة احتياطية (.json) أو ملف منظومة (.html) صالح.');
     }
   });
 }
 
 const csvq = s => '"' + String(s ?? '').replace(/"/g, '""') + '"';
 function csv() {
-  const rows = [['المستشفى', 'التاريخ', 'المفتش', 'المحور الرقابي', 'الملاحظة', 'الإجراء المطلوب', 'إفادة المتابعة', 'الدرجة', 'المهلة بالأيام', 'موعد التلافي', 'الحالة', 'تاريخ إغلاق المدير']];
+  const rows = [['المستشفى', 'التاريخ', 'المفتش', 'المحور الرقابي', 'الملاحظة', 'الإجراء المطلوب', 'إفادة المتابعة', 'عدد الصور', 'الدرجة', 'المهلة بالأيام', 'موعد التلافي', 'الحالة', 'تاريخ إغلاق المدير']];
   db.visits.forEach(v => v.notes.filter(n => n.desc).forEach(n => {
-    rows.push([v.hosp, fmt(v.date), v.ins || db.ins, n.cat, n.desc, n.act, n.followup || '', n.grade, n.days, fmt(addDays(v.date, n.days)), st(n, v), fmt(n.done)]);
+    rows.push([v.hosp, fmt(v.date), v.ins || db.ins, n.cat, n.desc, n.act, n.followup || '', (n.photos && n.photos.length) || 0, n.grade, n.days, fmt(addDays(v.date, n.days)), st(n, v), fmt(n.done)]);
   }));
   saveFile('سجل-ملاحظات-المرور-' + today() + '.csv', '\ufeff' + rows.map(r => r.map(csvq).join(';')).join('\r\n'), 'text/csv;charset=utf-8');
 }
 
-function htmlFile() {
+function htmlFile(targetSelector = '#rep', filePrefix = 'تقرير-المرور-الأسبوعي-' + rep.start) {
   const css = $('#main-style').textContent;
-  const repHtml = $('#rep').outerHTML;
+  const targetEl = $(targetSelector);
+  if (!targetEl) return;
+  const repHtml = targetEl.outerHTML;
   const curTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-  const doc = `<!doctype html><html lang="ar" dir="rtl" data-theme="${curTheme}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>التقرير الأسبوعي - ${rep.start}</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>${css}</style></head><body><div id="app"><div class="np btn-row" style="margin-bottom:12px"><button class="pri" onclick="window.print()">🖨️ طباعة / حفظ كـ PDF</button><button class="sec" onclick="const r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark')">🌓 تبديل الوضع الليلي / النهاري</button></div>${repHtml}</div></body></html>`;
-  saveFile('تقرير-المرور-الأسبوعي-' + rep.start + '.html', doc, 'text/html;charset=utf-8');
+  const doc = `<!doctype html><html lang="ar" dir="rtl" data-theme="${curTheme}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(filePrefix)}</title><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"><style>${css}</style></head><body><div id="app"><div class="np btn-row" style="margin-bottom:12px"><button class="pri" onclick="window.print()">🖨️ طباعة / حفظ كـ PDF</button><button class="sec" onclick="const r=document.documentElement;r.setAttribute('data-theme',r.getAttribute('data-theme')==='dark'?'light':'dark')">🌓 تبديل الوضع الليلي / النهاري</button></div>${repHtml}</div></body></html>`;
+  saveFile(filePrefix + '.html', doc, 'text/html;charset=utf-8');
 }
 
 function loadDemo() {
@@ -2208,9 +2775,9 @@ function loadDemo() {
       pos: 'انتظام تواجد الفريق الطبي بقسم العناية المركزة، وتحديث سجلات الدخول والخروج.',
       chall: 'مخاطبة التموين الطبي بالمديرية لتعويض الرصيد الصفري لمصل العقرب، واستعجال صيانة المونيتور.',
       notes: [
-        { cat: '4. جاهزية عربات ودولاب الطوارئ', desc: 'عربة الطوارئ (كراش كارت) ينقصها 4 أمبول أيزوبتين', act: 'استكمال نواقص الكراش كارت فوراً من صيدلية الطوارئ', followup: 'تم استكمال الأمبولات بمرور المتابعة وفي انتظار اعتماد المدير للإغلاق', grade: 'حرج', days: 1, done: '', locked: true, tobank: false },
-        { cat: '10. وفرة أرصدة الأمصال الحيوية', desc: 'وجود رصيد صفري (0) في واحد أو أكثر من الأمصال المنقذة للحياة (العقرب/الثعبان/الكلب/التيتانوس) بثلاجة الاستقبال.', act: 'تحرير طلبية فورية لمخزن الإدارة الصحية وتدبير رصيد طوارئ.', followup: '', grade: 'حرج', days: 2, done: '', locked: true, tobank: false },
-        { cat: '6. حوكمة المضادات والمزارع', desc: 'تأخر تسجيل المزرعة في الدفتر والبدء بالعلاج', act: 'العمل بنتيجة المزرعة فور وصولها والتوثيق بدقة', followup: 'تم مطابقة الدفتر والتذكرة', grade: 'متوسط', days: 2, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false }
+        { cat: '4. جاهزية عربات ودولاب الطوارئ', desc: 'عربة الطوارئ (كراش كارت) ينقصها 4 أمبول أيزوبتين', act: 'استكمال نواقص الكراش كارت فوراً من صيدلية الطوارئ', followup: 'تم استكمال الأمبولات بمرور المتابعة وفي انتظار اعتماد المدير للإغلاق', photos: [], grade: 'حرج', days: 1, done: '', locked: true, tobank: false },
+        { cat: '10. وفرة أرصدة الأمصال الحيوية', desc: 'وجود رصيد صفري (0) في واحد أو أكثر من الأمصال المنقذة للحياة (العقرب/الثعبان/الكلب/التيتانوس) بثلاجة الاستقبال.', act: 'تحرير طلبية فورية لمخزن الإدارة الصحية وتدبير رصيد طوارئ.', followup: '', photos: [], grade: 'حرج', days: 2, done: '', locked: true, tobank: false },
+        { cat: '6. حوكمة المضادات والمزارع', desc: 'تأخر تسجيل المزرعة في الدفتر والبدء بالعلاج', act: 'العمل بنتيجة المزرعة فور وصولها والتوثيق بدقة', followup: 'تم مطابقة الدفتر والتذكرة', photos: [], grade: 'متوسط', days: 2, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false }
       ],
       upd: Date.now()
     },
@@ -2224,8 +2791,8 @@ function loadDemo() {
       pos: 'اكتمال عربة الطوارئ وتوافر جميع الأمصال الحيوية، وتفعيل جيد لمنظومة الترياج بالاستقبال.',
       chall: 'الحاجة لزيادة أيام التعاقد لأخصائي الأشعة لتغطية عروض الدوبلر الطارئة.',
       notes: [
-        { cat: '7. كفاءة الإشغال ودفتر العروض', desc: 'تأخر الرد على استشارات وعروض العناية المركزة (مخ وأعصاب / أشعة ودوبلر / جراحة) أو إغفال تدوين ساعة طلب العرض.', act: 'إلزام التمريض بتوثيق ساعة الطلب وإلزام الأطباء بالرد خلال ساعتين للطارئ.', followup: 'تم التنبيه وتفعيل سجل توقيتات العروض', grade: 'متوسط', days: 1, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false },
-        { cat: '8. جاهزية وحدة السكتة الدماغية', desc: 'تأخر استكمال التوثيق الإلكتروني لحالات السكتة الدماغية على منصة (RES-Q) أو نقص بيانات الدخول والخروج بالسجل.', act: 'تكليف مسئول محدد بوحدة السكتة لتحديث المنصة فور التعامل مع كل حالة.', followup: 'تم تكليف طبيب مقيم وتم رفع الحالات المتأخرة', grade: 'متوسط', days: 2, done: '', locked: true, tobank: false }
+        { cat: '7. كفاءة الإشغال ودفتر العروض', desc: 'تأخر الرد على استشارات وعروض العناية المركزة (مخ وأعصاب / أشعة ودوبلر / جراحة) أو إغفال تدوين ساعة طلب العرض.', act: 'إلزام التمريض بتوثيق ساعة الطلب وإلزام الأطباء بالرد خلال ساعتين للطارئ.', followup: 'تم التنبيه وتفعيل سجل توقيتات العروض', photos: [], grade: 'متوسط', days: 1, done: today(), closedBy: 'مدير الإدارة', locked: true, tobank: false },
+        { cat: '8. جاهزية وحدة السكتة الدماغية', desc: 'تأخر استكمال التوثيق الإلكتروني لحالات السكتة الدماغية على منصة (RES-Q) أو نقص بيانات الدخول والخروج بالسجل.', act: 'تكليف مسئول محدد بوحدة السكتة لتحديث المنصة فور التعامل مع كل حالة.', followup: 'تم تكليف طبيب مقيم وتم رفع الحالات المتأخرة', photos: [], grade: 'متوسط', days: 2, done: '', locked: true, tobank: false }
       ],
       upd: Date.now()
     }
@@ -2238,31 +2805,76 @@ function loadDemo() {
   });
   rep.start = ws;
   save(true, true);
-  go('mgr');
+  showToast('✨ تم تحميل الزيارات التجريبية بنجاح');
+  go('list');
 }
 
 // ---------- EVENTS ----------
-document.addEventListener('click', e => {
+let pendingPhotoType = 'رصد مبدئي';
+
+document.addEventListener('click', async e => {
   const t = e.target.closest('[data-v],[data-a]');
   if (!t) return;
   if (t.dataset.v) { go(t.dataset.v); return; }
   const a = t.dataset.a, id = t.dataset.id;
 
+  if (a == 'close-lb') {
+    $('#lightbox-modal').classList.remove('show');
+    return;
+  }
+  if (a == 'zoom-ph') {
+    e.stopPropagation();
+    openLightbox(t.dataset.src, t.dataset.cap);
+    return;
+  }
+  if (a == 'open-hrep') {
+    e.stopPropagation();
+    if (view === 'form' && cur) collect();
+    hrepState.visitId = id;
+    go('hrep');
+    return;
+  }
+  if (a == 'addphoto') {
+    collect();
+    const nIdx = +t.dataset.n;
+    pendingPhotoType = t.dataset.ptype || 'رصد مبدئي';
+    const fileInp = $(`#ph_inp_${nIdx}`);
+    if (fileInp) fileInp.click();
+    return;
+  }
+  if (a == 'delphoto') {
+    collect();
+    const nIdx = +t.dataset.n;
+    const pIdx = +t.dataset.pidx;
+    if (cur && cur.notes[nIdx] && Array.isArray(cur.notes[nIdx].photos)) {
+      cur.notes[nIdx].photos.splice(pIdx, 1);
+      save(true, false);
+      render();
+      showToast('🗑 تم حذف الصورة المرفقة');
+    }
+    return;
+  }
+
   if (a == 'loginMgr') {
-    const pin = prompt('👑 أدخل الرقم السري (PIN) الخاص بمدير الإدارة لتفعيل صلاحية إغلاق الملاحظات:', '');
+    const pin = await uiPrompt('👑 أدخل الرقم السري (PIN) الخاص بمدير الإدارة لتفعيل لوحة المدير والإعدادات:', '', 'password', 'دخول مدير الإدارة');
     if (pin === null) return;
-    if (pin.trim() === (db.mgrPin || '1234')) {
+    if (pin.trim() === (db.mgrPin || 'Nm$2026')) {
       role = 'manager';
+      showToast('👑 تم تفعيل وضع مدير الإدارة بنجاح');
       render();
     } else {
-      alert('❌ الرقم السري غير صحيح!');
+      await uiAlert('❌ الرقم السري غير صحيح!');
     }
   }
   else if (a == 'logoutMgr') {
     role = 'inspector';
+    if (view === 'mgr' || view === 'set') view = 'list';
+    showToast('🔒 تم الخروج إلى وضع المفتش الميداني');
     render();
   }
-  else if (a == 'regMe') { registerMe($('#regName') && $('#regName').value); }
+  else if (a == 'regMe') {
+    await registerMe($('#regName') && $('#regName').value);
+  }
   else if (a == 'cloudsync') {
     cloudSync(false);
   }
@@ -2271,7 +2883,7 @@ document.addEventListener('click', e => {
     db.sbKey = ($('#ssbkey').value || '').trim();
     save(true, false);
     if (db.sbUrl && db.sbKey) cloudSync(false);
-    else alert('تم حفظ إعدادات السحابة.');
+    else showToast('✅ تم حفظ إعدادات السحابة');
   }
   else if (a == 'copysql') {
     const sqlCode = `create table if not exists public.mrur_sync (
@@ -2280,15 +2892,21 @@ document.addEventListener('click', e => {
   updated_at timestamptz default now()
 );
 alter table public.mrur_sync enable row level security;
-create policy "Allow public read write mrur" on public.mrur_sync for all using (true) with check (true);`;
+drop policy if exists "Allow public read write mrur" on public.mrur_sync;
+create policy "Allow public read write mrur" on public.mrur_sync for all using (true) with check (true);
+revoke delete on public.mrur_sync from anon, authenticated;`;
     navigator.clipboard.writeText(sqlCode).then(() => {
-      alert('✅ تم نسخ كود SQL بنجاح!\nافتح SQL Editor في موقع Supabase والصق الكود واضغط Run.');
+      uiAlert('✅ تم نسخ كود SQL بنجاح!\nافتح SQL Editor في موقع Supabase والصق الكود واضغط Run.');
     }).catch(() => {
-      prompt('انسخ كود SQL التالي والصقه في SQL Editor داخل Supabase:', sqlCode);
+      uiPrompt('انسخ كود SQL التالي والصقه في SQL Editor داخل Supabase:', sqlCode);
     });
   }
   else if (a == 'new') {
-    if (role !== 'manager' && !getMe()) { alert('سجّل اسمك أولاً من الشريط العلوي (حفظ اسمي) ثم ابدأ زيارة جديدة.'); go('list'); return; }
+    if (role !== 'manager' && !getMe()) {
+      await uiAlert('سجّل اسمك أولاً من الشريط العلوي (✅ حفظ اسمي) ثم ابدأ زيارة جديدة.');
+      go('list');
+      return;
+    }
     if (view === 'form' && cur) collect();
     cur = {
       id: uid(),
@@ -2314,14 +2932,16 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
     e.stopPropagation();
     const targetV = db.visits.find(v => v.id == id);
     if (targetV && targetV.status === 'done' && role !== 'manager') {
-      alert('🔒 لا يمكن حذف زيارة معتمدة إلا بصلاحية مدير الإدارة.');
+      await uiAlert('🔒 لا يمكن حذف زيارة معتمدة إلا بصلاحية مدير الإدارة.');
       return;
     }
-    if (confirm('هل أنت متأكد من حذف هذه الزيارة نهائياً؟')) {
+    const ok = await uiConfirm('هل أنت متأكد من حذف هذه الزيارة نهائياً؟');
+    if (ok) {
       db.visits = db.visits.filter(v => v.id != id);
       if (!db.deletedIds) db.deletedIds = [];
       if (!db.deletedIds.includes(id)) db.deletedIds.push(id);
       save(true, true);
+      showToast('🗑 تم حذف الزيارة');
       render();
     }
   }
@@ -2329,7 +2949,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
   else if (a == 'deln') {
     collect();
     if (cur.status === 'done' && role !== 'manager' && cur.notes[+t.dataset.n].locked) {
-      alert('🔒 لا يمكن حذف ملاحظة معتمدة بالتقرير المبدئي إلا بصلاحية مدير الإدارة.');
+      await uiAlert('🔒 لا يمكن حذف ملاحظة معتمدة بالتقرير المبدئي إلا بصلاحية مدير الإدارة.');
       return;
     }
     cur.notes.splice(+t.dataset.n, 1);
@@ -2338,7 +2958,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
   }
   else if (a == 'nowdone') {
     if (role !== 'manager') {
-      alert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط.');
+      await uiAlert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط.');
       return;
     }
     collect();
@@ -2357,7 +2977,7 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
   }
   else if (a == 'repdone') {
     if (role !== 'manager') {
-      alert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط. اضغط «👑 دخول مدير الإدارة» أعلى الشاشة.');
+      await uiAlert('🔒 اعتماد التلافي وإغلاق الملاحظة من صلاحيات مدير الإدارة فقط.');
       return;
     }
     const v = db.visits.find(x => x.id == t.dataset.vid);
@@ -2383,22 +3003,31 @@ create policy "Allow public read write mrur" on public.mrur_sync for all using (
   else if (a == 'draft') finish('draft');
   else if (a == 'done') finish('done');
   else if (a == 'pdf') { window.print(); }
-  else if (a == 'htmlf') htmlFile();
+  else if (a == 'htmlf') htmlFile('#rep', 'تقرير-المرور-الأسبوعي-' + rep.start);
+  else if (a == 'hrep-html') {
+    const v = db.visits.find(x => x.id === hrepState.visitId) || db.visits[0];
+    htmlFile('#hrep', 'تقرير-مستشفى-' + (v ? v.hosp.replace(/\s+/g, '-') + '-' + v.date : today()));
+  }
   else if (a == 'csv') csv();
   else if (a == 'sset') {
-    db.ins = $('#sins').value.trim() || db.ins;
-    try { if (db.ins) localStorage.setItem('mrur_me', db.ins); } catch (e) {}
+    const newIns = $('#sins').value.trim();
+    if (newIns.length >= 5) {
+      db.ins = newIns;
+      try { localStorage.setItem('mrur_me', db.ins); } catch (e) {}
+    }
     db.mgr = $('#smgr').value.trim();
     db.undersec = $('#sund').value.trim();
     if (role === 'manager' && $('#spin') && $('#spin').value.trim()) {
       db.mgrPin = $('#spin').value.trim();
     }
-    db.inspectors = $('#sinslist').value.split('\n').map(s => s.trim()).filter(Boolean);
-    if (!db.inspectors.includes(db.ins)) db.inspectors.unshift(db.ins);
+    db.inspectors = cleanInspectorNames($('#sinslist').value.split('\n'));
+    if (db.ins && db.ins.length >= 5 && !db.inspectors.includes(db.ins)) {
+      db.inspectors.unshift(db.ins);
+    }
     db.hospitals = $('#shos').value.split('\n').map(s => s.trim()).filter(Boolean);
     db.listsUpd = Date.now();
     save(true, true);
-    alert('تم حفظ الإعدادات وقوائم المفتشين وأسماء الاعتماد بنجاح ✅');
+    showToast('✅ تم حفظ الإعدادات وقوائم المفتشين النظيفة بنجاح');
     render();
   }
   else if (a == 'bk') {
@@ -2432,8 +3061,35 @@ document.addEventListener('input', e => {
   }
 });
 
-document.addEventListener('change', e => {
+document.addEventListener('change', async e => {
   const t = e.target;
+  // معالجة رفع وضغط الصور الفوري للملاحظات
+  if (t.type === 'file' && t.id && t.id.startsWith('ph_inp_')) {
+    const nIdx = +t.dataset.n;
+    const files = [...(t.files || [])];
+    t.value = '';
+    if (!files.length || !cur || !cur.notes[nIdx]) return;
+    collect();
+    if (!Array.isArray(cur.notes[nIdx].photos)) cur.notes[nIdx].photos = [];
+    showToast('⏳ جاري ضغط وإرفاق الصور بأعلى دقة وأقل حجم...');
+    for (const file of files) {
+      try {
+        const dataUrl = await compressImageFile(file, 920, 0.68);
+        cur.notes[nIdx].photos.push({
+          data: dataUrl,
+          label: pendingPhotoType,
+          time: fmt(today())
+        });
+      } catch (err) {
+        await uiAlert('تعذر ضغط إحدى الصور: ' + err.message);
+      }
+    }
+    save(true, false);
+    render();
+    showToast(`📷 تم إرفاق ${files.length} صورة للملاحظة بنجاح!`);
+    return;
+  }
+
   if (t.id == 'activeInsSel') {
     db.ins = t.value;
     try { localStorage.setItem('mrur_me', t.value); } catch (e) {}
@@ -2444,6 +3100,12 @@ document.addEventListener('change', e => {
   if (t.id == 'rs' || t.id == 'qrs') {
     if (t.files && t.files[0]) handleRestoreFile(t.files[0]);
     t.value = '';
+    return;
+  }
+  if (view == 'hrep') {
+    if (t.id == 'hrep_sel') { hrepState.visitId = t.value; render(); }
+    else if (t.id == 'hrep_photos_chk') { hrepState.showPhotos = t.checked; render(); }
+    else if (t.id == 'darkPdf') { setTheme(t.checked ? 'dark' : 'light'); }
     return;
   }
   if (view == 'mgr') {
